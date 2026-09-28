@@ -8,6 +8,16 @@ const DEBOUNCE_MS = 250;
 const PRICE_PER_M = Number(process.env.NEXT_PUBLIC_JEV_PRICE_PER_M_INPUT_TOKENS ?? "");
 const PUNCTUATION = new Set([".", ",", "?", "!"]);
 const TEMPERATURES = [0, 0.5, 0.8, 1, 1.3];
+const ENDING_WORDS: Record<string, string> = {
+  letter: "a letter",
+  digit: "a digit",
+  full_stop: "a full stop",
+  comma: "a comma",
+  question_mark: "a question mark",
+  exclamation_mark: "an exclamation mark",
+  other: "another symbol",
+  nothing: "nothing",
+};
 
 type Level1Response = { answers: { block: { probabilities: Record<string, number> } } };
 
@@ -218,9 +228,8 @@ export default function Predictor() {
               </ol>
             </section>
             <p className="muted small">
-              What does the text end with? Jev says{" "}
-              {result.marks.ending === "word" ? "a word" : result.marks.ending === "mark" ? "a punctuation mark" : "nothing"} (
-              {pct(result.marks.p)}), so the four marks are {result.marks.allowed ? "in" : "out of"} the shortlist.
+              Last character of the text? Jev says {ENDING_WORDS[result.marks.ending] ?? result.marks.ending} ({pct(result.marks.p)}),
+              so the four marks are {result.marks.allowed ? "in" : "out of"} the shortlist.
             </p>
             <section>
               <h3>

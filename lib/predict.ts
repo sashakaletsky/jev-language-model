@@ -24,6 +24,8 @@ import { normalise, tailContext } from "./tokenize";
 export type JevState = {
   /** The text typed so far, with a blank (____) where the next word goes. */
   text: string;
+  /** The last few words of the text, exactly as written, so its ending is easy to inspect. */
+  tail: string;
 };
 
 export interface Candidate {
@@ -66,8 +68,8 @@ export interface PredictResult {
   /** The text the prediction was made for, exactly as received. */
   context: string;
   model: string;
-  /** Jev's answer to "what does the text end with?", asked alongside level 1. Marks are offered only after a word. */
-  marks: { allowed: boolean; ending: "word" | "mark" | "nothing"; p: number };
+  /** Jev's answer to "what is the last character of the tail?", asked alongside level 1. Marks are offered only after a letter or digit. */
+  marks: { allowed: boolean; ending: Ending; p: number };
   /** Blocks opened at level 2. */
   fanout: number;
   /** Top blocks from level 1 (at least the opened ones), highest probability first. */
@@ -203,17 +205,33 @@ export const level3Question = (words: string[], context: string) => {
   return choice(LEVEL3_INSTRUCTIONS, criteria);
 };
 
+/** The possible answers to the ending question. Marks are offered only after a letter or digit. */
+export const ENDINGS = {
+  letter: "a letter, a to z: the text ends with a word",
+  digit: "a digit, 0 to 9",
+  full_stop: "a full stop .",
+  comma: "a comma ,",
+  question_mark: "a question mark ?",
+  exclamation_mark: "an exclamation mark !",
+  other: "some other symbol, such as a quote, bracket, colon or dash",
+  nothing: "nothing: the tail is empty",
+} as const;
+export type Ending = keyof typeof ENDINGS;
+const ENDINGS_ALLOWING_MARKS: ReadonlySet<Ending> = new Set(["letter", "digit"]);
+
 /**
- * Asked alongside level 1: what does the text end with? A punctuation mark is offered only when
- * Jev says the text ends with a word. Without this a stray "." can echo into ".." and then "...",
- * whatever the other instructions say. Kept deliberately simple: it is an observation, not a rule.
+ * Asked alongside level 1: what is the very last character of the text? A punctuation mark is
+ * offered only when Jev says a letter or digit. Without this a stray "." can echo into ".." and
+ * then "...", whatever the other instructions say. The question is about `tail`, the last few
+ * words exactly as written, and the marks are spelled out as options so the answer is a matter
+ * of looking, not judging.
  */
 export const endingQuestion = () =>
-  choice(`Look at \`text\`. Ignoring the ${BLANK} marker and any spaces before it, what does the text end with?`, {
-    word: "a letter or digit: the text ends with a word",
-    mark: "a punctuation mark such as . , ? ! : ; or a closing quote",
-    nothing: "nothing: the text is empty apart from the marker",
-  });
+  choice(
+    "`tail` is the end of what the person has written, exactly as written. " +
+      "Look only at its very last character, the one furthest to the right. Which of these is it?",
+    ENDINGS,
+  );
 
 /**
  * Splits `total` shortlist slots among the opened blocks in proportion to their level-1
@@ -299,7 +317,7 @@ export async function predict(rawText: string, options: PredictOptions = {}): Pr
   const shown = tailContext(context);
   // "Hello how ____"; the blank always stands for a whole word.
   const separator = shown && !/\s$/.test(shown) ? " " : "";
-  const state: JevState = { text: `${shown}${separator}${BLANK}` };
+  const state: JevState = { text: `${shown}${separator}${BLANK}`, tail: lastWords(shown) };
 
   // Level 1: which themed blocks? Plus, in the same request, what does the text end with?
   const t0 = performance.now();
@@ -307,7 +325,11 @@ export async function predict(rawText: string, options: PredictOptions = {}): Pr
   const r1 = await client.systemOne({ state, questions: q1 });
   const t1 = performance.now();
   const ending = r1.answers.ending;
-  const marks = { allowed: ending.choice === "word", ending: ending.choice, p: ending.probabilities[ending.choice] };
+  const marks = {
+    allowed: ENDINGS_ALLOWING_MARKS.has(ending.choice),
+    ending: ending.choice,
+    p: ending.probabilities[ending.choice],
+  };
   const ranked = sortedEntries(r1.answers.block.probabilities).map(([id, p], i) => ({
     id,
     title: blockById(id).title,
