@@ -160,7 +160,7 @@ rebuild or relabel.
 ## Project layout
 
 ```
-app/                Next.js app: the page, the editor component, the two API routes, the favicon
+app/                Next.js app: the page, the editor component, the two API routes, the icons and social preview image
 lib/                The predictor (predict.ts), block loading, tokenising, the TypeSafe client
 data/               Generated dictionary, themes, labels and blocks
 scripts/            Data build scripts (Python), the mock API, dev:mock, the harness
