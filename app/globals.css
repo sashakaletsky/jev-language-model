@@ -1,0 +1,353 @@
+:root {
+  --bg: #fbfaf7;
+  --fg: #1b1b1f;
+  --muted: #6b6b75;
+  --line: #e2dfd8;
+  --panel: #ffffff;
+  --accent: #2f5bea;
+  --accent-soft: #e4eaff;
+  --ghost: #9a9aa6;
+  --replace: #c26a00;
+  --error: #b3261e;
+  --bar: #c9d6ff;
+  --bar-opened: #2f5bea;
+  --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --editor-font: Georgia, "Times New Roman", serif;
+  --editor-size: 1.35rem;
+  --editor-lh: 1.55;
+  --editor-pad: 1rem 1.1rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #131316;
+    --fg: #ececf1;
+    --muted: #9a9aa6;
+    --line: #2c2c33;
+    --panel: #1b1b20;
+    --accent: #7c9cff;
+    --accent-soft: #23305c;
+    --ghost: #6f6f7c;
+    --replace: #e0a04a;
+    --error: #ff8a80;
+    --bar: #2b3a6b;
+    --bar-opened: #7c9cff;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.5;
+}
+
+a {
+  color: var(--accent);
+}
+
+main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem 1rem 4rem;
+}
+
+.hero h1 {
+  font-size: 2rem;
+  margin: 0 0 0.5rem;
+  letter-spacing: -0.01em;
+}
+
+.lede {
+  max-width: 62ch;
+  margin: 0 0 1.5rem;
+  color: var(--muted);
+}
+
+.predictor {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(280px, 2fr);
+  gap: 1.5rem;
+  align-items: start;
+}
+
+@media (max-width: 800px) {
+  .predictor {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Editor with ghost-text overlay: the mirror div is laid out exactly like the textarea. */
+.editor {
+  position: relative;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--panel);
+}
+
+.editor textarea,
+.editor .mirror {
+  font-family: var(--editor-font);
+  font-size: var(--editor-size);
+  line-height: var(--editor-lh);
+  padding: var(--editor-pad);
+  width: 100%;
+  min-height: 9rem;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  word-break: normal;
+  margin: 0;
+  border: 0;
+  letter-spacing: normal;
+  tab-size: 4;
+}
+
+.editor textarea {
+  position: relative;
+  display: block;
+  background: transparent;
+  color: var(--fg);
+  resize: none;
+  outline: none;
+  overflow: hidden;
+  caret-color: var(--accent);
+  border-radius: 12px;
+}
+
+.editor textarea::placeholder {
+  color: var(--ghost);
+  opacity: 0.8;
+}
+
+.editor .mirror {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  color: transparent;
+}
+
+.editor .mirror .ghost {
+  color: var(--ghost);
+}
+
+.editor .mirror .ghost.replace {
+  color: var(--replace);
+  font-style: italic;
+}
+
+.editor-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.5rem 0.25rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+  min-height: 2.5rem;
+}
+
+.status.busy::after {
+  content: "";
+  display: inline-block;
+  width: 0.6em;
+  height: 0.6em;
+  margin-left: 0.4em;
+  border-radius: 50%;
+  border: 2px solid var(--accent);
+  border-top-color: transparent;
+  animation: spin 0.8s linear infinite;
+  vertical-align: middle;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+button.accept {
+  font: inherit;
+  padding: 0.4rem 0.9rem;
+  border-radius: 8px;
+  border: 1px solid var(--accent);
+  background: var(--accent);
+  color: #fff;
+  cursor: pointer;
+}
+
+button.accept:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.error {
+  color: var(--error);
+  background: color-mix(in srgb, var(--error) 10%, transparent);
+  border: 1px solid color-mix(in srgb, var(--error) 40%, transparent);
+  border-radius: 8px;
+  padding: 0.6rem 0.8rem;
+  font-size: 0.9rem;
+}
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 1rem 1.1rem;
+  font-size: 0.92rem;
+}
+
+.panel h2 {
+  margin: 0 0 0.75rem;
+  font-size: 1.05rem;
+}
+
+.panel h3 {
+  margin: 1rem 0 0.4rem;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+
+.panel h3 .muted {
+  text-transform: none;
+  letter-spacing: 0;
+  font-weight: normal;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+ol.bars {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+ol.bars li {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.25rem 0.5rem;
+  margin-bottom: 2px;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+ol.bars li .bar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  background: var(--bar);
+  z-index: 0;
+  border-radius: 6px;
+}
+
+ol.bars li.opened .bar {
+  background: var(--bar-opened);
+  opacity: 0.35;
+}
+
+ol.bars li .label,
+ol.bars li .p {
+  position: relative;
+  z-index: 1;
+}
+
+ol.bars li .label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+ol.bars li .p {
+  font-variant-numeric: tabular-nums;
+  color: var(--muted);
+}
+
+.stats {
+  margin-top: 1rem;
+  border-top: 1px solid var(--line);
+  padding-top: 0.75rem;
+  display: grid;
+  gap: 0.3rem;
+}
+
+.stats div {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.stats .k {
+  width: 4.5rem;
+  color: var(--muted);
+  flex: none;
+}
+
+.stats .v {
+  font-variant-numeric: tabular-nums;
+}
+
+.controls {
+  margin-top: 1rem;
+  border-top: 1px solid var(--line);
+  padding-top: 0.75rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  color: var(--muted);
+}
+
+.controls select {
+  margin-left: 0.4rem;
+  font: inherit;
+}
+
+.raw {
+  margin-top: 1rem;
+}
+
+.raw details {
+  margin-bottom: 0.5rem;
+}
+
+.raw summary {
+  cursor: pointer;
+  color: var(--accent);
+}
+
+.raw pre {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 0.6rem;
+  max-height: 22rem;
+  overflow: auto;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.explainer {
+  margin-top: 3rem;
+  max-width: 70ch;
+}
+
+.explainer h2 {
+  font-size: 1.2rem;
+}
+
+.explainer li {
+  margin-bottom: 0.6rem;
+}
