@@ -218,8 +218,9 @@ export default function Predictor() {
               </ol>
             </section>
             <p className="muted small">
-              May a punctuation mark come next? Jev says {result.marks.allowed ? "yes" : "no"} ({pct(result.marks.p)}
-              {result.marks.allowed ? "" : " yes"}), so the four marks are {result.marks.allowed ? "in" : "out of"} the shortlist.
+              What does the text end with? Jev says{" "}
+              {result.marks.ending === "word" ? "a word" : result.marks.ending === "mark" ? "a punctuation mark" : "nothing"} (
+              {pct(result.marks.p)}), so the four marks are {result.marks.allowed ? "in" : "out of"} the shortlist.
             </p>
             <section>
               <h3>

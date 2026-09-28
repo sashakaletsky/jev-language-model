@@ -34,10 +34,9 @@ stringing adjectives together.
 
 Punctuation is offered the same way: `.` `,` `?` and `!` are four of the 255 options in the core block, so
 Jev can end a sentence or pause it instead of choosing a word. Whether a mark may come next is also
-Jev's call: a yes/no question rides along with level 1 ("could the next thing legitimately be a
-punctuation mark?"), and when the answer is no, because the text is empty or already ends with a mark,
-the four marks are left out of the shortlist. Without that, a stray full stop echoes into `..` and
-`...`. After a sentence ends, the level-3 candidates are shown capitalised in place
+Jev's call: a small question rides along with level 1, "what does the text end with: a word, a
+punctuation mark, or nothing?", and the four marks are in the shortlist only when Jev says a word.
+Without that, a stray full stop echoes into `..` and `...`. After a sentence ends, the level-3 candidates are shown capitalised in place
 (`the world. Offers`), and the instructions say a new sentence should begin a new thought rather than
 restate the last one.
 

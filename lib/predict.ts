@@ -14,7 +14,7 @@
  * suggestion from Jev's final distribution. No prefix matching, no frequency data,
  * no other model.
  */
-import { choice, noul } from "@typesafe-ai/sdk";
+import { choice } from "@typesafe-ai/sdk";
 import type { ChoiceResponse, SystemOneResult, Questions } from "@typesafe-ai/sdk";
 import { blockById, level1Criteria, level2Criteria } from "./blocks";
 import { defaultFanout, defaultTemperature, getJevClient } from "./jev";
@@ -66,8 +66,8 @@ export interface PredictResult {
   /** The text the prediction was made for, exactly as received. */
   context: string;
   model: string;
-  /** Jev's answer to "could a punctuation mark legitimately come next?", asked alongside level 1. */
-  marks: { allowed: boolean; p: number };
+  /** Jev's answer to "what does the text end with?", asked alongside level 1. Marks are offered only after a word. */
+  marks: { allowed: boolean; ending: "word" | "mark" | "nothing"; p: number };
   /** Blocks opened at level 2. */
   fanout: number;
   /** Top blocks from level 1 (at least the opened ones), highest probability first. */
@@ -204,26 +204,16 @@ export const level3Question = (words: string[], context: string) => {
 };
 
 /**
- * Asked alongside level 1: may a punctuation mark come next? When Jev says no, because the text
- * is empty or already ends with a mark, the four marks are left out of the shortlist. Without this
- * a stray "." can echo into ".." and then "...", whatever the other instructions say.
+ * Asked alongside level 1: what does the text end with? A punctuation mark is offered only when
+ * Jev says the text ends with a word. Without this a stray "." can echo into ".." and then "...",
+ * whatever the other instructions say. Kept deliberately simple: it is an observation, not a rule.
  */
-export const marksQuestion = () =>
-  noul(
-    {
-      task:
-        `\`text\` is what a person has written so far, with ${BLANK} marking where the next word goes. ` +
-        "Could the next thing they write legitimately be a punctuation mark such as . , ? or !",
-      rules: [
-        "Yes only if the text right before the blank ends with a word (letters or digits) or a closing quote or bracket.",
-        "No if the text is empty, or if it already ends with a punctuation mark: English never puts one mark straight after another.",
-      ],
-    },
-    {
-      true: "The text ends with a word, so a punctuation mark could follow.",
-      false: "The text is empty or already ends with a punctuation mark, so another mark cannot follow.",
-    },
-  );
+export const endingQuestion = () =>
+  choice(`Look at \`text\`. Ignoring the ${BLANK} marker and any spaces before it, what does the text end with?`, {
+    word: "a letter or digit: the text ends with a word",
+    mark: "a punctuation mark such as . , ? ! : ; or a closing quote",
+    nothing: "nothing: the text is empty apart from the marker",
+  });
 
 /**
  * Splits `total` shortlist slots among the opened blocks in proportion to their level-1
@@ -311,12 +301,13 @@ export async function predict(rawText: string, options: PredictOptions = {}): Pr
   const separator = shown && !/\s$/.test(shown) ? " " : "";
   const state: JevState = { text: `${shown}${separator}${BLANK}` };
 
-  // Level 1: which themed blocks? Plus, in the same request, may a punctuation mark come next?
+  // Level 1: which themed blocks? Plus, in the same request, what does the text end with?
   const t0 = performance.now();
-  const q1 = { block: level1Question(), marks_allowed: marksQuestion() };
+  const q1 = { block: level1Question(), ending: endingQuestion() };
   const r1 = await client.systemOne({ state, questions: q1 });
   const t1 = performance.now();
-  const marks = { allowed: r1.answers.marks_allowed.noul >= 0.5, p: r1.answers.marks_allowed.noul };
+  const ending = r1.answers.ending;
+  const marks = { allowed: ending.choice === "word", ending: ending.choice, p: ending.probabilities[ending.choice] };
   const ranked = sortedEntries(r1.answers.block.probabilities).map(([id, p], i) => ({
     id,
     title: blockById(id).title,
