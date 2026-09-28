@@ -197,7 +197,7 @@ export default function Predictor({ children }: { children?: React.ReactNode }) 
           <p className="eyebrow">What Jev decided</p>
           {result && (
             <p className="muted small">
-              Edge thickness follows Jev&rsquo;s probability. Yellow is the path to the suggestion.
+              Edge thickness follows Jev&rsquo;s probability. The highlighted path leads to the suggestion.
               {customised && ` ${fanout} blocks opened, temperature ${temperature}.`}
             </p>
           )}

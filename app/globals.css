@@ -1,8 +1,12 @@
-/* Two colours carry the design: a deep blue-black and a yellow. Light and dark share one set of tokens through light-dark(). */
+/* Two colours carry the design: a deep blue-black and the purple of the mark. Light and dark share one set of tokens through light-dark(). */
 :root {
   color-scheme: light dark;
   --ink: #15313f;
-  --yellow: #ffc61a;
+  --accent: #e650bb;
+  /* Text on an accent fill: the mark pairs black with the purple, and it passes AA where the blue-black would not. */
+  --accent-ink: #111111;
+  /* A lighter tint for small accent-coloured text on the dark background. */
+  --accent-text: #f58bd6;
 
   --bg: light-dark(#ffffff, #15313f);
   --fg: light-dark(#15313f, #ffffff);
@@ -10,7 +14,7 @@
   --line: light-dark(rgba(21, 49, 63, 0.16), rgba(255, 255, 255, 0.16));
   --panel: light-dark(#ffffff, #1b3b4b);
   --panel-2: light-dark(#f3f6f7, #10262f);
-  --eyebrow: light-dark(#15313f, #ffc61a);
+  --eyebrow: light-dark(#15313f, var(--accent-text));
   --ghost: light-dark(#7e94a0, #86a0ad);
   --edge: light-dark(rgba(21, 49, 63, 0.28), rgba(255, 255, 255, 0.32));
   --error: light-dark(#b3261e, #ff8a80);
@@ -48,7 +52,7 @@ body {
 a {
   color: inherit;
   text-decoration: underline;
-  text-decoration-color: var(--yellow);
+  text-decoration-color: var(--accent);
   text-decoration-thickness: 2px;
   text-underline-offset: 3px;
 }
@@ -129,7 +133,7 @@ main > * {
 }
 
 .theme-toggle:hover {
-  border-color: var(--yellow);
+  border-color: var(--accent);
 }
 
 /* Hero */
@@ -174,7 +178,7 @@ main > * {
 }
 
 .editor:focus-within {
-  border-color: var(--yellow);
+  border-color: var(--accent);
 }
 
 .editor textarea,
@@ -202,7 +206,7 @@ main > * {
   resize: none;
   outline: none;
   overflow: hidden;
-  caret-color: var(--yellow);
+  caret-color: var(--accent);
   border-radius: 6px;
 }
 
@@ -221,7 +225,7 @@ main > * {
 .editor .mirror .ghost {
   color: var(--ghost);
   text-decoration: underline;
-  text-decoration-color: var(--yellow);
+  text-decoration-color: var(--accent);
   text-decoration-thickness: 2px;
   text-underline-offset: 4px;
 }
@@ -258,7 +262,7 @@ main > * {
   height: 0.6em;
   margin-left: 0.45em;
   border-radius: 50%;
-  border: 2px solid var(--yellow);
+  border: 2px solid var(--accent);
   border-top-color: transparent;
   animation: spin 0.8s linear infinite;
   vertical-align: middle;
@@ -279,8 +283,8 @@ button.accept {
   padding: 0.55rem 1rem;
   border-radius: 4px;
   border: 0;
-  background: var(--yellow);
-  color: var(--ink);
+  background: var(--accent);
+  color: var(--accent-ink);
   cursor: pointer;
 }
 
@@ -343,7 +347,7 @@ button.accept:disabled {
 }
 
 .tree .edge.chosen {
-  stroke: var(--yellow);
+  stroke: var(--accent);
 }
 
 .tree .edge.faint {
@@ -404,7 +408,7 @@ button.accept:disabled {
 }
 
 .tree .block.chosen {
-  border-color: var(--yellow);
+  border-color: var(--accent);
 }
 
 .tree .more {
@@ -432,9 +436,9 @@ button.accept:disabled {
 }
 
 .tree .leaf.chosen {
-  background: var(--yellow);
-  border-color: var(--yellow);
-  color: var(--ink);
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-ink);
   font-weight: 500;
 }
 
@@ -525,7 +529,7 @@ button.accept:disabled {
 }
 
 .settings-body input[type="checkbox"] {
-  accent-color: var(--yellow);
+  accent-color: var(--accent);
 }
 
 .raw {
