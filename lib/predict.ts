@@ -132,6 +132,8 @@ const TASK = {
       "pause before continuing, '?' after a question. A sentence that has said its piece should end.",
     "If `text` already ends with '.', '?' or '!', that sentence is finished: the answer is the first word of a new " +
       "sentence, never another punctuation mark. If it ends with ',', the same sentence continues with a word.",
+    "A new sentence begins a new thought. It should move on from the previous sentence and add something new, in " +
+      "the same voice, rather than restate it, list more of the same, or repeat its words.",
     "If `partial_word` is not empty, the writer has already typed those letters of the next word, so the answer " +
       "starts with exactly those letters and is the complete word.",
   ],
@@ -193,12 +195,25 @@ export const level2Question = (blockId: string) => choice(LEVEL2_INSTRUCTIONS, l
  */
 export const level3Question = (words: string[], context: string) => {
   const tail = lastWords(context);
+  // After a sentence ends, show each candidate as a sentence opener: "the world. Offers".
+  const opener = /[.?!]$/.test(tail);
   const criteria = Object.create(null) as Record<string, string | null>;
   for (const word of words) {
-    criteria[word] = tail ? (isPunctuation(word) ? `${tail}${word}` : `${tail} ${word}`) : null;
+    if (!tail) criteria[word] = null;
+    else if (isPunctuation(word)) criteria[word] = `${tail}${word}`;
+    else criteria[word] = `${tail} ${opener ? word[0].toUpperCase() + word.slice(1) : word}`;
   }
   return choice(LEVEL3_INSTRUCTIONS, criteria);
 };
+
+/**
+ * The one orthographic rule code applies: a punctuation mark is only offered where English allows
+ * one, right after a word. Never after another mark, at the very start, or while a word is being
+ * typed. Without it a stray "." can echo into ".." and then "...", whatever the instructions say.
+ */
+export function punctuationAllowed(context: string, fragment: string): boolean {
+  return fragment === "" && /[A-Za-z0-9)"']$/.test(context.trimEnd());
+}
 
 /**
  * Splits `total` shortlist slots among the opened blocks in proportion to their level-1
@@ -316,11 +331,14 @@ export async function predict(rawText: string, options: PredictOptions = {}): Pr
     for (const [id, answer] of Object.entries(response.answers)) answers2[id] = answer as ChoiceResponse;
   }
   const quotas = allocate(opened.map((b) => b.p));
+  const allowMarks = punctuationAllowed(context, fragment);
   const shortlist: ShortlistEntry[] = [];
   const shortlisted: { word: string; block: string; pBlock: number; pWord: number }[] = [];
   opened.forEach((b, i) => {
     const answer = answers2[b.id];
-    const top = sortedEntries(answer.probabilities).slice(0, quotas[i]);
+    const top = sortedEntries(answer.probabilities)
+      .filter(([word]) => allowMarks || !isPunctuation(word))
+      .slice(0, quotas[i]);
     shortlist.push({ block: b.id, title: b.title, pBlock: b.p, quota: top.length });
     for (const [word, pWord] of top) shortlisted.push({ word, block: b.id, pBlock: b.p, pWord });
   });

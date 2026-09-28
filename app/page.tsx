@@ -22,8 +22,9 @@ export default function Home() {
         <ul>
           <li>
             <strong>Only Jev decides.</strong> No other model, no frequency tables, no prefix matching. Code splits
-            the text, sizes the shortlists from Jev&rsquo;s own probabilities and, above temperature zero, samples the
-            suggestion from Jev&rsquo;s final distribution.
+            the text, sizes the shortlists from Jev&rsquo;s own probabilities, samples the suggestion from Jev&rsquo;s
+            final distribution above temperature zero, and applies one rule of the writing system: punctuation is only
+            offered right after a word.
           </li>
           <li>
             <strong>The blocks were built once, in advance.</strong> Words were grouped by theme and cut into 255s at

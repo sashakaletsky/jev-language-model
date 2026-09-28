@@ -33,7 +33,11 @@ model tends to favour words that already appear in the text and ends up repeatin
 stringing adjectives together.
 
 Punctuation is offered the same way: `.` `,` `?` and `!` are four of the 255 options in the core block, so
-Jev can end a sentence or pause it instead of choosing a word.
+Jev can end a sentence or pause it instead of choosing a word. One rule of the writing system is applied
+by code rather than left to Jev: a mark is only offered right after a word, never after another mark, at
+the start, or mid-word. Without it a stray full stop echoes into `..` and `...`. After a sentence ends, the
+level-3 candidates are shown capitalised in place (`the world. Offers`), and the instructions say a new
+sentence should begin a new thought rather than restate the last one.
 
 Jev returns a full probability distribution for each question. At temperature 0 the top level-3 word is
 the suggestion; above 0 the suggestion is sampled from the nucleus of the distribution (the smallest set
