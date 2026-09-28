@@ -67,6 +67,8 @@ One environment variable, `TYPESAFE_API_KEY`. No database. Nothing about visitor
 | `TYPESAFE_API_KEY` | required | Your TypeSafe key. Server-side only. |
 | `JEV_FANOUT` | `1` | How many of the top level-1 blocks to open at level 2. Each extra block is one more 255-option question per keystroke. Also adjustable in the UI. |
 | `NEXT_PUBLIC_JEV_PRICE_PER_M_INPUT_TOKENS` | unset | Your price per million input tokens, used only to show an estimated cost in the UI. |
+| `JEV_MAX_FANOUT` | `5` | The most blocks a visitor may open at level 2. |
+| `JEV_RATE_LIMIT` | `40` | Requests per visitor per 10 seconds before the API answers 429. Per server instance, so for a busy public deployment also enable your host's firewall rate limiting (Vercel: Firewall → Rate limiting). |
 
 The client waits 250 ms after the last keystroke before asking, and identical inputs are answered
 from a small in-memory cache, so a burst of typing does not become a burst of API calls.

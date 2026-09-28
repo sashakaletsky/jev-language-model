@@ -96,9 +96,10 @@ export default function Predictor() {
     [fanout],
   );
 
-  // Debounced prediction on every change.
+  // Debounced prediction on every change. Nothing is asked until the visitor has typed something.
   useEffect(() => {
     if (timerRef.current) clearTimeout(timerRef.current);
+    if (text.trim() === "") return;
     timerRef.current = setTimeout(() => void request(text, false), DEBOUNCE_MS);
     return () => {
       if (timerRef.current) clearTimeout(timerRef.current);
@@ -126,6 +127,16 @@ export default function Predictor() {
       const el = textareaRef.current;
       if (el) el.setSelectionRange(next.length, next.length);
     });
+  };
+
+  const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const value = e.target.value;
+    setText(value);
+    if (value.trim() === "") {
+      abortRef.current?.abort();
+      setResult(null);
+      setLoading(false);
+    }
   };
 
   const onKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
@@ -160,7 +171,7 @@ export default function Predictor() {
           <textarea
             ref={textareaRef}
             value={text}
-            onChange={(e) => setText(e.target.value)}
+            onChange={onChange}
             onKeyDown={onKeyDown}
             placeholder="Start typing… Jev will suggest the next word. Press Tab to accept."
             spellCheck={false}
