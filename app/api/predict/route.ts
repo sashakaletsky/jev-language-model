@@ -1,6 +1,6 @@
 /**
  * POST /api/predict  { text: string, fanout?: number, temperature?: number, trace?: "full" | "summary" }
- * GET  /api/predict?text=...&fanout=10&temperature=0.8&trace=full
+ * GET  /api/predict?text=...&fanout=30&temperature=0.8&trace=full
  *
  * Returns Jev's prediction for the next word. See lib/predict.ts.
  */
@@ -13,7 +13,7 @@ export const dynamic = "force-dynamic";
 
 const MAX_TEXT_CHARS = 5000;
 const CACHE_MAX = 500;
-const MAX_FANOUT = Number(process.env.JEV_MAX_FANOUT ?? "12");
+const MAX_FANOUT = Number(process.env.JEV_MAX_FANOUT ?? "50");
 
 /**
  * Per-instance rate limit: a visitor gets RATE_LIMIT requests per RATE_WINDOW_MS.

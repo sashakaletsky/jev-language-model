@@ -16,10 +16,12 @@ arranged into **255 themed blocks of 255 words**. For every keystroke the server
 about the text so far:
 
 1. **Level 1 (255 options):** which themed block contains the word this person is about to type?
-   Jev sees each block's theme and a few example words. The ten likeliest blocks are opened.
-2. **Level 2 (255 options per opened block, one request):** within each opened block, which word is it?
-   Each block then contributes a shortlist, sized in proportion to its level-1 probability, and the
-   shortlists together make exactly 255 candidates.
+   Jev sees each block's theme and a few example words. The thirty likeliest blocks are opened
+   (configurable up to fifty).
+2. **Level 2 (255 options per opened block, asked in parallel batches of ten):** within each opened
+   block, which word is it? Each block then contributes a shortlist, sized in proportion to its level-1
+   probability with a small floor so every opened block is represented, and the shortlists together
+   make exactly 255 candidates.
 3. **Level 3 (255 options):** which of those candidates is it? Each is shown in place at the end of the
    text, so Jev compares "Hello how are" against "Hello how you" as phrases.
 
@@ -84,10 +86,10 @@ One environment variable, `TYPESAFE_API_KEY`. No database. Nothing about visitor
 | Variable | Default | Meaning |
 | --- | --- | --- |
 | `TYPESAFE_API_KEY` | required | Your TypeSafe key. Server-side only. |
-| `JEV_FANOUT` | `10` | How many of the top level-1 blocks to open at level 2 and shortlist from. Each extra block is one more 255-option question per keystroke. Also adjustable in the UI. |
+| `JEV_FANOUT` | `30` | How many of the top level-1 blocks to open at level 2 and shortlist from, up to 50. More blocks give the final round more variety; each block is one more 255-option question per keystroke, so tokens scale with it. Also adjustable in the UI. |
 | `NEXT_PUBLIC_JEV_PRICE_PER_M_INPUT_TOKENS` | unset | Your price per million input tokens, used only to show an estimated cost in the UI. |
 | `JEV_TEMPERATURE` | `0.8` | Sampling temperature for the suggestion. 0 always takes the top candidate. Also adjustable in the UI. |
-| `JEV_MAX_FANOUT` | `12` | The most blocks a visitor may open at level 2. |
+| `JEV_MAX_FANOUT` | `50` | The most blocks a visitor may open at level 2. |
 | `JEV_RATE_LIMIT` | `40` | Requests per visitor per 10 seconds before the API answers 429. Per server instance, so for a busy public deployment also enable your host's firewall rate limiting (Vercel: Firewall → Rate limiting). |
 
 The client waits 250 ms after the last keystroke before asking, and identical inputs are answered
@@ -96,7 +98,7 @@ from a small in-memory cache, so a burst of typing does not become a burst of AP
 ## API
 
 ```
-POST /api/predict   { "text": "I want to wo", "fanout": 10, "temperature": 0.8, "trace": "summary" | "full" }
+POST /api/predict   { "text": "I want to wo", "fanout": 30, "temperature": 0.8, "trace": "summary" | "full" }
 GET  /api/predict?text=I%20want%20to%20wo&trace=full
 GET  /api/blocks              the 255 block descriptions Jev reads at level 1
 GET  /api/blocks?id=<block>   one block with its 255 words

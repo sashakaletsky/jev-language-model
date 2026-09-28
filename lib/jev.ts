@@ -23,12 +23,12 @@ export function getJevClient(): TypeSafeClient {
 }
 
 /**
- * How many top-ranked blocks to open at level 2. Default 10. Each opened block is one more
+ * How many top-ranked blocks to open at level 2. Default 30. Each opened block is one more
  * 255-option question, and contributes a shortlist to level 3 in proportion to its probability.
  */
 export function defaultFanout(): number {
-  const n = Number(process.env.JEV_FANOUT ?? "10");
-  return Number.isFinite(n) && n >= 1 ? Math.min(Math.floor(n), 12) : 10;
+  const n = Number(process.env.JEV_FANOUT ?? "30");
+  return Number.isFinite(n) && n >= 1 ? Math.min(Math.floor(n), 50) : 30;
 }
 
 /** Sampling temperature for the suggestion. 0 always takes the top candidate. Default 0.8. */

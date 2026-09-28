@@ -57,6 +57,8 @@ export interface ShortlistEntry {
 
 export interface CallTrace {
   level: 1 | 2 | 3;
+  /** Set when a level was sent as several requests, e.g. "batch 2 of 3". */
+  part?: string;
   ms: number;
   request: { state: JevState; questions: Record<string, unknown> };
   response: unknown;
@@ -98,8 +100,14 @@ export const isPunctuation = (word: string): boolean => PUNCTUATION.has(word);
 
 const BLANK = "____";
 const SHORTLIST_SIZE = 255;
-const SHORTLIST_MIN = 8;
 const SHORTLIST_MAX = 128;
+/** Level-2 questions per request; more opened blocks are asked in parallel batches. */
+const LEVEL2_BATCH = 10;
+
+/** Floor on words per opened block: generous with few blocks, minimal with many, so the likeliest keep depth. */
+function shortlistFloor(opened: number): number {
+  return opened > 20 ? 2 : opened > 10 ? 4 : 8;
+}
 /** Sampling only ever draws from the smallest set of candidates covering this much probability. */
 const TOP_P = 0.9;
 
@@ -122,6 +130,8 @@ const TASK = {
     "Prefer the plain, natural word a clear speaker would use over a rare or flowery one, unless the text itself is formal.",
     "Punctuation marks are options too: choose '.' when the sentence is complete, ',' where a clear speaker would " +
       "pause before continuing, '?' after a question. A sentence that has said its piece should end.",
+    "If `text` already ends with '.', '?' or '!', that sentence is finished: the answer is the first word of a new " +
+      "sentence, never another punctuation mark. If it ends with ',', the same sentence continues with a word.",
     "If `partial_word` is not empty, the writer has already typed those letters of the next word, so the answer " +
       "starts with exactly those letters and is the complete word.",
   ],
@@ -133,6 +143,7 @@ const TASK = {
     { text: `Honestly, I think we should ${BLANK}`, partial_word: "", answer: "wait", kind: "verb" },
     { text: `That is everything I wanted to say ${BLANK}`, partial_word: "", answer: ".", kind: "punctuation" },
     { text: `If you ask me ${BLANK}`, partial_word: "", answer: ",", kind: "punctuation" },
+    { text: `We had a wonderful time. ${BLANK}`, partial_word: "", answer: "thank", kind: "first word of a new sentence" },
   ],
 };
 
@@ -145,11 +156,16 @@ const LEVEL1_INSTRUCTIONS = {
     "the theme and some example words from the block.",
 };
 
+/** Sent once per opened block, so kept short; the full task description travels with levels 1 and 3. */
 const LEVEL2_INSTRUCTIONS = {
-  ...TASK,
-  question:
-    `Which of these words fills ${BLANK}? Each option is one candidate word from a single themed block of the ` +
-    "dictionary. Rank them by how naturally each would continue the text.",
+  task:
+    `A person is writing English. \`text\` is what they have written so far and ${BLANK} marks their cursor. ` +
+    "Which of these words would an articulate, clear speaker most naturally say next, in the blank?",
+  rules: [
+    "The answer comes after the text; it is not a word the text already ends with.",
+    `If \`text\` ends with '.', '?' or '!', the answer starts a new sentence.`,
+    "If `partial_word` is not empty, the answer starts with exactly those letters.",
+  ],
 };
 
 const LEVEL3_INSTRUCTIONS = {
@@ -189,7 +205,7 @@ export const level3Question = (words: string[], context: string) => {
  * probabilities, with a floor so every opened block is represented and a cap so no block
  * dominates. The floor and cap are relaxed when they cannot be met.
  */
-export function allocate(probs: number[], total = SHORTLIST_SIZE, min = SHORTLIST_MIN, max = SHORTLIST_MAX): number[] {
+export function allocate(probs: number[], total = SHORTLIST_SIZE, min = shortlistFloor(probs.length), max = SHORTLIST_MAX): number[] {
   const n = probs.length;
   if (n === 0) return [];
   min = Math.min(min, Math.floor(total / n));
@@ -258,7 +274,7 @@ export function summariseTrace(result: PredictResult): PredictResult {
 }
 
 export async function predict(rawText: string, options: PredictOptions = {}): Promise<PredictResult> {
-  const fanout = Math.max(1, Math.min(options.fanout ?? defaultFanout(), 12));
+  const fanout = Math.max(1, Math.min(options.fanout ?? defaultFanout(), 50));
   const limit = options.limit ?? 10;
   const temperature = Math.max(0, Math.min(options.temperature ?? defaultTemperature(), 2));
   const client = getJevClient();
@@ -283,15 +299,27 @@ export async function predict(rawText: string, options: PredictOptions = {}): Pr
   }));
   const opened = ranked.filter((b) => b.opened);
 
-  // Level 2: shortlist within each opened block, all in one request.
-  const q2: Questions = Object.fromEntries(opened.map((b) => [b.id, level2Question(b.id)]));
-  const r2 = (await client.systemOne({ state, questions: q2 })) as SystemOneResult<Questions>;
+  // Level 2: shortlist within each opened block, in parallel batches of LEVEL2_BATCH questions.
+  const batches: BlockPick[][] = [];
+  for (let i = 0; i < opened.length; i += LEVEL2_BATCH) batches.push(opened.slice(i, i + LEVEL2_BATCH));
+  const level2 = await Promise.all(
+    batches.map(async (batch) => {
+      const questions: Questions = Object.fromEntries(batch.map((b) => [b.id, level2Question(b.id)]));
+      const started = performance.now();
+      const response = (await client.systemOne({ state, questions })) as SystemOneResult<Questions>;
+      return { questions, response, ms: Math.round(performance.now() - started) };
+    }),
+  );
   const t2 = performance.now();
+  const answers2: Record<string, ChoiceResponse> = {};
+  for (const { response } of level2) {
+    for (const [id, answer] of Object.entries(response.answers)) answers2[id] = answer as ChoiceResponse;
+  }
   const quotas = allocate(opened.map((b) => b.p));
   const shortlist: ShortlistEntry[] = [];
   const shortlisted: { word: string; block: string; pBlock: number; pWord: number }[] = [];
   opened.forEach((b, i) => {
-    const answer = r2.answers[b.id] as ChoiceResponse;
+    const answer = answers2[b.id];
     const top = sortedEntries(answer.probabilities).slice(0, quotas[i]);
     shortlist.push({ block: b.id, title: b.title, pBlock: b.p, quota: top.length });
     for (const [word, pWord] of top) shortlisted.push({ word, block: b.id, pBlock: b.p, pWord });
@@ -320,8 +348,8 @@ export async function predict(rawText: string, options: PredictOptions = {}): Pr
     chosen,
     temperature,
     usage: {
-      input_tokens: r1.usage.input_tokens + r2.usage.input_tokens + r3.usage.input_tokens,
-      output_tokens: r1.usage.output_tokens + r2.usage.output_tokens + r3.usage.output_tokens,
+      input_tokens: r1.usage.input_tokens + level2.reduce((n, l) => n + l.response.usage.input_tokens, 0) + r3.usage.input_tokens,
+      output_tokens: r1.usage.output_tokens + level2.reduce((n, l) => n + l.response.usage.output_tokens, 0) + r3.usage.output_tokens,
     },
     timing: {
       level1_ms: Math.round(t1 - t0),
@@ -331,7 +359,13 @@ export async function predict(rawText: string, options: PredictOptions = {}): Pr
     },
     trace: [
       { level: 1, ms: Math.round(t1 - t0), request: { state, questions: q1 }, response: r1 },
-      { level: 2, ms: Math.round(t2 - t1), request: { state, questions: q2 }, response: r2 },
+      ...level2.map((l, i) => ({
+        level: 2 as const,
+        part: level2.length > 1 ? `batch ${i + 1} of ${level2.length}` : undefined,
+        ms: l.ms,
+        request: { state, questions: l.questions },
+        response: l.response,
+      })),
       { level: 3, ms: Math.round(t3 - t2), request: { state, questions: q3 }, response: r3 },
     ],
   };

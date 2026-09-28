@@ -52,7 +52,7 @@ export default function Predictor() {
   const [result, setResult] = useState<PredictResult | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-  const [fanout, setFanout] = useState(10);
+  const [fanout, setFanout] = useState(30);
   const [temperature, setTemperature] = useState(0.8);
   const [showRaw, setShowRaw] = useState(false);
   const [rawTrace, setRawTrace] = useState<PredictResult | null>(null);
@@ -314,7 +314,7 @@ export default function Predictor() {
           <label>
             Blocks opened at level 2
             <select value={fanout} onChange={(e) => setFanout(Number(e.target.value))}>
-              {[3, 5, 8, 10, 12].map((n) => (
+              {[5, 10, 20, 30, 50].map((n) => (
                 <option key={n} value={n}>
                   {n}
                 </option>
@@ -337,10 +337,11 @@ export default function Predictor() {
         </section>
         {showRaw && rawTrace && (
           <section className="raw">
-            {rawTrace.trace.map((call) => (
-              <details key={call.level} open={call.level === 1}>
+            {rawTrace.trace.map((call, i) => (
+              <details key={`${call.level}-${i}`} open={call.level === 1}>
                 <summary>
-                  Level {call.level} request → response · {call.ms} ms
+                  Level {call.level}
+                  {call.part ? ` (${call.part})` : ""} request → response · {call.ms} ms
                 </summary>
                 <pre>{JSON.stringify(call.request, null, 1)}</pre>
                 <pre>{JSON.stringify(call.response, null, 1)}</pre>
