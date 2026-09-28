@@ -47,7 +47,7 @@ cannot run in CI.
 | `lib/blocks.ts` | Loads `data/blocks.json` and builds the option sets. |
 | `lib/tokenize.ts` | The only text handling: apostrophes, mid-word detection, context length. |
 | `app/api/predict/route.ts` | The HTTP endpoint: validation, cache, rate limit. |
-| `app/Predictor.tsx` | The editor, ghost text, Tab, and the "What Jev decided" panel. |
+| `app/Predictor.tsx` | The editor, ghost text, Tab, and the settings. `app/DecisionTree.tsx` draws the three decisions; `app/ThemeToggle.tsx` is the light/dark switch. |
 | `scripts/` | Data build scripts (Python), the mock API, the accuracy harness. |
 | `data/` | Generated data. See [docs/DATA.md](docs/DATA.md) before editing. |
 | `docs/` | Labelling instructions, data provenance, the pipeline diagram. |

@@ -3,23 +3,15 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { PredictResult } from "@/lib/predict";
 import { endsMidWord } from "@/lib/tokenize";
+import DecisionTree from "./DecisionTree";
 
 const DEBOUNCE_MS = 250;
 const PRICE_PER_M = Number(process.env.NEXT_PUBLIC_JEV_PRICE_PER_M_INPUT_TOKENS ?? "");
 const PUNCTUATION = new Set([".", ",", "?", "!"]);
+const DEFAULT_FANOUT = 30;
+const DEFAULT_TEMPERATURE = 0.8;
+const FANOUTS = [5, 10, 20, 30, 50];
 const TEMPERATURES = [0, 0.5, 0.8, 1, 1.3];
-const ENDING_WORDS: Record<string, string> = {
-  letter: "a letter",
-  digit: "a digit",
-  full_stop: "a full stop",
-  comma: "a comma",
-  question_mark: "a question mark",
-  exclamation_mark: "an exclamation mark",
-  other: "another symbol",
-  nothing: "nothing",
-};
-
-type Level1Response = { answers: { block: { probabilities: Record<string, number> } } };
 
 interface Suggestion {
   word: string;
@@ -46,17 +38,17 @@ function suggestionFor(result: PredictResult): Suggestion | null {
   return { word, mode: "word", display: needsSpace ? ` ${word}` : word };
 }
 
-function pct(p: number): string {
-  return `${(p * 100).toFixed(p >= 0.1 ? 0 : 1)}%`;
-}
-
-export default function Predictor() {
+/**
+ * The editor, the tree of what Jev decided, and, at the very bottom, the settings.
+ * Whatever is passed as children (the explanation of the rules) sits between the tree and the settings.
+ */
+export default function Predictor({ children }: { children?: React.ReactNode }) {
   const [text, setText] = useState("");
   const [result, setResult] = useState<PredictResult | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-  const [fanout, setFanout] = useState(30);
-  const [temperature, setTemperature] = useState(0.8);
+  const [fanout, setFanout] = useState(DEFAULT_FANOUT);
+  const [temperature, setTemperature] = useState(DEFAULT_TEMPERATURE);
   const [showRaw, setShowRaw] = useState(false);
   const [rawTrace, setRawTrace] = useState<PredictResult | null>(null);
   const [totals, setTotals] = useState({ calls: 0, tokens: 0 });
@@ -158,31 +150,13 @@ export default function Predictor() {
     }
   };
 
-  const level1Top = useMemo(() => {
-    const call = result?.trace[0];
-    if (!call) return [];
-    const probs = (call.response as Level1Response).answers.block.probabilities;
-    return Object.entries(probs)
-      .sort((a, b) => b[1] - a[1])
-      .slice(0, 5)
-      .map(([id, p]) => ({ id, p, title: result?.blocks.find((b) => b.id === id)?.title ?? id, opened: result?.blocks.some((b) => b.id === id && b.opened) ?? false }));
-  }, [result]);
-
-  // The top eight candidates, plus the suggested one if sampling reached past them.
-  const rows = useMemo(() => {
-    if (!result) return [];
-    const top = result.candidates.slice(0, 8);
-    const chosen = result.chosen;
-    if (chosen && !top.some((c) => c.word === chosen.word && c.block === chosen.block)) top.push(chosen);
-    return top;
-  }, [result]);
-
-  const cost = (tokens: number) => (PRICE_PER_M > 0 ? `$${((tokens / 1e6) * PRICE_PER_M).toFixed(4)}` : null);
+  const cost = (tokens: number) => (PRICE_PER_M > 0 ? ` (≈$${((tokens / 1e6) * PRICE_PER_M).toFixed(4)})` : "");
   const statusText = loading ? "asking Jev…" : suggestion ? "Tab to accept" : endsMidWord(text) ? "finish the word to get a suggestion" : " ";
+  const customised = fanout !== DEFAULT_FANOUT || temperature !== DEFAULT_TEMPERATURE;
 
   return (
     <div className="predictor">
-      <div className="editor-wrap">
+      <section className="editor-wrap" aria-label="Editor">
         <div className="editor">
           <div className="mirror" aria-hidden="true">
             <span className="typed">{text}</span>
@@ -193,7 +167,7 @@ export default function Predictor() {
             value={text}
             onChange={onChange}
             onKeyDown={onKeyDown}
-            placeholder="Start typing… after each word Jev suggests the next one. Press Tab to accept."
+            placeholder="Start typing. After each word, Jev suggests the next one. Tab accepts."
             spellCheck={false}
             autoFocus
             rows={3}
@@ -202,115 +176,45 @@ export default function Predictor() {
         <div className="editor-bar">
           <span className={`status ${loading ? "busy" : ""}`}>{statusText}</span>
           <button type="button" className="accept" onClick={accept} disabled={!suggestion}>
-            Accept (Tab)
+            Accept · Tab
           </button>
         </div>
         {error && <p className="error">{error}</p>}
-      </div>
+      </section>
 
-      <aside className="panel">
-        <h2>What Jev decided</h2>
-        {!result && <p className="muted">Type a word and a space to see the three decisions Jev makes for every word.</p>}
-        {result && (
-          <>
-            <section>
-              <h3>
-                Level 1 · which themed block? <span className="muted">255 options</span>
-              </h3>
-              <ol className="bars">
-                {level1Top.map((b) => (
-                  <li key={b.id} className={b.opened ? "opened" : ""}>
-                    <span className="bar" style={{ width: `${Math.max(2, b.p * 100)}%` }} />
-                    <span className="label">{b.title}</span>
-                    <span className="p">{pct(b.p)}</span>
-                  </li>
-                ))}
-              </ol>
-            </section>
+      <section className="decisions" aria-label="What Jev decided">
+        <div className="section-head">
+          <p className="eyebrow">What Jev decided</p>
+          {result && (
             <p className="muted small">
-              Last character of the text? Jev says {ENDING_WORDS[result.marks.ending] ?? result.marks.ending} ({pct(result.marks.p)}),
-              so the four marks are {result.marks.allowed ? "in" : "out of"} the shortlist.
+              Edge thickness follows Jev&rsquo;s probability. Yellow is the path to the suggestion.
+              {customised && ` ${fanout} blocks opened, temperature ${temperature}.`}
             </p>
-            <section>
-              <h3>
-                Level 2 · shortlist within each <span className="muted">255 options per opened block</span>
-              </h3>
-              <ol className="bars">
-                {result.shortlist.slice(0, 5).map((s) => (
-                  <li key={s.block}>
-                    <span className="bar" style={{ width: `${Math.max(2, s.pBlock * 100)}%` }} />
-                    <span className="label">{s.title}</span>
-                    <span className="p">{s.quota} words</span>
-                  </li>
-                ))}
-              </ol>
-              {result.shortlist.length > 5 && (
-                <p className="muted small">
-                  and {result.shortlist.length - 5} more blocks contributing{" "}
-                  {result.shortlist.slice(5).reduce((n, s) => n + s.quota, 0)} words, for 255 candidates in all
-                </p>
-              )}
-            </section>
-            <section>
-              <h3>
-                Level 3 · which word? <span className="muted">255 shortlisted options</span>
-              </h3>
-              <ol className="bars">
-                {rows.map((c) => {
-                  const isChosen = result.chosen && c.word === result.chosen.word && c.block === result.chosen.block;
-                  return (
-                    <li key={`${c.block}/${c.word}`} className={isChosen ? "chosen" : ""}>
-                      <span className="bar" style={{ width: `${Math.max(2, c.p * 100)}%` }} />
-                      <span className="label">
-                        {c.word}
-                        {isChosen && <span className="muted"> · suggested</span>}
-                      </span>
-                      <span className="p" title={`from ${c.block}: P(block) ${pct(c.pBlock)}, P(word | block) ${pct(c.pWord)}`}>
-                        {pct(c.p)}
-                      </span>
-                    </li>
-                  );
-                })}
-              </ol>
-            </section>
-            <section className="stats">
-              <div>
-                <span className="k">latency</span>
-                <span className="v">
-                  {result.timing.total_ms} ms{" "}
-                  <span className="muted">
-                    ({result.timing.level1_ms} + {result.timing.level2_ms} + {result.timing.level3_ms})
-                  </span>
-                </span>
-              </div>
-              <div>
-                <span className="k">tokens</span>
-                <span className="v">
-                  {result.usage.input_tokens.toLocaleString()} in · {result.usage.output_tokens} out
-                  {cost(result.usage.input_tokens) && <span className="muted"> · ≈{cost(result.usage.input_tokens)}</span>}
-                </span>
-              </div>
-              <div>
-                <span className="k">session</span>
-                <span className="v">
-                  {totals.calls} predictions · {totals.tokens.toLocaleString()} input tokens
-                  {cost(totals.tokens) && <span className="muted"> · ≈{cost(totals.tokens)}</span>}
-                </span>
-              </div>
-              <div>
-                <span className="k">model</span>
-                <span className="v">{result.model}</span>
-              </div>
-            </section>
-          </>
+          )}
+        </div>
+        {!result && <p className="muted placeholder">Type a word and a space. The three decisions Jev makes for every word are drawn here.</p>}
+        {result && <DecisionTree result={result} />}
+        {result && (
+          <p className="stats-line muted">
+            {result.timing.total_ms} ms ({result.timing.level1_ms} + {result.timing.level2_ms} + {result.timing.level3_ms}) ·{" "}
+            {result.usage.input_tokens.toLocaleString()} tokens in, {result.usage.output_tokens} out{cost(result.usage.input_tokens)} · this session{" "}
+            {totals.calls} {totals.calls === 1 ? "prediction" : "predictions"}, {totals.tokens.toLocaleString()} tokens{cost(totals.tokens)} · {result.model}
+          </p>
         )}
-        <section className="controls">
+      </section>
+
+      {children}
+
+      <details className="settings">
+        <summary>Settings</summary>
+        <div className="settings-body">
           <label>
             Blocks opened at level 2
             <select value={fanout} onChange={(e) => setFanout(Number(e.target.value))}>
-              {[5, 10, 20, 30, 50].map((n) => (
+              {FANOUTS.map((n) => (
                 <option key={n} value={n}>
                   {n}
+                  {n === DEFAULT_FANOUT ? " (default)" : ""}
                 </option>
               ))}
             </select>
@@ -320,7 +224,8 @@ export default function Predictor() {
             <select value={temperature} onChange={(e) => setTemperature(Number(e.target.value))}>
               {TEMPERATURES.map((t) => (
                 <option key={t} value={t}>
-                  {t === 0 ? "0 · always the top word" : t.toFixed(1)}
+                  {t === 0 ? "0 (always the top word)" : t.toFixed(1)}
+                  {t === DEFAULT_TEMPERATURE ? " (default)" : ""}
                 </option>
               ))}
             </select>
@@ -328,14 +233,14 @@ export default function Predictor() {
           <label>
             <input type="checkbox" checked={showRaw} onChange={(e) => setShowRaw(e.target.checked)} /> Show the raw Jev calls
           </label>
-        </section>
+        </div>
         {showRaw && rawTrace && (
           <section className="raw">
             {rawTrace.trace.map((call, i) => (
               <details key={`${call.level}-${i}`} open={call.level === 1}>
                 <summary>
                   Level {call.level}
-                  {call.part ? ` (${call.part})` : ""} request → response · {call.ms} ms
+                  {call.part ? ` (${call.part})` : ""} request and response · {call.ms} ms
                 </summary>
                 <pre>{JSON.stringify(call.request, null, 1)}</pre>
                 <pre>{JSON.stringify(call.response, null, 1)}</pre>
@@ -343,7 +248,7 @@ export default function Predictor() {
             ))}
           </section>
         )}
-      </aside>
+      </details>
     </div>
   );
 }

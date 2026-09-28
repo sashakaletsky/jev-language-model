@@ -198,7 +198,7 @@ because that would be code deciding. What remains is an honest picture of the mo
 `choice()` calls in `lib/predict.ts`. Anything that answers a 255-way choice with a probability per
 option could be dropped in.
 
-**Is it really only Jev?** Tick "Show the raw Jev calls" on the site and read the requests. The tests
+**Is it really only Jev?** Open Settings at the foot of the site, tick "Show the raw Jev calls" and read the requests. The tests
 in `tests/` also pin down what code is allowed to do.
 
 ## Licence
