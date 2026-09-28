@@ -1,13 +1,13 @@
 {
 "generated": "2026-09-28",
-"method": "See scripts/build_blocks.py. Themes in taxonomy order, frequency order inside a theme (alphabetical for name-like themes), cut into 255 consecutive blocks of 255.",
+"method": "See scripts/build_blocks.py. Themes in taxonomy order, frequency order inside a theme (alphabetical for name-like themes), punctuation at the head of the core theme, cut into 255 consecutive blocks of 255.",
 "block_size": 255,
 "block_count": 255,
 "blocks": [
 {
 "id": "core-most-common",
-"title": "Function words & contractions | articles, pronouns, prepositions, conjunctions, auxiliaries, question words, it's / don't forms (most common)",
-"description": "Function words & contractions | articles, pronouns, prepositions, conjunctions, auxiliaries, question words, it's / don't forms (most common): the, to, and, of, a, in, i, is, for, that, you, it, on, with, this, was, be, as, are, have, at, he, not, by",
+"title": "Function words, contractions & punctuation | articles, pronouns, prepositions, conjunctions, auxiliaries, question words, it's / don't forms, . , ? ! (most common)",
+"description": "Function words, contractions & punctuation | articles, pronouns, prepositions, conjunctions, auxiliaries, question words, it's / don't forms, . , ? ! (most common): '.', ',', '?', '!', the, to, and, of, a, in, i, is, for, that, you, it, on, with, this, was, be, as, are, have",
 "categories": [
 {
 "id": "core",
@@ -15,6 +15,10 @@
 }
 ],
 "words": [
+".",
+",",
+"?",
+"!",
 "the",
 "to",
 "and",
@@ -265,28 +269,28 @@
 "amid",
 "how's",
 "albeit",
-"yourselves",
-"wherein",
-"that'd",
-"anyone's",
-"thereof"
+"yourselves"
 ]
 },
 {
-"id": "pos-people-aaron-s-to-bride-s",
-"title": "Possessives | people & names (aaron's to bride's)",
-"description": "Function words & contractions | articles, pronouns, prepositions, conjunctions, auxiliaries, question words, it's / don't forms (less common): whereby, whichever, who've, wasnt + Possessives | people & names (aaron's to bride's): aaron's, amanda's, antonio's, aunt's, barry's, benny's, bob's",
+"id": "pos-people-aaron-s-to-brennan-s",
+"title": "Possessives | people & names (aaron's to brennan's)",
+"description": "Function words, contractions & punctuation | articles, pronouns, prepositions, conjunctions, auxiliaries, question words, it's / don't forms, . , ? ! (less common): wherein, that'd, anyone's, thereof + Possessives | people & names (aaron's to brennan's): aaron's, allison's, anthony's, attorney's, baron's, benedict's, blake's",
 "categories": [
 {
 "id": "core",
-"count": 120
+"count": 124
 },
 {
 "id": "pos_people",
-"count": 135
+"count": 131
 }
 ],
 "words": [
+"wherein",
+"that'd",
+"anyone's",
+"thereof",
 "whereby",
 "whichever",
 "who've",
@@ -537,17 +541,13 @@
 "bradley's",
 "brady's",
 "brandon's",
-"brennan's",
-"brett's",
-"brewer's",
-"brian's",
-"bride's"
+"brennan's"
 ]
 },
 {
-"id": "pos-people-bro-s-to-fowler-s",
-"title": "Possessives | people & names (bro's to fowler's)",
-"description": "Possessives | people & names (bro's to fowler's): bro's, carol's, chloe's, cook's, daniel's, doug's, employee's",
+"id": "pos-people-brett-s-to-foley-s",
+"title": "Possessives | people & names (brett's to foley's)",
+"description": "Possessives | people & names (brett's to foley's): brett's, captain's, child's, connor's, dame's, donald's, emily's",
 "categories": [
 {
 "id": "pos_people",
@@ -555,6 +555,10 @@
 }
 ],
 "words": [
+"brett's",
+"brewer's",
+"brian's",
+"bride's",
 "bro's",
 "brock's",
 "brooke's",
@@ -805,17 +809,13 @@
 "fletcher's",
 "floyd's",
 "flynn's",
-"foley's",
-"fool's",
-"foster's",
-"founder's",
-"fowler's"
+"foley's"
 ]
 },
 {
-"id": "pos-people-franco-s-to-lord-s",
-"title": "Possessives | people & names (franco's to lord's)",
-"description": "Possessives | people & names (franco's to lord's): franco's, goat's, hardy's, hunter's, jim's, kardashian's, lang's",
+"id": "pos-people-fool-s-to-logan-s",
+"title": "Possessives | people & names (fool's to logan's)",
+"description": "Possessives | people & names (fool's to logan's): fool's, gilligan's, handel's, hugo's, jessica's, justice's, lambert's",
 "categories": [
 {
 "id": "pos_people",
@@ -823,6 +823,10 @@
 }
 ],
 "words": [
+"fool's",
+"foster's",
+"founder's",
+"fowler's",
 "franco's",
 "frank's",
 "frankenstein's",
@@ -1073,17 +1077,13 @@
 "liz's",
 "lloyd's",
 "locke's",
-"logan's",
-"lola's",
-"long's",
-"lopez's",
-"lord's"
+"logan's"
 ]
 },
 {
-"id": "pos-people-loser-s-to-ray-s",
-"title": "Possessives | people & names (loser's to ray's)",
-"description": "Possessives | people & names (loser's to ray's): loser's, margaret's, messi's, mueller's, obama's, payne's, pop's",
+"id": "pos-people-lola-s-to-randall-s",
+"title": "Possessives | people & names (lola's to randall's)",
+"description": "Possessives | people & names (lola's to randall's): lola's, mann's, mens, mother's, nurse's, patrick's, poe's",
 "categories": [
 {
 "id": "pos_people",
@@ -1091,6 +1091,10 @@
 }
 ],
 "words": [
+"lola's",
+"long's",
+"lopez's",
+"lord's",
 "loser's",
 "lou's",
 "louis's",
@@ -1341,28 +1345,28 @@
 "ramsay's",
 "ramsey's",
 "rand's",
-"randall's",
-"rapper's",
-"rat's",
-"raven's",
-"ray's"
+"randall's"
 ]
 },
 {
-"id": "pos-people-raymond-s-to-zoe-s",
-"title": "Possessives | people & names (raymond's to zoe's)",
-"description": "Possessives | people & names (raymond's to zoe's): raymond's, romney's, schmidt's, somebody's, suspect's, trump's, weaver's + Possessives | places, organisations & things (a's to air's): a's, abc's, account's, adelaide's",
+"id": "pos-people-rapper-s-to-zoe-s",
+"title": "Possessives | people & names (rapper's to zoe's)",
+"description": "Possessives | people & names (rapper's to zoe's): rapper's, rocky's, satan's, snyder's, susan's, trudeau's, wearer's + a few Possessives | places, organisations & things words",
 "categories": [
 {
 "id": "pos_people",
-"count": 243
+"count": 247
 },
 {
 "id": "pos_things",
-"count": 12
+"count": 8
 }
 ],
 "words": [
+"rapper's",
+"rat's",
+"raven's",
+"ray's",
 "raymond's",
 "reader's",
 "reagan's",
@@ -1613,17 +1617,13 @@
 "act's",
 "adelaide's",
 "administration's",
-"afghanistan's",
-"africa's",
-"afternoon's",
-"agency's",
-"air's"
+"afghanistan's"
 ]
 },
 {
-"id": "pos-things-aircraft-s-to-georgia-s",
-"title": "Possessives | places, organisations & things (aircraft's to georgia's)",
-"description": "Possessives | places, organisations & things (aircraft's to georgia's): aircraft's, azerbaijan's, brand's, channel's, corporation's, dublin's, february's",
+"id": "pos-things-africa-s-to-gang-s",
+"title": "Possessives | places, organisations & things (africa's to gang's)",
+"description": "Possessives | places, organisations & things (africa's to gang's): africa's, audience's, book's, centre's, congress's, dm's, fbi's",
 "categories": [
 {
 "id": "pos_things",
@@ -1631,6 +1631,10 @@
 }
 ],
 "words": [
+"africa's",
+"afternoon's",
+"agency's",
+"air's",
 "aircraft's",
 "airline's",
 "airport's",
@@ -1881,17 +1885,13 @@
 "galaxy's",
 "gallery's",
 "game's",
-"gang's",
-"garden's",
-"generation's",
-"genre's",
-"georgia's"
+"gang's"
 ]
 },
 {
-"id": "pos-things-germany-s-to-power-s",
-"title": "Possessives | places, organisations & things (germany's to power's)",
-"description": "Possessives | places, organisations & things (germany's to power's): germany's, hospital's, jerusalem's, liverpool's, mirror's, neighborhood's, orlando's",
+"id": "pos-things-garden-s-to-population-s",
+"title": "Possessives | places, organisations & things (garden's to population's)",
+"description": "Possessives | places, organisations & things (garden's to population's): garden's, history's, jamaica's, life's, mind's, nba's, order's",
 "categories": [
 {
 "id": "pos_things",
@@ -1899,6 +1899,10 @@
 }
 ],
 "words": [
+"garden's",
+"generation's",
+"genre's",
+"georgia's",
 "germany's",
 "ghana's",
 "glasgow's",
@@ -2149,28 +2153,28 @@
 "point's",
 "poland's",
 "police's",
-"population's",
-"portland's",
-"portugal's",
-"post's",
-"power's"
+"population's"
 ]
 },
 {
-"id": "pos-things-prison-s-to-zoo-s",
-"title": "Possessives | places, organisations & things (prison's to zoo's)",
-"description": "Possessives | places, organisations & things (prison's to zoo's): prison's, right's, shop's, story's, thing's, ukip's, wales's + Interjections, greetings, responses & discourse fillers (most common): well, right, please, mean",
+"id": "pos-things-portland-s-to-zoo-s",
+"title": "Possessives | places, organisations & things (portland's to zoo's)",
+"description": "Possessives | places, organisations & things (portland's to zoo's): portland's, resort's, service's, store's, theater's, uk's, wales's + Interjections, greetings, responses & discourse fillers (most common): well, right, please, mean",
 "categories": [
 {
 "id": "pos_things",
-"count": 204
+"count": 208
 },
 {
 "id": "inf_interjections",
-"count": 51
+"count": 47
 }
 ],
 "words": [
+"portland's",
+"portugal's",
+"post's",
+"power's",
 "prison's",
 "product's",
 "program's",
@@ -2421,28 +2425,28 @@
 "congrats",
 "amen",
 "boo",
-"yay",
-"gosh",
-"aye",
-"farewell",
-"blah"
+"yay"
 ]
 },
 {
 "id": "inf-interjections-less-common",
 "title": "Interjections, greetings, responses & discourse fillers (less common)",
-"description": "Interjections, greetings, responses & discourse fillers (less common): woo, bravo, c'mon, oops, oi, alas, dang + Internet slang, texting abbreviations & spellings (most common): gonna, u, lol, wanna",
+"description": "Interjections, greetings, responses & discourse fillers (less common): gosh, aye, farewell, blah, woo, bravo, c'mon + Internet slang, texting abbreviations & spellings (most common): gonna, u, lol, wanna",
 "categories": [
 {
 "id": "inf_interjections",
-"count": 147
+"count": 151
 },
 {
 "id": "inf_internet",
-"count": 108
+"count": 104
 }
 ],
 "words": [
+"gosh",
+"aye",
+"farewell",
+"blah",
 "woo",
 "bravo",
 "c'mon",
@@ -2693,17 +2697,13 @@
 "boi",
 "vid",
 "rl",
-"wb",
-"yer",
-"bois",
-"lmfao",
-"dk"
+"wb"
 ]
 },
 {
 "id": "inf-internet-common",
 "title": "Internet slang, texting abbreviations & spellings (common)",
-"description": "Internet slang, texting abbreviations & spellings (common): gon, ik, thinkin, wp, anon, nxt, yeh",
+"description": "Internet slang, texting abbreviations & spellings (common): yer, bois, lmfao, dk, gon, ik, thinkin",
 "categories": [
 {
 "id": "inf_internet",
@@ -2711,6 +2711,10 @@
 }
 ],
 "words": [
+"yer",
+"bois",
+"lmfao",
+"dk",
 "gon",
 "ik",
 "thinkin",
@@ -2961,28 +2965,28 @@
 "srsly",
 "stg",
 "wayyyy",
-"bangin",
-"dreamin",
-"dyin",
-"facepalm",
-"oic"
+"bangin"
 ]
 },
 {
 "id": "inf-slang-most-common",
 "title": "Casual slang words (most common)",
-"description": "Internet slang, texting abbreviations & spellings (rare): owo, bffs, flyin, wearin + Casual slang words (most common): guys, cool, dude, mate, yo, suck, bro",
+"description": "Internet slang, texting abbreviations & spellings (rare): dreamin, dyin, facepalm, oic + Casual slang words (most common): guys, cool, dude, mate, yo, suck, bro",
 "categories": [
 {
 "id": "inf_internet",
-"count": 119
+"count": 123
 },
 {
 "id": "inf_slang",
-"count": 136
+"count": 132
 }
 ],
 "words": [
+"dreamin",
+"dyin",
+"facepalm",
+"oic",
 "owo",
 "bffs",
 "flyin",
@@ -3233,17 +3237,13 @@
 "downer",
 "bod",
 "kip",
-"banger",
-"hottie",
-"bobo",
-"cray",
-"gangsta"
+"banger"
 ]
 },
 {
 "id": "inf-slang-common",
 "title": "Casual slang words (common)",
-"description": "Casual slang words (common): kush, brah, looney, boobies, dud, goof, hoot",
+"description": "Casual slang words (common): hottie, bobo, cray, gangsta, kush, brah, looney",
 "categories": [
 {
 "id": "inf_slang",
@@ -3251,6 +3251,10 @@
 }
 ],
 "words": [
+"hottie",
+"bobo",
+"cray",
+"gangsta",
 "kush",
 "brah",
 "looney",
@@ -3501,28 +3505,28 @@
 "normie",
 "cholo",
 "dearie",
-"moolah",
-"rando",
-"softie",
-"weeb",
-"dookie"
+"moolah"
 ]
 },
 {
 "id": "inf-swear-most-common",
 "title": "Swear words, insults & crude slang (most common)",
-"description": "Casual slang words (rare): journo, kooks, nutters, punky + Swear words, insults & crude slang (most common): shit, fuck, fucking, hell, damn, ass, bitch",
+"description": "Casual slang words (rare): rando, softie, weeb, dookie + Swear words, insults & crude slang (most common): shit, fuck, fucking, hell, damn, ass, bitch",
 "categories": [
 {
 "id": "inf_slang",
-"count": 23
+"count": 27
 },
 {
 "id": "inf_swear",
-"count": 232
+"count": 228
 }
 ],
 "words": [
+"rando",
+"softie",
+"weeb",
+"dookie",
 "journo",
 "kooks",
 "nutters",
@@ -3773,28 +3777,28 @@
 "gangbang",
 "smartass",
 "buggers",
-"dirtbag",
-"harlot",
-"motherfuckin",
-"prat",
-"wanking"
+"dirtbag"
 ]
 },
 {
 "id": "inf-sounds-most-common",
 "title": "Sounds, laughter & onomatopoeia (most common)",
-"description": "Swear words, insults & crude slang (less common): whoring, batshit, dumbasses, mook + Sounds, laughter & onomatopoeia (most common): mm, ha, haha, boom, bang, ugh, hmm",
+"description": "Swear words, insults & crude slang (less common): harlot, motherfuckin, prat, wanking + Sounds, laughter & onomatopoeia (most common): mm, ha, haha, boom, bang, ugh, hmm",
 "categories": [
 {
 "id": "inf_swear",
-"count": 93
+"count": 97
 },
 {
 "id": "inf_sounds",
-"count": 162
+"count": 158
 }
 ],
 "words": [
+"harlot",
+"motherfuckin",
+"prat",
+"wanking",
 "whoring",
 "batshit",
 "dumbasses",
@@ -4045,28 +4049,28 @@
 "hmmmmm",
 "moos",
 "squawk",
-"peal",
-"ahahaha",
-"eep",
-"hahahahahaha",
-"blam"
+"peal"
 ]
 },
 {
 "id": "misc-letters-most-common",
 "title": "Single letters, letter strings & non-word tokens (most common)",
-"description": "a few Sounds, laughter & onomatopoeia words + Single letters, letter strings & non-word tokens (most common): s, d, t, m, b, r, c",
+"description": "Sounds, laughter & onomatopoeia (less common): ahahaha, eep, hahahahahaha, blam + Single letters, letter strings & non-word tokens (most common): s, d, t, m, b, r, c",
 "categories": [
 {
 "id": "inf_sounds",
-"count": 9
+"count": 13
 },
 {
 "id": "misc_letters",
-"count": 246
+"count": 242
 }
 ],
 "words": [
+"ahahaha",
+"eep",
+"hahahahahaha",
+"blam",
 "clanging",
 "meows",
 "unh",
@@ -4317,28 +4321,28 @@
 "bgs",
 "ccl",
 "isr",
-"l's",
-"lsc",
-"mmp",
-"npl",
-"nrs"
+"l's"
 ]
 },
 {
 "id": "misc-foreign-most-common",
 "title": "Foreign-language words (most common)",
-"description": "Single letters, letter strings & non-word tokens (less common): ppa, rcc, taf, tbe + Foreign-language words (most common): de, al, la, y, et, el, da",
+"description": "Single letters, letter strings & non-word tokens (less common): lsc, mmp, npl, nrs + Foreign-language words (most common): de, al, la, y, et, el, da",
 "categories": [
 {
 "id": "misc_letters",
-"count": 53
+"count": 57
 },
 {
 "id": "misc_foreign",
-"count": 202
+"count": 198
 }
 ],
 "words": [
+"lsc",
+"mmp",
+"npl",
+"nrs",
 "ppa",
 "rcc",
 "taf",
@@ -4589,17 +4593,13 @@
 "banda",
 "lui",
 "mes",
-"beit",
-"croix",
-"dao",
-"deutsch",
-"jour"
+"beit"
 ]
 },
 {
 "id": "misc-foreign-common",
 "title": "Foreign-language words (common)",
-"description": "Foreign-language words (common): laude, nous, ola, oppa, arte, ley, mademoiselle",
+"description": "Foreign-language words (common): croix, dao, deutsch, jour, laude, nous, ola",
 "categories": [
 {
 "id": "misc_foreign",
@@ -4607,6 +4607,10 @@
 }
 ],
 "words": [
+"croix",
+"dao",
+"deutsch",
+"jour",
 "laude",
 "nous",
 "ola",
@@ -4857,17 +4861,13 @@
 "materia",
 "moda",
 "nui",
-"tutti",
-"vou",
-"clos",
-"dela",
-"machina"
+"tutti"
 ]
 },
 {
 "id": "misc-foreign-less-common-3-of-5",
 "title": "Foreign-language words (less common (3 of 5))",
-"description": "Foreign-language words (less common (3 of 5)): meister, oui, phu, rata, sais, absentia, australis",
+"description": "Foreign-language words (less common (3 of 5)): vou, clos, dela, machina, meister, oui, phu",
 "categories": [
 {
 "id": "misc_foreign",
@@ -4875,6 +4875,10 @@
 }
 ],
 "words": [
+"vou",
+"clos",
+"dela",
+"machina",
 "meister",
 "oui",
 "phu",
@@ -5125,17 +5129,13 @@
 "suo",
 "tehreek",
 "afrique",
-"archiv",
-"bapu",
-"basta",
-"canadensis",
-"corazon"
+"archiv"
 ]
 },
 {
 "id": "misc-foreign-less-common-4-of-5",
 "title": "Foreign-language words (less common (4 of 5))",
-"description": "Foreign-language words (less common (4 of 5)): grata, locos, machen, natale, noche, novus, nuit",
+"description": "Foreign-language words (less common (4 of 5)): bapu, basta, canadensis, corazon, grata, locos, machen",
 "categories": [
 {
 "id": "misc_foreign",
@@ -5143,6 +5143,10 @@
 }
 ],
 "words": [
+"bapu",
+"basta",
+"canadensis",
+"corazon",
 "grata",
 "locos",
 "machen",
@@ -5393,28 +5397,28 @@
 "ancien",
 "anse",
 "buono",
-"caffe",
-"danse",
-"deum",
-"donde",
-"esto"
+"caffe"
 ]
 },
 {
 "id": "misc-abbrev-most-common",
 "title": "Abbreviations, acronyms & titles (most common)",
-"description": "Foreign-language words (rarest): etre, gorda, inshallah, lage + Abbreviations, acronyms & titles (most common): mr, dr, re, co, st, etc, mrs",
+"description": "Foreign-language words (rarest): danse, deum, donde, esto + Abbreviations, acronyms & titles (most common): mr, dr, re, co, st, etc, mrs",
 "categories": [
 {
 "id": "misc_foreign",
-"count": 29
+"count": 33
 },
 {
 "id": "misc_abbrev",
-"count": 226
+"count": 222
 }
 ],
 "words": [
+"danse",
+"deum",
+"donde",
+"esto",
 "etre",
 "gorda",
 "inshallah",
@@ -5665,17 +5669,13 @@
 "od",
 "conn",
 "det",
-"hms",
-"ht",
-"avg",
-"comm",
-"dh"
+"hms"
 ]
 },
 {
 "id": "misc-abbrev-common",
 "title": "Abbreviations, acronyms & titles (common)",
-"description": "Abbreviations, acronyms & titles (common): div, eta, nb, bm, cms, ems, ids",
+"description": "Abbreviations, acronyms & titles (common): ht, avg, comm, dh, div, eta, nb",
 "categories": [
 {
 "id": "misc_abbrev",
@@ -5683,6 +5683,10 @@
 }
 ],
 "words": [
+"ht",
+"avg",
+"comm",
+"dh",
 "div",
 "eta",
 "nb",
@@ -5933,17 +5937,13 @@
 "obe",
 "ota",
 "ssi",
-"stl",
-"thr",
-"bpm",
-"dac",
-"ipc"
+"stl"
 ]
 },
 {
 "id": "misc-abbrev-less-common-3-of-8",
 "title": "Abbreviations, acronyms & titles (less common (3 of 8))",
-"description": "Abbreviations, acronyms & titles (less common (3 of 8)): jama, mcg, mme, ncr, ord, pte, rfc",
+"description": "Abbreviations, acronyms & titles (less common (3 of 8)): thr, bpm, dac, ipc, jama, mcg, mme",
 "categories": [
 {
 "id": "misc_abbrev",
@@ -5951,6 +5951,10 @@
 }
 ],
 "words": [
+"thr",
+"bpm",
+"dac",
+"ipc",
 "jama",
 "mcg",
 "mme",
@@ -6201,17 +6205,13 @@
 "mbs",
 "nar",
 "px",
-"rds",
-"rpi",
-"shs",
-"srt",
-"stm"
+"rds"
 ]
 },
 {
 "id": "misc-abbrev-less-common-4-of-8",
 "title": "Abbreviations, acronyms & titles (less common (4 of 8))",
-"description": "Abbreviations, acronyms & titles (less common (4 of 8)): sys, tca, tig, ucc, yg, abo, csc",
+"description": "Abbreviations, acronyms & titles (less common (4 of 8)): rpi, shs, srt, stm, sys, tca, tig",
 "categories": [
 {
 "id": "misc_abbrev",
@@ -6219,6 +6219,10 @@
 }
 ],
 "words": [
+"rpi",
+"shs",
+"srt",
+"stm",
 "sys",
 "tca",
 "tig",
@@ -6469,17 +6473,13 @@
 "ots",
 "spm",
 "ssb",
-"tft",
-"vit",
-"brt",
-"cmp",
-"digi"
+"tft"
 ]
 },
 {
 "id": "misc-abbrev-less-common-5-of-8",
 "title": "Abbreviations, acronyms & titles (less common (5 of 8))",
-"description": "Abbreviations, acronyms & titles (less common (5 of 8)): dlr, edn, efi, fms, fos, gcs, ghg",
+"description": "Abbreviations, acronyms & titles (less common (5 of 8)): vit, brt, cmp, digi, dlr, edn, efi",
 "categories": [
 {
 "id": "misc_abbrev",
@@ -6487,6 +6487,10 @@
 }
 ],
 "words": [
+"vit",
+"brt",
+"cmp",
+"digi",
 "dlr",
 "edn",
 "efi",
@@ -6737,17 +6741,13 @@
 "ert",
 "gsc",
 "hss",
-"iap",
-"idps",
-"illus",
-"imd",
-"lcc"
+"iap"
 ]
 },
 {
 "id": "misc-abbrev-less-common-6-of-8",
 "title": "Abbreviations, acronyms & titles (less common (6 of 8))",
-"description": "Abbreviations, acronyms & titles (less common (6 of 8)): nha, ntc, pld, rct, rns, tdm, tid",
+"description": "Abbreviations, acronyms & titles (less common (6 of 8)): idps, illus, imd, lcc, nha, ntc, pld",
 "categories": [
 {
 "id": "misc_abbrev",
@@ -6755,6 +6755,10 @@
 }
 ],
 "words": [
+"idps",
+"illus",
+"imd",
+"lcc",
 "nha",
 "ntc",
 "pld",
@@ -7005,17 +7009,13 @@
 "pua",
 "rpt",
 "rwd",
-"seg",
-"smm",
-"ssw",
-"swt",
-"tmt"
+"seg"
 ]
 },
 {
 "id": "misc-abbrev-less-common-7-of-8",
 "title": "Abbreviations, acronyms & titles (less common (7 of 8))",
-"description": "Abbreviations, acronyms & titles (less common (7 of 8)): tsi, tsr, aaf, acf, alk, aod, asg",
+"description": "Abbreviations, acronyms & titles (less common (7 of 8)): smm, ssw, swt, tmt, tsi, tsr, aaf",
 "categories": [
 {
 "id": "misc_abbrev",
@@ -7023,6 +7023,10 @@
 }
 ],
 "words": [
+"smm",
+"ssw",
+"swt",
+"tmt",
 "tsi",
 "tsr",
 "aaf",
@@ -7273,28 +7277,28 @@
 "cfe",
 "cfu",
 "coi",
-"datuk",
-"dbm",
-"dcm",
-"dtv",
-"eam"
+"datuk"
 ]
 },
 {
 "id": "num-numbers-most-common",
 "title": "Numbers, ordinals & math words (most common)",
-"description": "Abbreviations, acronyms & titles (rarest): egfr, gbm, gls, gsr + Numbers, ordinals & math words (most common): one, first, two, three, second, four, five",
+"description": "Abbreviations, acronyms & titles (rarest): dbm, dcm, dtv, eam + Numbers, ordinals & math words (most common): one, first, two, three, second, four, five",
 "categories": [
 {
 "id": "misc_abbrev",
-"count": 116
+"count": 120
 },
 {
 "id": "num_numbers",
-"count": 139
+"count": 135
 }
 ],
 "words": [
+"dbm",
+"dcm",
+"dtv",
+"eam",
 "egfr",
 "gbm",
 "gls",
@@ -7545,28 +7549,28 @@
 "lacs",
 "ordinal",
 "xxii",
-"fiftieth",
-"zillion",
-"thousandth",
-"decimals",
-"factorial"
+"fiftieth"
 ]
 },
 {
 "id": "num-quantity-most-common",
 "title": "Quantity, amount & measurement (most common)",
-"description": "Numbers, ordinals & math words (less common): logarithm, ternary, nought, xxiv + Quantity, amount & measurement (most common): number, lot, enough, level, bit, total, couple",
+"description": "Numbers, ordinals & math words (less common): zillion, thousandth, decimals, factorial + Quantity, amount & measurement (most common): number, lot, enough, level, bit, total, couple",
 "categories": [
 {
 "id": "num_numbers",
-"count": 21
+"count": 25
 },
 {
 "id": "num_quantity",
-"count": 234
+"count": 230
 }
 ],
 "words": [
+"zillion",
+"thousandth",
+"decimals",
+"factorial",
 "logarithm",
 "ternary",
 "nought",
@@ -7817,28 +7821,28 @@
 "furlong",
 "kilowatt",
 "bushel",
-"spate",
-"uptick",
-"megawatts",
-"millimetres",
-"yardage"
+"spate"
 ]
 },
 {
 "id": "time-calendar-most-common",
 "title": "Time, dates & the calendar (most common)",
-"description": "Quantity, amount & measurement (less common): tallies, kcal, heft, microns + Time, dates & the calendar (most common): time, year, years, day, days, night, times",
+"description": "Quantity, amount & measurement (less common): uptick, megawatts, millimetres, yardage + Time, dates & the calendar (most common): time, year, years, day, days, night, times",
 "categories": [
 {
 "id": "num_quantity",
-"count": 78
+"count": 82
 },
 {
 "id": "time_calendar",
-"count": 177
+"count": 173
 }
 ],
 "words": [
+"uptick",
+"megawatts",
+"millimetres",
+"yardage",
 "tallies",
 "kcal",
 "heft",
@@ -8089,21 +8093,17 @@
 "tues",
 "thurs",
 "timescale",
-"durations",
-"yule",
-"eon",
-"eons",
-"aeon"
+"durations"
 ]
 },
 {
 "id": "adv-time-all",
 "title": "Adverbs | time & frequency",
-"description": "Time, dates & the calendar (less common): ides, jiffy, pasts, yore + Adverbs | time & frequency: now, then, still, never, always, again, ever + Adverbs | degree & intensity (most common): just, only, very, even",
+"description": "Time, dates & the calendar (less common): yule, eon, eons, aeon + Adverbs | time & frequency: now, then, still, never, always, again, ever + Adverbs | degree & intensity (most common): just, only, very, even",
 "categories": [
 {
 "id": "time_calendar",
-"count": 30
+"count": 34
 },
 {
 "id": "adv_time",
@@ -8111,10 +8111,14 @@
 },
 {
 "id": "adv_degree",
-"count": 105
+"count": 101
 }
 ],
 "words": [
+"yule",
+"eon",
+"eons",
+"aeon",
 "ides",
 "jiffy",
 "pasts",
@@ -8365,28 +8369,28 @@
 "extraordinarily",
 "unbelievably",
 "awfully",
-"tremendously",
-"enormously",
-"downright",
-"decidedly",
-"materially"
+"tremendously"
 ]
 },
 {
 "id": "adv-manner-most-common",
 "title": "Adverbs | manner (most common)",
-"description": "Adverbs | degree & intensity (less common): noticeably, exceedingly, excessively, borderline + Adverbs | manner (most common): together, alone, simply, straight, quickly, easily, directly",
+"description": "Adverbs | degree & intensity (less common): enormously, downright, decidedly, materially + Adverbs | manner (most common): together, alone, simply, straight, quickly, easily, directly",
 "categories": [
 {
 "id": "adv_degree",
-"count": 73
+"count": 77
 },
 {
 "id": "adv_manner",
-"count": 182
+"count": 178
 }
 ],
 "words": [
+"enormously",
+"downright",
+"decidedly",
+"materially",
 "noticeably",
 "exceedingly",
 "excessively",
@@ -8637,17 +8641,13 @@
 "fatally",
 "passionately",
 "blindly",
-"cautiously",
-"selectively",
-"hastily",
-"horizontally",
-"subtly"
+"cautiously"
 ]
 },
 {
 "id": "adv-manner-common",
 "title": "Adverbs | manner (common)",
-"description": "Adverbs | manner (common): bitterly, generously, spiritually, boldly, cheaply, defensively, electronically",
+"description": "Adverbs | manner (common): selectively, hastily, horizontally, subtly, bitterly, generously, spiritually",
 "categories": [
 {
 "id": "adv_manner",
@@ -8655,6 +8655,10 @@
 }
 ],
 "words": [
+"selectively",
+"hastily",
+"horizontally",
+"subtly",
 "bitterly",
 "generously",
 "spiritually",
@@ -8905,17 +8909,13 @@
 "honorably",
 "hurriedly",
 "afresh",
-"constructively",
-"fervently",
-"gleefully",
-"optimally",
-"optionally"
+"constructively"
 ]
 },
 {
 "id": "adv-manner-less-common-3-of-4",
 "title": "Adverbs | manner (less common (3 of 4))",
-"description": "Adverbs | manner (less common (3 of 4)): philosophically, tenderly, amok, comically, irrevocably, magnificently, methodically",
+"description": "Adverbs | manner (less common (3 of 4)): fervently, gleefully, optimally, optionally, philosophically, tenderly, amok",
 "categories": [
 {
 "id": "adv_manner",
@@ -8923,6 +8923,10 @@
 }
 ],
 "words": [
+"fervently",
+"gleefully",
+"optimally",
+"optionally",
 "philosophically",
 "tenderly",
 "amok",
@@ -9173,21 +9177,17 @@
 "theatrically",
 "breathlessly",
 "catastrophically",
-"exhaustively",
-"inconsistently",
-"institutionally",
-"judiciously",
-"shyly"
+"exhaustively"
 ]
 },
 {
 "id": "adv-place-all",
 "title": "Adverbs | place & direction",
-"description": "Adverbs | manner (rarest): adorably, anally, civilly, memorably + Adverbs | place & direction: up, out, there, back, here, off, down + Adverbs | stance, certainty & linking (most common): also, however, maybe, probably",
+"description": "Adverbs | manner (rarest): inconsistently, institutionally, judiciously, shyly + Adverbs | place & direction: up, out, there, back, here, off, down + Adverbs | stance, certainty & linking (most common): also, however, maybe, probably",
 "categories": [
 {
 "id": "adv_manner",
-"count": 89
+"count": 93
 },
 {
 "id": "adv_place",
@@ -9195,10 +9195,14 @@
 },
 {
 "id": "adv_stance",
-"count": 26
+"count": 22
 }
 ],
 "words": [
+"inconsistently",
+"institutionally",
+"judiciously",
+"shyly",
 "adorably",
 "anally",
 "civilly",
@@ -9449,28 +9453,28 @@
 "indeed",
 "possibly",
 "specifically",
-"besides",
-"typically",
-"unfortunately",
-"personally",
-"ultimately"
+"besides"
 ]
 },
 {
 "id": "adv-stance-less-common",
 "title": "Adverbs | stance, certainty & linking (less common)",
-"description": "Adverbs | stance, certainty & linking (less common): hopefully, surely, officially, necessarily, primarily, regardless, respectively + Adjectives | positive evaluation (most common): good, great, best, better",
+"description": "Adverbs | stance, certainty & linking (less common): typically, unfortunately, personally, ultimately, hopefully, surely, officially + Adjectives | positive evaluation (most common): good, great, best, better",
 "categories": [
 {
 "id": "adv_stance",
-"count": 137
+"count": 141
 },
 {
 "id": "adj_positive",
-"count": 118
+"count": 114
 }
 ],
 "words": [
+"typically",
+"unfortunately",
+"personally",
+"ultimately",
 "hopefully",
 "surely",
 "officially",
@@ -9721,28 +9725,28 @@
 "deluxe",
 "respectable",
 "richer",
-"acclaimed",
-"richest",
-"stylish",
-"intriguing",
-"chic"
+"acclaimed"
 ]
 },
 {
 "id": "adj-positive-less-common",
 "title": "Adjectives | positive evaluation (less common)",
-"description": "Adjectives | positive evaluation (less common): astonishing, honourable, scenic, vibrant, versatile, fashionable, nicer + Adjectives | negative evaluation (most common): bad, wrong, poor, stupid",
+"description": "Adjectives | positive evaluation (less common): richest, stylish, intriguing, chic, astonishing, honourable, scenic + a few Adjectives | negative evaluation words",
 "categories": [
 {
 "id": "adj_positive",
-"count": 243
+"count": 247
 },
 {
 "id": "adj_negative",
-"count": 12
+"count": 8
 }
 ],
 "words": [
+"richest",
+"stylish",
+"intriguing",
+"chic",
 "astonishing",
 "honourable",
 "scenic",
@@ -9993,17 +9997,13 @@
 "worst",
 "worse",
 "weird",
-"negative",
-"evil",
-"terrible",
-"fake",
-"dumb"
+"negative"
 ]
 },
 {
 "id": "adj-negative-common",
 "title": "Adjectives | negative evaluation (common)",
-"description": "Adjectives | negative evaluation (common): awful, offensive, ridiculous, gross, horrible, boring, racist",
+"description": "Adjectives | negative evaluation (common): evil, terrible, fake, dumb, awful, offensive, ridiculous",
 "categories": [
 {
 "id": "adj_negative",
@@ -10011,6 +10011,10 @@
 }
 ],
 "words": [
+"evil",
+"terrible",
+"fake",
+"dumb",
 "awful",
 "offensive",
 "ridiculous",
@@ -10261,17 +10265,13 @@
 "overpriced",
 "stinky",
 "unspeakable",
-"brazen",
-"condescending",
-"derelict",
-"egregious",
-"flimsy"
+"brazen"
 ]
 },
 {
 "id": "adj-negative-less-common-3-of-4",
 "title": "Adjectives | negative evaluation (less common (3 of 4))",
-"description": "Adjectives | negative evaluation (less common (3 of 4)): pesky, unproductive, baseless, illogical, incoherent, unwise, ailing",
+"description": "Adjectives | negative evaluation (less common (3 of 4)): condescending, derelict, egregious, flimsy, pesky, unproductive, baseless",
 "categories": [
 {
 "id": "adj_negative",
@@ -10279,6 +10279,10 @@
 }
 ],
 "words": [
+"condescending",
+"derelict",
+"egregious",
+"flimsy",
 "pesky",
 "unproductive",
 "baseless",
@@ -10529,28 +10533,28 @@
 "despotic",
 "foolhardy",
 "gutless",
-"haywire",
-"moribund",
-"torturous",
-"touristy",
-"unsatisfying"
+"haywire"
 ]
 },
 {
 "id": "adj-emotion-most-common",
 "title": "Adjectives | emotions, mood & personality (most common)",
-"description": "Adjectives | negative evaluation (rarest): unsophisticated, vitriolic, addled, alarmist + Adjectives | emotions, mood & personality (most common): happy, crazy, interested, glad, sad, aware, proud",
+"description": "Adjectives | negative evaluation (rarest): moribund, torturous, touristy, unsatisfying + Adjectives | emotions, mood & personality (most common): happy, crazy, interested, glad, sad, aware, proud",
 "categories": [
 {
 "id": "adj_negative",
-"count": 122
+"count": 126
 },
 {
 "id": "adj_emotion",
-"count": 133
+"count": 129
 }
 ],
 "words": [
+"moribund",
+"torturous",
+"touristy",
+"unsatisfying",
 "unsophisticated",
 "vitriolic",
 "addled",
@@ -10801,17 +10805,13 @@
 "unsure",
 "arrogant",
 "frightened",
-"vain",
-"childish",
-"paranoid",
-"devastated",
-"insecure"
+"vain"
 ]
 },
 {
 "id": "adj-emotion-common",
 "title": "Adjectives | emotions, mood & personality (common)",
-"description": "Adjectives | emotions, mood & personality (common): energetic, respectful, spontaneous, daring, moody, unwilling, helpless",
+"description": "Adjectives | emotions, mood & personality (common): childish, paranoid, devastated, insecure, energetic, respectful, spontaneous",
 "categories": [
 {
 "id": "adj_emotion",
@@ -10819,6 +10819,10 @@
 }
 ],
 "words": [
+"childish",
+"paranoid",
+"devastated",
+"insecure",
 "energetic",
 "respectful",
 "spontaneous",
@@ -11069,17 +11073,13 @@
 "fussy",
 "insatiable",
 "intrepid",
-"mannered",
-"merciless",
-"tenacious",
-"tireless",
-"apprehensive"
+"mannered"
 ]
 },
 {
 "id": "adj-emotion-less-common-3-of-4",
 "title": "Adjectives | emotions, mood & personality (less common (3 of 4))",
-"description": "Adjectives | emotions, mood & personality (less common (3 of 4)): confrontational, flirty, natured, petrified, stingy, antagonistic, fanatical",
+"description": "Adjectives | emotions, mood & personality (less common (3 of 4)): merciless, tenacious, tireless, apprehensive, confrontational, flirty, natured",
 "categories": [
 {
 "id": "adj_emotion",
@@ -11087,6 +11087,10 @@
 }
 ],
 "words": [
+"merciless",
+"tenacious",
+"tireless",
+"apprehensive",
 "confrontational",
 "flirty",
 "natured",
@@ -11337,28 +11341,28 @@
 "sincerest",
 "awed",
 "demonstrative",
-"despairing",
-"dutiful",
-"jubilant",
-"keener",
-"panicky"
+"despairing"
 ]
 },
 {
 "id": "adj-emotion-rarest",
 "title": "Adjectives | emotions, mood & personality (rarest)",
-"description": "Adjectives | emotions, mood & personality (rarest): pensive, skittish, squeamish, brainy, demoralized, entranced, gentlemanly + Adjectives | size, shape & physical properties (most common): long, high, little, big",
+"description": "Adjectives | emotions, mood & personality (rarest): dutiful, jubilant, keener, panicky, pensive, skittish, squeamish + Adjectives | size, shape & physical properties (most common): long, high, little, big",
 "categories": [
 {
 "id": "adj_emotion",
-"count": 196
+"count": 200
 },
 {
 "id": "adj_physical",
-"count": 59
+"count": 55
 }
 ],
 "words": [
+"dutiful",
+"jubilant",
+"keener",
+"panicky",
 "pensive",
 "skittish",
 "squeamish",
@@ -11609,17 +11613,13 @@
 "wet",
 "broad",
 "loud",
-"raw",
-"blind",
-"tall",
-"inner",
-"rough"
+"raw"
 ]
 },
 {
 "id": "adj-physical-common",
 "title": "Adjectives | size, shape & physical properties (common)",
-"description": "Adjectives | size, shape & physical properties (common): sharp, thin, loose, thick, silent, mini, naked",
+"description": "Adjectives | size, shape & physical properties (common): blind, tall, inner, rough, sharp, thin, loose",
 "categories": [
 {
 "id": "adj_physical",
@@ -11627,6 +11627,10 @@
 }
 ],
 "words": [
+"blind",
+"tall",
+"inner",
+"rough",
 "sharp",
 "thin",
 "loose",
@@ -11877,17 +11881,13 @@
 "barbed",
 "transverse",
 "convex",
-"fruity",
-"silky",
-"sunken",
-"bony",
-"floppy"
+"fruity"
 ]
 },
 {
 "id": "adj-physical-less-common-3-of-5",
 "title": "Adjectives | size, shape & physical properties (less common (3 of 5))",
-"description": "Adjectives | size, shape & physical properties (less common (3 of 5)): inflatable, sharper, towering, widest, arched, crystalline, grassy",
+"description": "Adjectives | size, shape & physical properties (less common (3 of 5)): silky, sunken, bony, floppy, inflatable, sharper, towering",
 "categories": [
 {
 "id": "adj_physical",
@@ -11895,6 +11895,10 @@
 }
 ],
 "words": [
+"silky",
+"sunken",
+"bony",
+"floppy",
 "inflatable",
 "sharper",
 "towering",
@@ -12145,17 +12149,13 @@
 "grubby",
 "immovable",
 "lipped",
-"pronged",
-"stoney",
-"telescopic",
-"conjoined",
-"dirtiest"
+"pronged"
 ]
 },
 {
 "id": "adj-physical-less-common-4-of-5",
 "title": "Adjectives | size, shape & physical properties (less common (4 of 5))",
-"description": "Adjectives | size, shape & physical properties (less common (4 of 5)): driest, powdery, southernmost, thunderous, wettest, fringed, grimy",
+"description": "Adjectives | size, shape & physical properties (less common (4 of 5)): stoney, telescopic, conjoined, dirtiest, driest, powdery, southernmost",
 "categories": [
 {
 "id": "adj_physical",
@@ -12163,6 +12163,10 @@
 }
 ],
 "words": [
+"stoney",
+"telescopic",
+"conjoined",
+"dirtiest",
 "driest",
 "powdery",
 "southernmost",
@@ -12413,28 +12417,28 @@
 "recumbent",
 "slicker",
 "springy",
-"streaky",
-"windowless",
-"equidistant",
-"formless",
-"limber"
+"streaky"
 ]
 },
 {
 "id": "adj-color-most-common",
 "title": "Adjectives | colour & appearance (most common)",
-"description": "Adjectives | size, shape & physical properties (rarest): topmost, gossamer, remotest, sodden + Adjectives | colour & appearance (most common): white, black, red, blue, green, dark, brown",
+"description": "Adjectives | size, shape & physical properties (rarest): windowless, equidistant, formless, limber + Adjectives | colour & appearance (most common): white, black, red, blue, green, dark, brown",
 "categories": [
 {
 "id": "adj_physical",
-"count": 106
+"count": 110
 },
 {
 "id": "adj_color",
-"count": 149
+"count": 145
 }
 ],
 "words": [
+"windowless",
+"equidistant",
+"formless",
+"limber",
 "topmost",
 "gossamer",
 "remotest",
@@ -12685,28 +12689,28 @@
 "purplish",
 "technicolor",
 "verdant",
-"blackest",
-"fuchsia",
-"glittery",
-"ochre",
-"dimmer"
+"blackest"
 ]
 },
 {
 "id": "adj-time-order-most-common",
 "title": "Adjectives | age, time, order & newness (most common)",
-"description": "Adjectives | colour & appearance (less common): blacker, lustrous, marbled, greyish + Adjectives | age, time, order & newness (most common): new, last, old, next, early, young, past",
+"description": "Adjectives | colour & appearance (less common): fuchsia, glittery, ochre, dimmer + Adjectives | age, time, order & newness (most common): new, last, old, next, early, young, past",
 "categories": [
 {
 "id": "adj_color",
-"count": 64
+"count": 68
 },
 {
 "id": "adj_time_order",
-"count": 191
+"count": 187
 }
 ],
 "words": [
+"fuchsia",
+"glittery",
+"ochre",
+"dimmer",
 "blacker",
 "lustrous",
 "marbled",
@@ -12957,21 +12961,17 @@
 "teenaged",
 "primeval",
 "ageless",
-"anachronistic",
-"diurnal",
-"tardy",
-"transitory",
-"pubescent"
+"anachronistic"
 ]
 },
 {
 "id": "adj-quantity-all",
 "title": "Adjectives | amount, degree & comparison",
-"description": "Adjectives | age, time, order & newness (less common): prewar, aforesaid, bimonthly, immemorial + Adjectives | amount, degree & comparison: same, different, full, whole, single, major, main + Adjectives | importance, difficulty & general quality (most common): sure, free, real, hard",
+"description": "Adjectives | age, time, order & newness (less common): diurnal, tardy, transitory, pubescent + Adjectives | amount, degree & comparison: same, different, full, whole, single, major, main + Adjectives | importance, difficulty & general quality (most common): sure, free, real, hard",
 "categories": [
 {
 "id": "adj_time_order",
-"count": 26
+"count": 30
 },
 {
 "id": "adj_quantity",
@@ -12979,10 +12979,14 @@
 },
 {
 "id": "adj_quality",
-"count": 32
+"count": 28
 }
 ],
 "words": [
+"diurnal",
+"tardy",
+"transitory",
+"pubescent",
 "prewar",
 "aforesaid",
 "bimonthly",
@@ -13233,17 +13237,13 @@
 "safe",
 "specific",
 "normal",
-"potential",
-"particular",
-"fair",
-"significant",
-"regular"
+"potential"
 ]
 },
 {
 "id": "adj-quality-common",
 "title": "Adjectives | importance, difficulty & general quality (common)",
-"description": "Adjectives | importance, difficulty & general quality (common): active, direct, necessary, basic, effective, responsible, complex",
+"description": "Adjectives | importance, difficulty & general quality (common): particular, fair, significant, regular, active, direct, necessary",
 "categories": [
 {
 "id": "adj_quality",
@@ -13251,6 +13251,10 @@
 }
 ],
 "words": [
+"particular",
+"fair",
+"significant",
+"regular",
 "active",
 "direct",
 "necessary",
@@ -13501,17 +13505,13 @@
 "abnormal",
 "hazardous",
 "akin",
-"captive",
-"compulsory",
-"idle",
-"irregular",
-"responsive"
+"captive"
 ]
 },
 {
 "id": "adj-quality-less-common-3-of-6",
 "title": "Adjectives | importance, difficulty & general quality (less common (3 of 6))",
-"description": "Adjectives | importance, difficulty & general quality (less common (3 of 6)): apt, contingent, invasive, durable, impaired, rigorous, unpredictable",
+"description": "Adjectives | importance, difficulty & general quality (less common (3 of 6)): compulsory, idle, irregular, responsive, apt, contingent, invasive",
 "categories": [
 {
 "id": "adj_quality",
@@ -13519,6 +13519,10 @@
 }
 ],
 "words": [
+"compulsory",
+"idle",
+"irregular",
+"responsive",
 "apt",
 "contingent",
 "invasive",
@@ -13769,17 +13773,13 @@
 "versed",
 "achievable",
 "clandestine",
-"preferential",
-"purest",
-"reusable",
-"suggestive",
-"unbalanced"
+"preferential"
 ]
 },
 {
 "id": "adj-quality-less-common-4-of-6",
 "title": "Adjectives | importance, difficulty & general quality (less common (4 of 6))",
-"description": "Adjectives | importance, difficulty & general quality (less common (4 of 6)): bespoke, permissible, staunch, uncontrolled, undecided, unsolicited, fated",
+"description": "Adjectives | importance, difficulty & general quality (less common (4 of 6)): purest, reusable, suggestive, unbalanced, bespoke, permissible, staunch",
 "categories": [
 {
 "id": "adj_quality",
@@ -13787,6 +13787,10 @@
 }
 ],
 "words": [
+"purest",
+"reusable",
+"suggestive",
+"unbalanced",
 "bespoke",
 "permissible",
 "staunch",
@@ -14037,17 +14041,13 @@
 "unambiguous",
 "undetermined",
 "unfettered",
-"archetypal",
-"artful",
-"categorical",
-"disjointed",
-"flowery"
+"archetypal"
 ]
 },
 {
 "id": "adj-quality-less-common-5-of-6",
 "title": "Adjectives | importance, difficulty & general quality (less common (5 of 6))",
-"description": "Adjectives | importance, difficulty & general quality (less common (5 of 6)): impervious, implausible, indeterminate, intractable, paradoxical, unattainable, unexplored",
+"description": "Adjectives | importance, difficulty & general quality (less common (5 of 6)): artful, categorical, disjointed, flowery, impervious, implausible, indeterminate",
 "categories": [
 {
 "id": "adj_quality",
@@ -14055,6 +14055,10 @@
 }
 ],
 "words": [
+"artful",
+"categorical",
+"disjointed",
+"flowery",
 "impervious",
 "implausible",
 "indeterminate",
@@ -14305,28 +14309,28 @@
 "inscrutable",
 "knowledgable",
 "prototypical",
-"efficacious",
-"extensible",
-"freeform",
-"selectable",
-"unscripted"
+"efficacious"
 ]
 },
 {
 "id": "adj-quality-rarest",
 "title": "Adjectives | importance, difficulty & general quality (rarest)",
-"description": "Adjectives | importance, difficulty & general quality (rarest): axiomatic, minimalistic, needful, turnkey, unassailable, uncredited, unhindered + Adjectives | society, fields & classification (most common): public, national, united, local",
+"description": "Adjectives | importance, difficulty & general quality (rarest): extensible, freeform, selectable, unscripted, axiomatic, minimalistic, needful + Adjectives | society, fields & classification (most common): public, national, united, local",
 "categories": [
 {
 "id": "adj_quality",
-"count": 170
+"count": 174
 },
 {
 "id": "adj_relational",
-"count": 85
+"count": 81
 }
 ],
 "words": [
+"extensible",
+"freeform",
+"selectable",
+"unscripted",
 "axiomatic",
 "minimalistic",
 "needful",
@@ -14577,17 +14581,13 @@
 "communist",
 "legislative",
 "virtual",
-"biological",
-"literary",
-"collective",
-"intellectual",
-"racial"
+"biological"
 ]
 },
 {
 "id": "adj-relational-common",
 "title": "Adjectives | society, fields & classification (common)",
-"description": "Adjectives | society, fields & classification (common): experimental, psychological, classical, fiscal, mainstream, mutual, oral",
+"description": "Adjectives | society, fields & classification (common): literary, collective, intellectual, racial, experimental, psychological, classical",
 "categories": [
 {
 "id": "adj_relational",
@@ -14595,6 +14595,10 @@
 }
 ],
 "words": [
+"literary",
+"collective",
+"intellectual",
+"racial",
 "experimental",
 "psychological",
 "classical",
@@ -14845,17 +14849,13 @@
 "terrestrial",
 "biomedical",
 "existential",
-"paranormal",
-"unmarried",
-"digestive",
-"discriminatory",
-"graphical"
+"paranormal"
 ]
 },
 {
 "id": "adj-relational-less-common-3-of-7",
 "title": "Adjectives | society, fields & classification (less common (3 of 7))",
-"description": "Adjectives | society, fields & classification (less common (3 of 7)): ovarian, penal, spectral, cervical, diabetic, dorsal, genital",
+"description": "Adjectives | society, fields & classification (less common (3 of 7)): unmarried, digestive, discriminatory, graphical, ovarian, penal, spectral",
 "categories": [
 {
 "id": "adj_relational",
@@ -14863,6 +14863,10 @@
 }
 ],
 "words": [
+"unmarried",
+"digestive",
+"discriminatory",
+"graphical",
 "ovarian",
 "penal",
 "spectral",
@@ -15113,17 +15117,13 @@
 "ultrasonic",
 "gendered",
 "postmodern",
-"remedial",
-"sacrificial",
-"aortic",
-"bootleg",
-"cystic"
+"remedial"
 ]
 },
 {
 "id": "adj-relational-less-common-4-of-7",
 "title": "Adjectives | society, fields & classification (less common (4 of 7))",
-"description": "Adjectives | society, fields & classification (less common (4 of 7)): equine, fraternal, oxidative, pedagogical, pubic, unregulated, amphibious",
+"description": "Adjectives | society, fields & classification (less common (4 of 7)): sacrificial, aortic, bootleg, cystic, equine, fraternal, oxidative",
 "categories": [
 {
 "id": "adj_relational",
@@ -15131,6 +15131,10 @@
 }
 ],
 "words": [
+"sacrificial",
+"aortic",
+"bootleg",
+"cystic",
 "equine",
 "fraternal",
 "oxidative",
@@ -15381,17 +15385,13 @@
 "citywide",
 "corneal",
 "gestational",
-"godless",
-"hemorrhagic",
-"igneous",
-"vertebral",
-"alveolar"
+"godless"
 ]
 },
 {
 "id": "adj-relational-less-common-5-of-7",
 "title": "Adjectives | society, fields & classification (less common (5 of 7))",
-"description": "Adjectives | society, fields & classification (less common (5 of 7)): anthropogenic, communicable, cosmological, dermal, lingual, proletarian, topographical",
+"description": "Adjectives | society, fields & classification (less common (5 of 7)): hemorrhagic, igneous, vertebral, alveolar, anthropogenic, communicable, cosmological",
 "categories": [
 {
 "id": "adj_relational",
@@ -15399,6 +15399,10 @@
 }
 ],
 "words": [
+"hemorrhagic",
+"igneous",
+"vertebral",
+"alveolar",
 "anthropogenic",
 "communicable",
 "cosmological",
@@ -15649,17 +15653,13 @@
 "paschal",
 "percussive",
 "piezoelectric",
-"prosecutorial",
-"seafaring",
-"acoustical",
-"biologic",
-"bronchial"
+"prosecutorial"
 ]
 },
 {
 "id": "adj-relational-less-common-6-of-7",
 "title": "Adjectives | society, fields & classification (less common (6 of 7))",
-"description": "Adjectives | society, fields & classification (less common (6 of 7)): calcareous, colloidal, consumable, geospatial, laparoscopic, nongovernmental, prophylactic",
+"description": "Adjectives | society, fields & classification (less common (6 of 7)): seafaring, acoustical, biologic, bronchial, calcareous, colloidal, consumable",
 "categories": [
 {
 "id": "adj_relational",
@@ -15667,6 +15667,10 @@
 }
 ],
 "words": [
+"seafaring",
+"acoustical",
+"biologic",
+"bronchial",
 "calcareous",
 "colloidal",
 "consumable",
@@ -15917,28 +15921,28 @@
 "talmudic",
 "transgendered",
 "trilateral",
-"underemployed",
-"arbitral",
-"biopharmaceutical",
-"colonic",
-"frictional"
+"underemployed"
 ]
 },
 {
 "id": "adj-relational-rarest",
 "title": "Adjectives | society, fields & classification (rarest)",
-"description": "Adjectives | society, fields & classification (rarest): hexadecimal, hippocratic, homoerotic, hydroponic, hyperbaric, interpretative, kinematic + Adjectives & demonyms | nationality, region, religion & group identity (most common): american, english, british, french",
+"description": "Adjectives | society, fields & classification (rarest): arbitral, biopharmaceutical, colonic, frictional, hexadecimal, hippocratic, homoerotic + Adjectives & demonyms | nationality, region, religion & group identity (most common): american, english, british, french",
 "categories": [
 {
 "id": "adj_relational",
-"count": 192
+"count": 196
 },
 {
 "id": "adj_nationality",
-"count": 63
+"count": 59
 }
 ],
 "words": [
+"arbitral",
+"biopharmaceutical",
+"colonic",
+"frictional",
 "hexadecimal",
 "hippocratic",
 "homoerotic",
@@ -16189,17 +16193,13 @@
 "welsh",
 "syrian",
 "palestinian",
-"nigerian",
-"lgbt",
-"arabic",
-"portuguese",
-"pakistani"
+"nigerian"
 ]
 },
 {
 "id": "adj-nationality-common",
 "title": "Adjectives & demonyms | nationality, region, religion & group identity (common)",
-"description": "Adjectives & demonyms | nationality, region, religion & group identity (common): celtic, hindu, mediterranean, hispanic, czech, iraqi, norwegian",
+"description": "Adjectives & demonyms | nationality, region, religion & group identity (common): lgbt, arabic, portuguese, pakistani, celtic, hindu, mediterranean",
 "categories": [
 {
 "id": "adj_nationality",
@@ -16207,6 +16207,10 @@
 }
 ],
 "words": [
+"lgbt",
+"arabic",
+"portuguese",
+"pakistani",
 "celtic",
 "hindu",
 "mediterranean",
@@ -16457,17 +16461,13 @@
 "inca",
 "liberian",
 "eskimo",
-"nepali",
-"southerners",
-"cajun",
-"columbian",
-"eurasian"
+"nepali"
 ]
 },
 {
 "id": "adj-nationality-less-common-3-of-4",
 "title": "Adjectives & demonyms | nationality, region, religion & group identity (less common (3 of 4))",
-"description": "Adjectives & demonyms | nationality, region, religion & group identity (less common (3 of 4)): baptists, ottomans, californians, mongol, siamese, singaporean, afghans",
+"description": "Adjectives & demonyms | nationality, region, religion & group identity (less common (3 of 4)): southerners, cajun, columbian, eurasian, baptists, ottomans, californians",
 "categories": [
 {
 "id": "adj_nationality",
@@ -16475,6 +16475,10 @@
 }
 ],
 "words": [
+"southerners",
+"cajun",
+"columbian",
+"eurasian",
 "baptists",
 "ottomans",
 "californians",
@@ -16725,28 +16729,28 @@
 "mayans",
 "mississippian",
 "prussians",
-"aleutian",
-"hazara",
-"oregonian",
-"rasta",
-"slovakian"
+"aleutian"
 ]
 },
 {
 "id": "adj-nationality-rarest",
 "title": "Adjectives & demonyms | nationality, region, religion & group identity (rarest)",
-"description": "Adjectives & demonyms | nationality, region, religion & group identity (rarest): anglian, guyanese, hittite, mesopotamian, phoenicians, shias, tahitian + Verbs | movement & travel (most common): go, going, come, left",
+"description": "Adjectives & demonyms | nationality, region, religion & group identity (rarest): hazara, oregonian, rasta, slovakian, anglian, guyanese, hittite + Verbs | movement & travel (most common): go, going, come, left",
 "categories": [
 {
 "id": "adj_nationality",
-"count": 140
+"count": 144
 },
 {
 "id": "vb_motion",
-"count": 115
+"count": 111
 }
 ],
 "words": [
+"hazara",
+"oregonian",
+"rasta",
+"slovakian",
 "anglian",
 "guyanese",
 "hittite",
@@ -16997,17 +17001,13 @@
 "rises",
 "exploring",
 "rides",
-"traveled",
-"fled",
-"travels",
-"crashed",
-"bounce"
+"traveled"
 ]
 },
 {
 "id": "vb-motion-common",
 "title": "Verbs | movement & travel (common)",
-"description": "Verbs | movement & travel (common): flowing, enters, sail, dash, sailing, slipped, sneak",
+"description": "Verbs | movement & travel (common): fled, travels, crashed, bounce, flowing, enters, sail",
 "categories": [
 {
 "id": "vb_motion",
@@ -17015,6 +17015,10 @@
 }
 ],
 "words": [
+"fled",
+"travels",
+"crashed",
+"bounce",
 "flowing",
 "enters",
 "sail",
@@ -17265,17 +17269,13 @@
 "maneuvering",
 "strolling",
 "diverting",
-"rotates",
-"swaying",
-"ushered",
-"curving",
-"flutter"
+"rotates"
 ]
 },
 {
 "id": "vb-motion-less-common-3-of-4",
 "title": "Verbs | movement & travel (less common (3 of 4))",
-"description": "Verbs | movement & travel (less common (3 of 4)): plunging, shuffling, soared, vibrate, crowding, ducking, leapt",
+"description": "Verbs | movement & travel (less common (3 of 4)): swaying, ushered, curving, flutter, plunging, shuffling, soared",
 "categories": [
 {
 "id": "vb_motion",
@@ -17283,6 +17283,10 @@
 }
 ],
 "words": [
+"swaying",
+"ushered",
+"curving",
+"flutter",
 "plunging",
 "shuffling",
 "soared",
@@ -17533,28 +17537,28 @@
 "scrambles",
 "ushering",
 "wiggling",
-"airlifted",
-"dismounted",
-"jutting",
-"limped",
-"scurrying"
+"airlifted"
 ]
 },
 {
 "id": "vb-motion-rarest",
 "title": "Verbs | movement & travel (rarest)",
-"description": "Verbs | movement & travel (rarest): strolls, submerge, swooping, drooping, emigrating, lunged, scurry + Verbs | physical actions with hands & body (most common): put, set, open, hit",
+"description": "Verbs | movement & travel (rarest): dismounted, jutting, limped, scurrying, strolls, submerge, swooping + Verbs | physical actions with hands & body (most common): put, set, open, hit",
 "categories": [
 {
 "id": "vb_motion",
-"count": 172
+"count": 176
 },
 {
 "id": "vb_physical",
-"count": 83
+"count": 79
 }
 ],
 "words": [
+"dismounted",
+"jutting",
+"limped",
+"scurrying",
 "strolls",
 "submerge",
 "swooping",
@@ -17805,17 +17809,13 @@
 "hiding",
 "punch",
 "packed",
-"touched",
-"drag",
-"tap",
-"mounted",
-"loaded"
+"touched"
 ]
 },
 {
 "id": "vb-physical-common",
 "title": "Verbs | physical actions with hands & body (common)",
-"description": "Verbs | physical actions with hands & body (common): knocked, carries, beats, dig, touching, beaten, blown",
+"description": "Verbs | physical actions with hands & body (common): drag, tap, mounted, loaded, knocked, carries, beats",
 "categories": [
 {
 "id": "vb_physical",
@@ -17823,6 +17823,10 @@
 }
 ],
 "words": [
+"drag",
+"tap",
+"mounted",
+"loaded",
 "knocked",
 "carries",
 "beats",
@@ -18073,17 +18077,13 @@
 "plated",
 "scratches",
 "shredded",
-"busting",
-"parry",
-"plugged",
-"restrained",
-"screwing"
+"busting"
 ]
 },
 {
 "id": "vb-physical-less-common-3-of-6",
 "title": "Verbs | physical actions with hands & body (less common (3 of 6))",
-"description": "Verbs | physical actions with hands & body (less common (3 of 6)): spaced, strapped, wiping, folds, hammered, hauled, soaking",
+"description": "Verbs | physical actions with hands & body (less common (3 of 6)): parry, plugged, restrained, screwing, spaced, strapped, wiping",
 "categories": [
 {
 "id": "vb_physical",
@@ -18091,6 +18091,10 @@
 }
 ],
 "words": [
+"parry",
+"plugged",
+"restrained",
+"screwing",
 "spaced",
 "strapped",
 "wiping",
@@ -18341,17 +18345,13 @@
 "scrubbed",
 "sharpening",
 "tickled",
-"bagging",
-"encased",
-"sowing",
-"yank",
-"detach"
+"bagging"
 ]
 },
 {
 "id": "vb-physical-less-common-4-of-6",
 "title": "Verbs | physical actions with hands & body (less common (4 of 6))",
-"description": "Verbs | physical actions with hands & body (less common (4 of 6)): eject, layering, scoops, scouring, shredding, squashed, stirs",
+"description": "Verbs | physical actions with hands & body (less common (4 of 6)): encased, sowing, yank, detach, eject, layering, scoops",
 "categories": [
 {
 "id": "vb_physical",
@@ -18359,6 +18359,10 @@
 }
 ],
 "words": [
+"encased",
+"sowing",
+"yank",
+"detach",
 "eject",
 "layering",
 "scoops",
@@ -18609,17 +18613,13 @@
 "funneled",
 "grope",
 "hoisting",
-"repelling",
-"exhumed",
-"hewn",
-"immobilized",
-"slugging"
+"repelling"
 ]
 },
 {
 "id": "vb-physical-less-common-5-of-6",
 "title": "Verbs | physical actions with hands & body (less common (5 of 6))",
-"description": "Verbs | physical actions with hands & body (less common (5 of 6)): soldered, butting, dunked, excavate, flings, grates, hemmed",
+"description": "Verbs | physical actions with hands & body (less common (5 of 6)): exhumed, hewn, immobilized, slugging, soldered, butting, dunked",
 "categories": [
 {
 "id": "vb_physical",
@@ -18627,6 +18627,10 @@
 }
 ],
 "words": [
+"exhumed",
+"hewn",
+"immobilized",
+"slugging",
 "soldered",
 "butting",
 "dunked",
@@ -18877,28 +18881,28 @@
 "slotting",
 "squashing",
 "steadied",
-"tilling",
-"wrung",
-"brandished",
-"immobilize",
-"moistened"
+"tilling"
 ]
 },
 {
 "id": "vb-body-most-common",
 "title": "Verbs | body, eating, drinking & health (most common)",
-"description": "Verbs | physical actions with hands & body (rarest): severs, slugged, smudges, snipped + Verbs | body, eating, drinking & health (most common): died, stand, eat, born, die, sleep, wear",
+"description": "Verbs | physical actions with hands & body (rarest): wrung, brandished, immobilize, moistened + Verbs | body, eating, drinking & health (most common): died, stand, eat, born, die, sleep, wear",
 "categories": [
 {
 "id": "vb_physical",
-"count": 43
+"count": 47
 },
 {
 "id": "vb_body",
-"count": 212
+"count": 208
 }
 ],
 "words": [
+"wrung",
+"brandished",
+"immobilize",
+"moistened",
 "severs",
 "slugged",
 "smudges",
@@ -19149,17 +19153,13 @@
 "nods",
 "perished",
 "shrug",
-"sipping",
-"spat",
-"washes",
-"aching",
-"boils"
+"sipping"
 ]
 },
 {
 "id": "vb-body-common",
 "title": "Verbs | body, eating, drinking & health (common)",
-"description": "Verbs | body, eating, drinking & health (common): puke, salted, flushed, hydrated, injure, leans, scarred",
+"description": "Verbs | body, eating, drinking & health (common): spat, washes, aching, boils, puke, salted, flushed",
 "categories": [
 {
 "id": "vb_body",
@@ -19167,6 +19167,10 @@
 }
 ],
 "words": [
+"spat",
+"washes",
+"aching",
+"boils",
 "puke",
 "salted",
 "flushed",
@@ -19417,28 +19421,28 @@
 "vaccinate",
 "awoken",
 "braised",
-"creamed",
-"secrete",
-"wean",
-"bandaged",
-"frowning"
+"creamed"
 ]
 },
 {
 "id": "vb-body-rare",
 "title": "Verbs | body, eating, drinking & health (rare)",
-"description": "Verbs | body, eating, drinking & health (rare): hospitalised, overdosed, relapsed, sear, hibernate, juicing, pouting + a few Verbs | having, giving, getting, buying & money words",
+"description": "Verbs | body, eating, drinking & health (rare): secrete, wean, bandaged, frowning, hospitalised, overdosed, relapsed + a few Verbs | having, giving, getting, buying & money words",
 "categories": [
 {
 "id": "vb_body",
-"count": 244
+"count": 248
 },
 {
 "id": "vb_possession",
-"count": 11
+"count": 7
 }
 ],
 "words": [
+"secrete",
+"wean",
+"bandaged",
+"frowning",
 "hospitalised",
 "overdosed",
 "relapsed",
@@ -19689,17 +19693,13 @@
 "find",
 "own",
 "give",
-"found",
-"keep",
-"getting",
-"took",
-"given"
+"found"
 ]
 },
 {
 "id": "vb-possession-common",
 "title": "Verbs | having, giving, getting, buying & money (common)",
-"description": "Verbs | having, giving, getting, buying & money (common): pay, lost, taking, taken, buy, bring, gave",
+"description": "Verbs | having, giving, getting, buying & money (common): keep, getting, took, given, pay, lost, taking",
 "categories": [
 {
 "id": "vb_possession",
@@ -19707,6 +19707,10 @@
 }
 ],
 "words": [
+"keep",
+"getting",
+"took",
+"given",
 "pay",
 "lost",
 "taking",
@@ -19957,17 +19961,13 @@
 "benefiting",
 "forfeit",
 "seizing",
-"swapping",
-"allocate",
-"footed",
-"incur",
-"acquires"
+"swapping"
 ]
 },
 {
 "id": "vb-possession-less-common-3-of-4",
 "title": "Verbs | having, giving, getting, buying & money (less common (3 of 4))",
-"description": "Verbs | having, giving, getting, buying & money (less common (3 of 4)): clinch, repaid, allotted, retake, withhold, ditched, snag",
+"description": "Verbs | having, giving, getting, buying & money (less common (3 of 4)): allocate, footed, incur, acquires, clinch, repaid, allotted",
 "categories": [
 {
 "id": "vb_possession",
@@ -19975,6 +19975,10 @@
 }
 ],
 "words": [
+"allocate",
+"footed",
+"incur",
+"acquires",
 "clinch",
 "repaid",
 "allotted",
@@ -20225,28 +20229,28 @@
 "requisitioned",
 "skimp",
 "vesting",
-"deducting",
-"defund",
-"deprives",
-"dispenses",
-"foreclose"
+"deducting"
 ]
 },
 {
 "id": "vb-change-most-common",
 "title": "Verbs | making, building, changing & destroying (most common)",
-"description": "Verbs | having, giving, getting, buying & money (rarest): insures, pocketing, retook, scavenge + Verbs | making, building, changing & destroying (most common): make, made, change, making, makes, become, turn",
+"description": "Verbs | having, giving, getting, buying & money (rarest): defund, deprives, dispenses, foreclose + Verbs | making, building, changing & destroying (most common): make, made, change, making, makes, become, turn",
 "categories": [
 {
 "id": "vb_possession",
-"count": 89
+"count": 93
 },
 {
 "id": "vb_change",
-"count": 166
+"count": 162
 }
 ],
 "words": [
+"defund",
+"deprives",
+"dispenses",
+"foreclose",
 "insures",
 "pocketing",
 "retook",
@@ -20497,17 +20501,13 @@
 "altered",
 "ruins",
 "activated",
-"messed",
-"decreased",
-"cracked",
-"extends",
-"founding"
+"messed"
 ]
 },
 {
 "id": "vb-change-common",
 "title": "Verbs | making, building, changing & destroying (common)",
-"description": "Verbs | making, building, changing & destroying (common): generating, spark, triggered, adapt, compiled, construct, manufacture",
+"description": "Verbs | making, building, changing & destroying (common): decreased, cracked, extends, founding, generating, spark, triggered",
 "categories": [
 {
 "id": "vb_change",
@@ -20515,6 +20515,10 @@
 }
 ],
 "words": [
+"decreased",
+"cracked",
+"extends",
+"founding",
 "generating",
 "spark",
 "triggered",
@@ -20765,17 +20769,13 @@
 "prosper",
 "sew",
 "spawned",
-"transforms",
-"unfold",
-"ageing",
-"blending",
-"composing"
+"transforms"
 ]
 },
 {
 "id": "vb-change-less-common-3-of-8",
 "title": "Verbs | making, building, changing & destroying (less common (3 of 8))",
-"description": "Verbs | making, building, changing & destroying (less common (3 of 8)): customized, disrupted, diversified, escalated, shrinking, widening, wrought",
+"description": "Verbs | making, building, changing & destroying (less common (3 of 8)): unfold, ageing, blending, composing, customized, disrupted, diversified",
 "categories": [
 {
 "id": "vb_change",
@@ -20783,6 +20783,10 @@
 }
 ],
 "words": [
+"unfold",
+"ageing",
+"blending",
+"composing",
 "customized",
 "disrupted",
 "diversified",
@@ -21033,17 +21037,13 @@
 "masking",
 "maximizing",
 "narrows",
-"overloaded",
-"resolves",
-"tapering",
-"tweaking",
-"worsened"
+"overloaded"
 ]
 },
 {
 "id": "vb-change-less-common-4-of-8",
 "title": "Verbs | making, building, changing & destroying (less common (4 of 8))",
-"description": "Verbs | making, building, changing & destroying (less common (4 of 8)): detonated, flared, maturing, neutralize, peaking, stabilizing, stitching",
+"description": "Verbs | making, building, changing & destroying (less common (4 of 8)): resolves, tapering, tweaking, worsened, detonated, flared, maturing",
 "categories": [
 {
 "id": "vb_change",
@@ -21051,6 +21051,10 @@
 }
 ],
 "words": [
+"resolves",
+"tapering",
+"tweaking",
+"worsened",
 "detonated",
 "flared",
 "maturing",
@@ -21301,17 +21305,13 @@
 "fortify",
 "materialized",
 "overhauled",
-"propagating",
-"prospered",
-"reverting",
-"shrank",
-"trashing"
+"propagating"
 ]
 },
 {
 "id": "vb-change-less-common-5-of-8",
 "title": "Verbs | making, building, changing & destroying (less common (5 of 8))",
-"description": "Verbs | making, building, changing & destroying (less common (5 of 8)): ventilated, wetting, whitening, alternates, bottomed, corrupting, distorting",
+"description": "Verbs | making, building, changing & destroying (less common (5 of 8)): prospered, reverting, shrank, trashing, ventilated, wetting, whitening",
 "categories": [
 {
 "id": "vb_change",
@@ -21319,6 +21319,10 @@
 }
 ],
 "words": [
+"prospered",
+"reverting",
+"shrank",
+"trashing",
 "ventilated",
 "wetting",
 "whitening",
@@ -21569,17 +21573,13 @@
 "fluctuates",
 "ignites",
 "immortalized",
-"invents",
-"reestablish",
-"reintroduce",
-"rekindle",
-"reproduces"
+"invents"
 ]
 },
 {
 "id": "vb-change-less-common-6-of-8",
 "title": "Verbs | making, building, changing & destroying (less common (6 of 8))",
-"description": "Verbs | making, building, changing & destroying (less common (6 of 8)): reverts, sanctified, subtracted, thawed, thicken, compacted, crystallized",
+"description": "Verbs | making, building, changing & destroying (less common (6 of 8)): reestablish, reintroduce, rekindle, reproduces, reverts, sanctified, subtracted",
 "categories": [
 {
 "id": "vb_change",
@@ -21587,6 +21587,10 @@
 }
 ],
 "words": [
+"reestablish",
+"reintroduce",
+"rekindle",
+"reproduces",
 "reverts",
 "sanctified",
 "subtracted",
@@ -21837,17 +21841,13 @@
 "modernise",
 "polarised",
 "pollinated",
-"raze",
-"reestablished",
-"retrofitted",
-"slumps",
-"tempering"
+"raze"
 ]
 },
 {
 "id": "vb-change-less-common-7-of-8",
 "title": "Verbs | making, building, changing & destroying (less common (7 of 8))",
-"description": "Verbs | making, building, changing & destroying (less common (7 of 8)): trended, beautify, broadens, coalesced, composes, dissipating, foundered",
+"description": "Verbs | making, building, changing & destroying (less common (7 of 8)): reestablished, retrofitted, slumps, tempering, trended, beautify, broadens",
 "categories": [
 {
 "id": "vb_change",
@@ -21855,6 +21855,10 @@
 }
 ],
 "words": [
+"reestablished",
+"retrofitted",
+"slumps",
+"tempering",
 "trended",
 "beautify",
 "broadens",
@@ -22105,28 +22109,28 @@
 "decriminalized",
 "humanizing",
 "lumping",
-"recalibrate",
-"redecorate",
-"redefines",
-"revises",
-"sapping"
+"recalibrate"
 ]
 },
 {
 "id": "vb-activity-most-common",
 "title": "Verbs | work, organising & everyday activities (most common)",
-"description": "Verbs | making, building, changing & destroying (rarest): sours, wilts, clumping, damped + Verbs | work, organising & everyday activities (most common): work, use, used, play, start, live, stop",
+"description": "Verbs | making, building, changing & destroying (rarest): redecorate, redefines, revises, sapping + Verbs | work, organising & everyday activities (most common): work, use, used, play, start, live, stop",
 "categories": [
 {
 "id": "vb_change",
-"count": 61
+"count": 65
 },
 {
 "id": "vb_activity",
-"count": 194
+"count": 190
 }
 ],
 "words": [
+"redecorate",
+"redefines",
+"revises",
+"sapping",
 "sours",
 "wilts",
 "clumping",
@@ -22377,17 +22381,13 @@
 "handles",
 "settling",
 "undertaken",
-"sorted",
-"staged",
-"utilized",
-"coordinate",
-"messing"
+"sorted"
 ]
 },
 {
 "id": "vb-activity-common",
 "title": "Verbs | work, organising & everyday activities (common)",
-"description": "Verbs | work, organising & everyday activities (common): practiced, ceased, expired, balancing, retiring, coordinated, commenced",
+"description": "Verbs | work, organising & everyday activities (common): staged, utilized, coordinate, messing, practiced, ceased, expired",
 "categories": [
 {
 "id": "vb_activity",
@@ -22395,6 +22395,10 @@
 }
 ],
 "words": [
+"staged",
+"utilized",
+"coordinate",
+"messing",
 "practiced",
 "ceased",
 "expired",
@@ -22645,28 +22649,28 @@
 "harnessing",
 "prioritized",
 "prioritizing",
-"ceasing",
-"clocking",
-"disband",
-"dwells",
-"hustling"
+"ceasing"
 ]
 },
 {
 "id": "vb-activity-rare",
 "title": "Verbs | work, organising & everyday activities (rare)",
-"description": "Verbs | work, organising & everyday activities (rare): sequenced, finalised, halts, suspends, vacationing, accomplishes, refrained + Verbs | social interaction, helping & conflict (most common): help, let, support, meet",
+"description": "Verbs | work, organising & everyday activities (rare): clocking, disband, dwells, hustling, sequenced, finalised, halts + Verbs | social interaction, helping & conflict (most common): help, let, support, meet",
 "categories": [
 {
 "id": "vb_activity",
-"count": 201
+"count": 205
 },
 {
 "id": "vb_social",
-"count": 54
+"count": 50
 }
 ],
 "words": [
+"clocking",
+"disband",
+"dwells",
+"hustling",
 "sequenced",
 "finalised",
 "halts",
@@ -22917,17 +22921,13 @@
 "struggle",
 "voted",
 "voting",
-"dealing",
-"appointed",
-"controlled",
-"kiss",
-"promote"
+"dealing"
 ]
 },
 {
 "id": "vb-social-common",
 "title": "Verbs | social interaction, helping & conflict (common)",
-"description": "Verbs | social interaction, helping & conflict (common): attend, ban, invited, letting, attacked, engaged, adopted",
+"description": "Verbs | social interaction, helping & conflict (common): appointed, controlled, kiss, promote, attend, ban, invited",
 "categories": [
 {
 "id": "vb_social",
@@ -22935,6 +22935,10 @@
 }
 ],
 "words": [
+"appointed",
+"controlled",
+"kiss",
+"promote",
 "attend",
 "ban",
 "invited",
@@ -23185,17 +23189,13 @@
 "fooled",
 "manipulated",
 "pairing",
-"teamed",
-"behaved",
-"empowered",
-"jailed",
-"tease"
+"teamed"
 ]
 },
 {
 "id": "vb-social-less-common-3-of-6",
 "title": "Verbs | social interaction, helping & conflict (less common (3 of 6))",
-"description": "Verbs | social interaction, helping & conflict (less common (3 of 6)): coached, directs, dominating, poisoned, resisting, enforcing, nominate",
+"description": "Verbs | social interaction, helping & conflict (less common (3 of 6)): behaved, empowered, jailed, tease, coached, directs, dominating",
 "categories": [
 {
 "id": "vb_social",
@@ -23203,6 +23203,10 @@
 }
 ],
 "words": [
+"behaved",
+"empowered",
+"jailed",
+"tease",
 "coached",
 "directs",
 "dominating",
@@ -23453,17 +23457,13 @@
 "orphaned",
 "reconnect",
 "seduced",
-"upholding",
-"accommodated",
-"forsaken",
-"pitted",
-"socialize"
+"upholding"
 ]
 },
 {
 "id": "vb-social-less-common-4-of-6",
 "title": "Verbs | social interaction, helping & conflict (less common (4 of 6))",
-"description": "Verbs | social interaction, helping & conflict (less common (4 of 6)): discredited, entice, governs, impeached, molested, officiating, reigned",
+"description": "Verbs | social interaction, helping & conflict (less common (4 of 6)): accommodated, forsaken, pitted, socialize, discredited, entice, governs",
 "categories": [
 {
 "id": "vb_social",
@@ -23471,6 +23471,10 @@
 }
 ],
 "words": [
+"accommodated",
+"forsaken",
+"pitted",
+"socialize",
 "discredited",
 "entice",
 "governs",
@@ -23721,17 +23725,13 @@
 "excommunicated",
 "exterminated",
 "intrude",
-"maimed",
-"mandating",
-"scamming",
-"seducing",
-"terrorized"
+"maimed"
 ]
 },
 {
 "id": "vb-social-less-common-5-of-6",
 "title": "Verbs | social interaction, helping & conflict (less common (5 of 6))",
-"description": "Verbs | social interaction, helping & conflict (less common (5 of 6)): terrorizing, brokered, extradited, outdone, partied, retaliated, revolted",
+"description": "Verbs | social interaction, helping & conflict (less common (5 of 6)): mandating, scamming, seducing, terrorized, terrorizing, brokered, extradited",
 "categories": [
 {
 "id": "vb_social",
@@ -23739,6 +23739,10 @@
 }
 ],
 "words": [
+"mandating",
+"scamming",
+"seducing",
+"terrorized",
 "terrorizing",
 "brokered",
 "extradited",
@@ -23989,28 +23993,28 @@
 "befriends",
 "criminalized",
 "misbehave",
-"wrestles",
-"accede",
-"bashes",
-"capitulate",
-"delegating"
+"wrestles"
 ]
 },
 {
 "id": "vb-social-rarest",
 "title": "Verbs | social interaction, helping & conflict (rarest)",
-"description": "Verbs | social interaction, helping & conflict (rarest): disbarred, elope, enthroned, incites, infringes, preys, spearheading + Verbs | speaking, writing & communication (most common): said, say, called, read",
+"description": "Verbs | social interaction, helping & conflict (rarest): accede, bashes, capitulate, delegating, disbarred, elope, enthroned + Verbs | speaking, writing & communication (most common): said, say, called, read",
 "categories": [
 {
 "id": "vb_social",
-"count": 157
+"count": 161
 },
 {
 "id": "vb_communication",
-"count": 98
+"count": 94
 }
 ],
 "words": [
+"accede",
+"bashes",
+"capitulate",
+"delegating",
 "disbarred",
 "elope",
 "enthroned",
@@ -24261,17 +24265,13 @@
 "marks",
 "promised",
 "suggests",
-"accused",
-"argue",
-"pointed",
-"discussed",
-"informed"
+"accused"
 ]
 },
 {
 "id": "vb-communication-common",
 "title": "Verbs | speaking, writing & communication (common)",
-"description": "Verbs | speaking, writing & communication (common): refer, spoken, asks, guarantee, denied, reveal, speaks",
+"description": "Verbs | speaking, writing & communication (common): argue, pointed, discussed, informed, refer, spoken, asks",
 "categories": [
 {
 "id": "vb_communication",
@@ -24279,6 +24279,10 @@
 }
 ],
 "words": [
+"argue",
+"pointed",
+"discussed",
+"informed",
 "refer",
 "spoken",
 "asks",
@@ -24529,17 +24533,13 @@
 "highlighting",
 "prayed",
 "proposes",
-"referenced",
-"surveyed",
-"translates",
-"transmit",
-"advertise"
+"referenced"
 ]
 },
 {
 "id": "vb-communication-less-common-3-of-6",
 "title": "Verbs | speaking, writing & communication (less common (3 of 6))",
-"description": "Verbs | speaking, writing & communication (less common (3 of 6)): apologise, criticised, drafting, pleaded, pronounce, acknowledging, signaling",
+"description": "Verbs | speaking, writing & communication (less common (3 of 6)): surveyed, translates, transmit, advertise, apologise, criticised, drafting",
 "categories": [
 {
 "id": "vb_communication",
@@ -24547,6 +24547,10 @@
 }
 ],
 "words": [
+"surveyed",
+"translates",
+"transmit",
+"advertise",
 "apologise",
 "criticised",
 "drafting",
@@ -24797,17 +24801,13 @@
 "seconded",
 "skim",
 "specifying",
-"apologizes",
-"attested",
-"contends",
-"contradicts",
-"pleads"
+"apologizes"
 ]
 },
 {
 "id": "vb-communication-less-common-4-of-6",
 "title": "Verbs | speaking, writing & communication (less common (4 of 6))",
-"description": "Verbs | speaking, writing & communication (less common (4 of 6)): transcribed, affirming, elaborated, exalted, grunt, hailing, labelling",
+"description": "Verbs | speaking, writing & communication (less common (4 of 6)): attested, contends, contradicts, pleads, transcribed, affirming, elaborated",
 "categories": [
 {
 "id": "vb_communication",
@@ -24815,6 +24815,10 @@
 }
 ],
 "words": [
+"attested",
+"contends",
+"contradicts",
+"pleads",
 "transcribed",
 "affirming",
 "elaborated",
@@ -25065,17 +25069,13 @@
 "exclaims",
 "phoning",
 "purports",
-"rebuked",
-"relaying",
-"remarking",
-"scold",
-"touting"
+"rebuked"
 ]
 },
 {
 "id": "vb-communication-less-common-5-of-6",
 "title": "Verbs | speaking, writing & communication (less common (5 of 6))",
-"description": "Verbs | speaking, writing & communication (less common (5 of 6)): clamoring, elaborating, enumerated, glorifying, grumble, heralds, moaned",
+"description": "Verbs | speaking, writing & communication (less common (5 of 6)): relaying, remarking, scold, touting, clamoring, elaborating, enumerated",
 "categories": [
 {
 "id": "vb_communication",
@@ -25083,6 +25083,10 @@
 }
 ],
 "words": [
+"relaying",
+"remarking",
+"scold",
+"touting",
 "clamoring",
 "elaborating",
 "enumerated",
@@ -25333,28 +25337,28 @@
 "whooped",
 "apprised",
 "coaxing",
-"commends",
-"demonizing",
-"divulged",
-"expounded",
-"scrawled"
+"commends"
 ]
 },
 {
 "id": "vb-communication-rarest",
 "title": "Verbs | speaking, writing & communication (rarest)",
-"description": "Verbs | speaking, writing & communication (rarest): beckoned, espousing, excerpted, forewarned, gushed, journaling, liaise + Verbs | thinking, knowing & perceiving (most common): know, see, think, look",
+"description": "Verbs | speaking, writing & communication (rarest): demonizing, divulged, expounded, scrawled, beckoned, espousing, excerpted + Verbs | thinking, knowing & perceiving (most common): know, see, think, look",
 "categories": [
 {
 "id": "vb_communication",
-"count": 190
+"count": 194
 },
 {
 "id": "vb_cognition",
-"count": 65
+"count": 61
 }
 ],
 "words": [
+"demonizing",
+"divulged",
+"expounded",
+"scrawled",
 "beckoned",
 "espousing",
 "excerpted",
@@ -25605,17 +25609,13 @@
 "thinks",
 "prove",
 "knowing",
-"believed",
-"discovered",
-"watched",
-"intended",
-"selected"
+"believed"
 ]
 },
 {
 "id": "vb-cognition-common",
 "title": "Verbs | thinking, knowing & perceiving (common)",
-"description": "Verbs | thinking, knowing & perceiving (common): accepted, listening, focused, considering, determined, determine, experienced",
+"description": "Verbs | thinking, knowing & perceiving (common): discovered, watched, intended, selected, accepted, listening, focused",
 "categories": [
 {
 "id": "vb_cognition",
@@ -25623,6 +25623,10 @@
 }
 ],
 "words": [
+"discovered",
+"watched",
+"intended",
+"selected",
 "accepted",
 "listening",
 "focused",
@@ -25873,17 +25877,13 @@
 "mastering",
 "predicts",
 "seeming",
-"contemplate",
-"diagnose",
-"forgets",
-"realising",
-"conceive"
+"contemplate"
 ]
 },
 {
 "id": "vb-cognition-less-common-3-of-4",
 "title": "Verbs | thinking, knowing & perceiving (less common (3 of 4))",
-"description": "Verbs | thinking, knowing & perceiving (less common (3 of 4)): overheard, validate, anticipating, classify, peep, spotting, underestimated",
+"description": "Verbs | thinking, knowing & perceiving (less common (3 of 4)): diagnose, forgets, realising, conceive, overheard, validate, anticipating",
 "categories": [
 {
 "id": "vb_cognition",
@@ -25891,6 +25891,10 @@
 }
 ],
 "words": [
+"diagnose",
+"forgets",
+"realising",
+"conceive",
 "overheard",
 "validate",
 "anticipating",
@@ -26141,28 +26145,28 @@
 "deeming",
 "generalised",
 "peeked",
-"rediscovering",
-"surmised",
-"deciphered",
-"sidetracked",
-"theorizing"
+"rediscovering"
 ]
 },
 {
 "id": "vb-cognition-rarest",
 "title": "Verbs | thinking, knowing & perceiving (rarest)",
-"description": "Verbs | thinking, knowing & perceiving (rarest): adjudged, fantasizing, generalizing, overvalued, comprehending, gazes, musing + Verbs | wanting, liking & emotions (most common): like, want, need, love",
+"description": "Verbs | thinking, knowing & perceiving (rarest): surmised, deciphered, sidetracked, theorizing, adjudged, fantasizing, generalizing + Verbs | wanting, liking & emotions (most common): like, want, need, love",
 "categories": [
 {
 "id": "vb_cognition",
-"count": 131
+"count": 135
 },
 {
 "id": "vb_emotion",
-"count": 124
+"count": 120
 }
 ],
 "words": [
+"surmised",
+"deciphered",
+"sidetracked",
+"theorizing",
 "adjudged",
 "fantasizing",
 "generalizing",
@@ -26413,17 +26417,13 @@
 "annoy",
 "rejoice",
 "grieving",
-"intimidated",
-"mourn",
-"cherished",
-"disliked",
-"embarrass"
+"intimidated"
 ]
 },
 {
 "id": "vb-emotion-common",
 "title": "Verbs | wanting, liking & emotions (common)",
-"description": "Verbs | wanting, liking & emotions (common): humiliated, regretted, weeping, panicked, appreciates, resent, weep",
+"description": "Verbs | wanting, liking & emotions (common): mourn, cherished, disliked, embarrass, humiliated, regretted, weeping",
 "categories": [
 {
 "id": "vb_emotion",
@@ -26431,6 +26431,10 @@
 }
 ],
 "words": [
+"mourn",
+"cherished",
+"disliked",
+"embarrass",
 "humiliated",
 "regretted",
 "weeping",
@@ -26681,28 +26685,28 @@
 "prided",
 "captivate",
 "doting",
-"transfixed",
-"fascinate",
-"pitied",
-"unnerved",
-"angering"
+"transfixed"
 ]
 },
 {
 "id": "vb-general-most-common",
 "title": "Verbs | general, abstract & state verbs (most common)",
-"description": "Verbs | wanting, liking & emotions (rare): rejoices, relishing, sickens, wows + Verbs | general, abstract & state verbs (most common): including, based, cause, include, happened, happen, involved",
+"description": "Verbs | wanting, liking & emotions (rare): fascinate, pitied, unnerved, angering + Verbs | general, abstract & state verbs (most common): including, based, cause, include, happened, happen, involved",
 "categories": [
 {
 "id": "vb_emotion",
-"count": 65
+"count": 69
 },
 {
 "id": "vb_general",
-"count": 190
+"count": 186
 }
 ],
 "words": [
+"fascinate",
+"pitied",
+"unnerved",
+"angering",
 "rejoices",
 "relishing",
 "sickens",
@@ -26953,17 +26957,13 @@
 "surround",
 "exclude",
 "complement",
-"fulfilled",
-"bypass",
-"exceeded",
-"tended",
-"contributes"
+"fulfilled"
 ]
 },
 {
 "id": "vb-general-common",
 "title": "Verbs | general, abstract & state verbs (common)",
-"description": "Verbs | general, abstract & state verbs (common): equals, ranged, arose, averaging, impacted, resemble, arising",
+"description": "Verbs | general, abstract & state verbs (common): bypass, exceeded, tended, contributes, equals, ranged, arose",
 "categories": [
 {
 "id": "vb_general",
@@ -26971,6 +26971,10 @@
 }
 ],
 "words": [
+"bypass",
+"exceeded",
+"tended",
+"contributes",
 "equals",
 "ranged",
 "arose",
@@ -27221,17 +27225,13 @@
 "exerted",
 "obstruct",
 "overriding",
-"prevails",
-"beset",
-"channeling",
-"evokes",
-"fared"
+"prevails"
 ]
 },
 {
 "id": "vb-general-less-common-3-of-4",
 "title": "Verbs | general, abstract & state verbs (less common (3 of 4))",
-"description": "Verbs | general, abstract & state verbs (less common (3 of 4)): resonates, sparking, steeped, tinged, aggregates, averted, correlates",
+"description": "Verbs | general, abstract & state verbs (less common (3 of 4)): beset, channeling, evokes, fared, resonates, sparking, steeped",
 "categories": [
 {
 "id": "vb_general",
@@ -27239,6 +27239,10 @@
 }
 ],
 "words": [
+"beset",
+"channeling",
+"evokes",
+"fared",
 "resonates",
 "sparking",
 "steeped",
@@ -27489,28 +27493,28 @@
 "symbolizing",
 "withstanding",
 "marooned",
-"overhanging",
-"paralleled",
-"deviates",
-"engender",
-"glowed"
+"overhanging"
 ]
 },
 {
 "id": "vb-general-rarest",
 "title": "Verbs | general, abstract & state verbs (rarest)",
-"description": "Verbs | general, abstract & state verbs (rarest): permeate, correlating, engendered, forestall, languishing, obscures, whet + Verbs | technology & computing actions (most common): click, update, download, recorded",
+"description": "Verbs | general, abstract & state verbs (rarest): paralleled, deviates, engender, glowed, permeate, correlating, engendered + Verbs | technology & computing actions (most common): click, update, download, recorded",
 "categories": [
 {
 "id": "vb_general",
-"count": 206
+"count": 210
 },
 {
 "id": "vb_tech",
-"count": 49
+"count": 45
 }
 ],
 "words": [
+"paralleled",
+"deviates",
+"engender",
+"glowed",
 "permeate",
 "correlating",
 "engendered",
@@ -27761,28 +27765,28 @@
 "sync",
 "typing",
 "downloaded",
-"reset",
-"hacked",
-"tagged",
-"coding",
-"wired"
+"reset"
 ]
 },
 {
 "id": "vb-tech-less-common",
 "title": "Verbs | technology & computing actions (less common)",
-"description": "Verbs | technology & computing actions (less common): copied, activate, logging, ping, clicks, scanning, blogging + Nouns | people, roles & occupations (most common): people, man, women, person",
+"description": "Verbs | technology & computing actions (less common): hacked, tagged, coding, wired, copied, activate, logging + Nouns | people, roles & occupations (most common): people, man, women, person",
 "categories": [
 {
 "id": "vb_tech",
-"count": 239
+"count": 243
 },
 {
 "id": "n_people",
-"count": 16
+"count": 12
 }
 ],
 "words": [
+"hacked",
+"tagged",
+"coding",
+"wired",
 "copied",
 "activate",
 "logging",
@@ -28033,17 +28037,13 @@
 "girl",
 "friend",
 "members",
-"woman",
-"child",
-"kids",
-"students",
-"member"
+"woman"
 ]
 },
 {
 "id": "n-people-common",
 "title": "Nouns | people, roles & occupations (common)",
-"description": "Nouns | people, roles & occupations (common): boy, girls, king, director, chief, sir, boys",
+"description": "Nouns | people, roles & occupations (common): child, kids, students, member, boy, girls, king",
 "categories": [
 {
 "id": "n_people",
@@ -28051,6 +28051,10 @@
 }
 ],
 "words": [
+"child",
+"kids",
+"students",
+"member",
 "boy",
 "girls",
 "king",
@@ -28301,17 +28305,13 @@
 "practitioners",
 "psychologist",
 "companions",
-"counselor",
-"guardians",
-"mechanic",
-"spokesman",
-"banker"
+"counselor"
 ]
 },
 {
 "id": "n-people-less-common-3-of-10",
 "title": "Nouns | people, roles & occupations (less common (3 of 10))",
-"description": "Nouns | people, roles & occupations (less common (3 of 10)): participant, respondents, sailor, tenant, vegetarian, bankers, insider",
+"description": "Nouns | people, roles & occupations (less common (3 of 10)): guardians, mechanic, spokesman, banker, participant, respondents, sailor",
 "categories": [
 {
 "id": "n_people",
@@ -28319,6 +28319,10 @@
 }
 ],
 "words": [
+"guardians",
+"mechanic",
+"spokesman",
+"banker",
 "participant",
 "respondents",
 "sailor",
@@ -28569,17 +28573,13 @@
 "aides",
 "diver",
 "explorers",
-"helper",
-"moderator",
-"novice",
-"seeker",
-"acquaintances"
+"helper"
 ]
 },
 {
 "id": "n-people-less-common-4-of-10",
 "title": "Nouns | people, roles & occupations (less common (4 of 10))",
-"description": "Nouns | people, roles & occupations (less common (4 of 10)): amateurs, astronomers, contemporaries, housewife, housewives, newcomer, nobles",
+"description": "Nouns | people, roles & occupations (less common (4 of 10)): moderator, novice, seeker, acquaintances, amateurs, astronomers, contemporaries",
 "categories": [
 {
 "id": "n_people",
@@ -28587,6 +28587,10 @@
 }
 ],
 "words": [
+"moderator",
+"novice",
+"seeker",
+"acquaintances",
 "amateurs",
 "astronomers",
 "contemporaries",
@@ -28837,17 +28841,13 @@
 "chairmen",
 "finisher",
 "geologists",
-"hater",
-"hypocrites",
-"innocents",
-"lecturers",
-"medics"
+"hater"
 ]
 },
 {
 "id": "n-people-less-common-5-of-10",
 "title": "Nouns | people, roles & occupations (less common (5 of 10))",
-"description": "Nouns | people, roles & occupations (less common (5 of 10)): messengers, ombudsman, pasha, postmaster, undergraduates, adherents, chaser",
+"description": "Nouns | people, roles & occupations (less common (5 of 10)): hypocrites, innocents, lecturers, medics, messengers, ombudsman, pasha",
 "categories": [
 {
 "id": "n_people",
@@ -28855,6 +28855,10 @@
 }
 ],
 "words": [
+"hypocrites",
+"innocents",
+"lecturers",
+"medics",
 "messengers",
 "ombudsman",
 "pasha",
@@ -29105,17 +29109,13 @@
 "brats",
 "henchman",
 "introvert",
-"journeyman",
-"sellout",
-"stooges",
-"bookseller",
-"cardiologist"
+"journeyman"
 ]
 },
 {
 "id": "n-people-less-common-6-of-10",
 "title": "Nouns | people, roles & occupations (less common (6 of 10))",
-"description": "Nouns | people, roles & occupations (less common (6 of 10)): compatriots, countryman, demonstrator, facilitator, landlady, misogynist, nutritionist",
+"description": "Nouns | people, roles & occupations (less common (6 of 10)): sellout, stooges, bookseller, cardiologist, compatriots, countryman, demonstrator",
 "categories": [
 {
 "id": "n_people",
@@ -29123,6 +29123,10 @@
 }
 ],
 "words": [
+"sellout",
+"stooges",
+"bookseller",
+"cardiologist",
 "compatriots",
 "countryman",
 "demonstrator",
@@ -29373,17 +29377,13 @@
 "denier",
 "fiends",
 "finders",
-"introverts",
-"machinist",
-"middlemen",
-"paralegal",
-"schoolmaster"
+"introverts"
 ]
 },
 {
 "id": "n-people-less-common-7-of-10",
 "title": "Nouns | people, roles & occupations (less common (7 of 10))",
-"description": "Nouns | people, roles & occupations (less common (7 of 10)): searchers, setters, slacker, traditionalist, abolitionist, apothecary, baddies",
+"description": "Nouns | people, roles & occupations (less common (7 of 10)): machinist, middlemen, paralegal, schoolmaster, searchers, setters, slacker",
 "categories": [
 {
 "id": "n_people",
@@ -29391,6 +29391,10 @@
 }
 ],
 "words": [
+"machinist",
+"middlemen",
+"paralegal",
+"schoolmaster",
 "searchers",
 "setters",
 "slacker",
@@ -29641,17 +29645,13 @@
 "nobodies",
 "peddler",
 "registrant",
-"scoundrels",
-"throwers",
-"visionaries",
-"wearers",
-"welders"
+"scoundrels"
 ]
 },
 {
 "id": "n-people-less-common-8-of-10",
 "title": "Nouns | people, roles & occupations (less common (8 of 10))",
-"description": "Nouns | people, roles & occupations (less common (8 of 10)): womanizer, adherent, biter, botanists, bruiser, brutes, caterers",
+"description": "Nouns | people, roles & occupations (less common (8 of 10)): throwers, visionaries, wearers, welders, womanizer, adherent, biter",
 "categories": [
 {
 "id": "n_people",
@@ -29659,6 +29659,10 @@
 }
 ],
 "words": [
+"throwers",
+"visionaries",
+"wearers",
+"welders",
 "womanizer",
 "adherent",
 "biter",
@@ -29909,17 +29913,13 @@
 "mongers",
 "neurologists",
 "roadie",
-"alumnae",
-"archivists",
-"bushman",
-"cavemen",
-"experimenter"
+"alumnae"
 ]
 },
 {
 "id": "n-people-less-common-9-of-10",
 "title": "Nouns | people, roles & occupations (less common (9 of 10))",
-"description": "Nouns | people, roles & occupations (less common (9 of 10)): ghostwriter, herdsmen, heterosexuals, houseguests, liberators, paleontologists, pragmatist",
+"description": "Nouns | people, roles & occupations (less common (9 of 10)): archivists, bushman, cavemen, experimenter, ghostwriter, herdsmen, heterosexuals",
 "categories": [
 {
 "id": "n_people",
@@ -29927,6 +29927,10 @@
 }
 ],
 "words": [
+"archivists",
+"bushman",
+"cavemen",
+"experimenter",
 "ghostwriter",
 "herdsmen",
 "heterosexuals",
@@ -30177,28 +30181,28 @@
 "endorser",
 "filers",
 "functionary",
-"hotshots",
-"laddie",
-"northerner",
-"nymphomaniac",
-"pygmies"
+"hotshots"
 ]
 },
 {
 "id": "n-family-most-common",
 "title": "Nouns | family & relationships (most common)",
-"description": "Nouns | people, roles & occupations (rarest): ruffians, colorist, draftees, drunkards + Nouns | family & relationships (most common): family, son, baby, father, mother, wife, parents",
+"description": "Nouns | people, roles & occupations (rarest): laddie, northerner, nymphomaniac, pygmies + Nouns | family & relationships (most common): family, son, baby, father, mother, wife, parents",
 "categories": [
 {
 "id": "n_people",
-"count": 67
+"count": 71
 },
 {
 "id": "n_family",
-"count": 188
+"count": 184
 }
 ],
 "words": [
+"laddie",
+"northerner",
+"nymphomaniac",
+"pygmies",
 "ruffians",
 "colorist",
 "draftees",
@@ -30449,28 +30453,28 @@
 "grands",
 "quint",
 "gramps",
-"granddaughters",
-"grannies",
-"forebears",
-"mammy",
-"newlywed"
+"granddaughters"
 ]
 },
 {
 "id": "n-body-most-common",
 "title": "Nouns | body, health & medicine (most common)",
-"description": "Nouns | family & relationships (less common): descendents, godson, pappy, poppa + Nouns | body, health & medicine (most common): head, face, health, hand, body, death, heart",
+"description": "Nouns | family & relationships (less common): grannies, forebears, mammy, newlywed + Nouns | body, health & medicine (most common): head, face, health, hand, body, death, heart",
 "categories": [
 {
 "id": "n_family",
-"count": 29
+"count": 33
 },
 {
 "id": "n_body",
-"count": 226
+"count": 222
 }
 ],
 "words": [
+"grannies",
+"forebears",
+"mammy",
+"newlywed",
 "descendents",
 "godson",
 "pappy",
@@ -30721,17 +30725,13 @@
 "serum",
 "asthma",
 "inflammation",
-"thigh",
-"viruses",
-"cholesterol",
-"mouths",
-"lump"
+"thigh"
 ]
 },
 {
 "id": "n-body-common",
 "title": "Nouns | body, health & medicine (common)",
-"description": "Nouns | body, health & medicine (common): neurons, tract, capsule, fracture, limb, quad, plaque",
+"description": "Nouns | body, health & medicine (common): viruses, cholesterol, mouths, lump, neurons, tract, capsule",
 "categories": [
 {
 "id": "n_body",
@@ -30739,6 +30739,10 @@
 }
 ],
 "words": [
+"viruses",
+"cholesterol",
+"mouths",
+"lump",
 "neurons",
 "tract",
 "capsule",
@@ -30989,17 +30993,13 @@
 "groin",
 "pelvis",
 "serotonin",
-"smallpox",
-"antidote",
-"anus",
-"balm",
-"chemo"
+"smallpox"
 ]
 },
 {
 "id": "n-body-less-common-3-of-7",
 "title": "Nouns | body, health & medicine (less common (3 of 7))",
-"description": "Nouns | body, health & medicine (less common (3 of 7)): collagen, icu, lsd, psychotherapy, spines, bandage, catheter",
+"description": "Nouns | body, health & medicine (less common (3 of 7)): antidote, anus, balm, chemo, collagen, icu, lsd",
 "categories": [
 {
 "id": "n_body",
@@ -31007,6 +31007,10 @@
 }
 ],
 "words": [
+"antidote",
+"anus",
+"balm",
+"chemo",
 "collagen",
 "icu",
 "lsd",
@@ -31257,17 +31261,13 @@
 "dengue",
 "dermatology",
 "dryness",
-"facelift",
-"follicles",
-"ibuprofen",
-"midwifery",
-"ophthalmology"
+"facelift"
 ]
 },
 {
 "id": "n-body-less-common-4-of-7",
 "title": "Nouns | body, health & medicine (less common (4 of 7))",
-"description": "Nouns | body, health & medicine (less common (4 of 7)): pimples, resuscitation, antigens, aorta, bronchitis, ejaculation, hemoglobin",
+"description": "Nouns | body, health & medicine (less common (4 of 7)): follicles, ibuprofen, midwifery, ophthalmology, pimples, resuscitation, antigens",
 "categories": [
 {
 "id": "n_body",
@@ -31275,6 +31275,10 @@
 }
 ],
 "words": [
+"follicles",
+"ibuprofen",
+"midwifery",
+"ophthalmology",
 "pimples",
 "resuscitation",
 "antigens",
@@ -31525,17 +31529,13 @@
 "epinephrine",
 "erections",
 "faeces",
-"gonorrhea",
-"immunodeficiency",
-"infusions",
-"jaundice",
-"larynx"
+"gonorrhea"
 ]
 },
 {
 "id": "n-body-less-common-5-of-7",
 "title": "Nouns | body, health & medicine (less common (5 of 7))",
-"description": "Nouns | body, health & medicine (less common (5 of 7)): loins, mrsa, polyps, testes, booger, cadaver, irritant",
+"description": "Nouns | body, health & medicine (less common (5 of 7)): immunodeficiency, infusions, jaundice, larynx, loins, mrsa, polyps",
 "categories": [
 {
 "id": "n_body",
@@ -31543,6 +31543,10 @@
 }
 ],
 "words": [
+"immunodeficiency",
+"infusions",
+"jaundice",
+"larynx",
 "loins",
 "mrsa",
 "polyps",
@@ -31793,17 +31797,13 @@
 "neoplasms",
 "phallus",
 "amputations",
-"anaemia",
-"anesthesiology",
-"angiography",
-"antifungal",
-"atropine"
+"anaemia"
 ]
 },
 {
 "id": "n-body-less-common-6-of-7",
 "title": "Nouns | body, health & medicine (less common (6 of 7))",
-"description": "Nouns | body, health & medicine (less common (6 of 7)): bifida, clavicle, defecation, glutes, iud, ligation, myelin",
+"description": "Nouns | body, health & medicine (less common (6 of 7)): anesthesiology, angiography, antifungal, atropine, bifida, clavicle, defecation",
 "categories": [
 {
 "id": "n_body",
@@ -31811,6 +31811,10 @@
 }
 ],
 "words": [
+"anesthesiology",
+"angiography",
+"antifungal",
+"atropine",
 "bifida",
 "clavicle",
 "defecation",
@@ -32061,28 +32065,28 @@
 "floaters",
 "hyperthermia",
 "hyperthyroidism",
-"outpatients",
-"pandemics",
-"peritonitis",
-"retinas",
-"vitiligo"
+"outpatients"
 ]
 },
 {
 "id": "n-emotion-most-common",
 "title": "Nouns | emotions, mind & personality (most common)",
-"description": "Nouns | body, health & medicine (rarest): albinism, amnesiac, audiology, bosoms + Nouns | emotions, mind & personality (most common): mind, fun, self, feeling, attention, respect, peace",
+"description": "Nouns | body, health & medicine (rarest): pandemics, peritonitis, retinas, vitiligo + Nouns | emotions, mind & personality (most common): mind, fun, self, feeling, attention, respect, peace",
 "categories": [
 {
 "id": "n_body",
-"count": 44
+"count": 48
 },
 {
 "id": "n_emotion",
-"count": 211
+"count": 207
 }
 ],
 "words": [
+"pandemics",
+"peritonitis",
+"retinas",
+"vitiligo",
 "albinism",
 "amnesiac",
 "audiology",
@@ -32333,17 +32337,13 @@
 "detachment",
 "bitterness",
 "mania",
-"disbelief",
-"irritation",
-"motivations",
-"paranoia",
-"psyche"
+"disbelief"
 ]
 },
 {
 "id": "n-emotion-common",
 "title": "Nouns | emotions, mind & personality (common)",
-"description": "Nouns | emotions, mind & personality (common): reluctance, solitude, mindfulness, distrust, skepticism, heartbreak, inhibition",
+"description": "Nouns | emotions, mind & personality (common): irritation, motivations, paranoia, psyche, reluctance, solitude, mindfulness",
 "categories": [
 {
 "id": "n_emotion",
@@ -32351,6 +32351,10 @@
 }
 ],
 "words": [
+"irritation",
+"motivations",
+"paranoia",
+"psyche",
 "reluctance",
 "solitude",
 "mindfulness",
@@ -32601,28 +32605,28 @@
 "mercies",
 "trustworthiness",
 "insensitivity",
-"phobias",
-"fetishes",
-"insolence",
-"irresponsibility",
-"letdown"
+"phobias"
 ]
 },
 {
 "id": "n-emotion-rare",
 "title": "Nouns | emotions, mind & personality (rare)",
-"description": "Nouns | emotions, mind & personality (rare): mindsets, premonition, wanderlust, escapism, exasperation, scruples, bewilderment + Nouns | abstract concepts, qualities & ideas (most common): way, life, part, things",
+"description": "Nouns | emotions, mind & personality (rare): fetishes, insolence, irresponsibility, letdown, mindsets, premonition, wanderlust + Nouns | abstract concepts, qualities & ideas (most common): way, life, part, things",
 "categories": [
 {
 "id": "n_emotion",
-"count": 144
+"count": 148
 },
 {
 "id": "n_abstract",
-"count": 111
+"count": 107
 }
 ],
 "words": [
+"fetishes",
+"insolence",
+"irresponsibility",
+"letdown",
 "mindsets",
 "premonition",
 "wanderlust",
@@ -32873,17 +32877,13 @@
 "standards",
 "background",
 "concept",
-"efforts",
-"leadership",
-"skills",
-"balance",
-"connection"
+"efforts"
 ]
 },
 {
 "id": "n-abstract-common",
 "title": "Nouns | abstract concepts, qualities & ideas (common)",
-"description": "Nouns | abstract concepts, qualities & ideas (common): aid, beauty, responsibility, models, strategy, presence, reaction",
+"description": "Nouns | abstract concepts, qualities & ideas (common): leadership, skills, balance, connection, aid, beauty, responsibility",
 "categories": [
 {
 "id": "n_abstract",
@@ -32891,6 +32891,10 @@
 }
 ],
 "words": [
+"leadership",
+"skills",
+"balance",
+"connection",
 "aid",
 "beauty",
 "responsibility",
@@ -33141,17 +33145,13 @@
 "integrity",
 "interpretation",
 "twist",
-"unity",
-"abilities",
-"collections",
-"criteria",
-"difficulties"
+"unity"
 ]
 },
 {
 "id": "n-abstract-less-common-3-of-9",
 "title": "Nouns | abstract concepts, qualities & ideas (less common (3 of 9))",
-"description": "Nouns | abstract concepts, qualities & ideas (less common (3 of 9)): evaluation, habits, sorts, transformation, privilege, customs, destiny",
+"description": "Nouns | abstract concepts, qualities & ideas (less common (3 of 9)): abilities, collections, criteria, difficulties, evaluation, habits, sorts",
 "categories": [
 {
 "id": "n_abstract",
@@ -33159,6 +33159,10 @@
 }
 ],
 "words": [
+"abilities",
+"collections",
+"criteria",
+"difficulties",
 "evaluation",
 "habits",
 "sorts",
@@ -33409,17 +33413,13 @@
 "simplicity",
 "sustainability",
 "cancellation",
-"cons",
-"designation",
-"norms",
-"privileges",
-"restriction"
+"cons"
 ]
 },
 {
 "id": "n-abstract-less-common-4-of-9",
 "title": "Nouns | abstract concepts, qualities & ideas (less common (4 of 9))",
-"description": "Nouns | abstract concepts, qualities & ideas (less common (4 of 9)): accomplishments, conception, counterparts, deed, eligibility, noises, prestige",
+"description": "Nouns | abstract concepts, qualities & ideas (less common (4 of 9)): designation, norms, privileges, restriction, accomplishments, conception, counterparts",
 "categories": [
 {
 "id": "n_abstract",
@@ -33427,6 +33427,10 @@
 }
 ],
 "words": [
+"designation",
+"norms",
+"privileges",
+"restriction",
 "accomplishments",
 "conception",
 "counterparts",
@@ -33677,17 +33681,13 @@
 "keystone",
 "lieu",
 "lows",
-"mayhem",
-"patronage",
-"pinnacle",
-"realms",
-"sham"
+"mayhem"
 ]
 },
 {
 "id": "n-abstract-less-common-5-of-9",
 "title": "Nouns | abstract concepts, qualities & ideas (less common (5 of 9))",
-"description": "Nouns | abstract concepts, qualities & ideas (less common (5 of 9)): shortcomings, stature, capacities, contingency, deprivation, feasibility, frenzy",
+"description": "Nouns | abstract concepts, qualities & ideas (less common (5 of 9)): patronage, pinnacle, realms, sham, shortcomings, stature, capacities",
 "categories": [
 {
 "id": "n_abstract",
@@ -33695,6 +33695,10 @@
 }
 ],
 "words": [
+"patronage",
+"pinnacle",
+"realms",
+"sham",
 "shortcomings",
 "stature",
 "capacities",
@@ -33945,17 +33949,13 @@
 "groundwork",
 "imposition",
 "indulgence",
-"notoriety",
-"provocation",
-"scourge",
-"stagnation",
-"stead"
+"notoriety"
 ]
 },
 {
 "id": "n-abstract-less-common-6-of-9",
 "title": "Nouns | abstract concepts, qualities & ideas (less common (6 of 9))",
-"description": "Nouns | abstract concepts, qualities & ideas (less common (6 of 9)): tangent, classifications, facet, fates, finesse, kinks, overdrive",
+"description": "Nouns | abstract concepts, qualities & ideas (less common (6 of 9)): provocation, scourge, stagnation, stead, tangent, classifications, facet",
 "categories": [
 {
 "id": "n_abstract",
@@ -33963,6 +33963,10 @@
 }
 ],
 "words": [
+"provocation",
+"scourge",
+"stagnation",
+"stead",
 "tangent",
 "classifications",
 "facet",
@@ -34213,17 +34217,13 @@
 "procrastination",
 "quirks",
 "takeaways",
-"understandings",
-"unknowns",
-"invisibility",
-"pomp",
-"trickery"
+"understandings"
 ]
 },
 {
 "id": "n-abstract-less-common-7-of-9",
 "title": "Nouns | abstract concepts, qualities & ideas (less common (7 of 9))",
-"description": "Nouns | abstract concepts, qualities & ideas (less common (7 of 9)): ambience, combos, veracity, disguises, formalities, memento, milieu",
+"description": "Nouns | abstract concepts, qualities & ideas (less common (7 of 9)): unknowns, invisibility, pomp, trickery, ambience, combos, veracity",
 "categories": [
 {
 "id": "n_abstract",
@@ -34231,6 +34231,10 @@
 }
 ],
 "words": [
+"unknowns",
+"invisibility",
+"pomp",
+"trickery",
 "ambience",
 "combos",
 "veracity",
@@ -34481,17 +34485,13 @@
 "pretence",
 "progressions",
 "punctuality",
-"subjugation",
-"tribulation",
-"universality",
-"analogues",
-"disengagement"
+"subjugation"
 ]
 },
 {
 "id": "n-abstract-less-common-8-of-9",
 "title": "Nouns | abstract concepts, qualities & ideas (less common (8 of 9))",
-"description": "Nouns | abstract concepts, qualities & ideas (less common (8 of 9)): dystopia, rearrangement, relevancy, approximations, blowback, dishonour, frailty",
+"description": "Nouns | abstract concepts, qualities & ideas (less common (8 of 9)): tribulation, universality, analogues, disengagement, dystopia, rearrangement, relevancy",
 "categories": [
 {
 "id": "n_abstract",
@@ -34499,6 +34499,10 @@
 }
 ],
 "words": [
+"tribulation",
+"universality",
+"analogues",
+"disengagement",
 "dystopia",
 "rearrangement",
 "relevancy",
@@ -34749,28 +34753,28 @@
 "competences",
 "conjectures",
 "disrepute",
-"ephemera",
-"extractions",
-"fusions",
-"handoff",
-"hassles"
+"ephemera"
 ]
 },
 {
 "id": "n-abstract-rarest",
 "title": "Nouns | abstract concepts, qualities & ideas (rarest)",
-"description": "Nouns | abstract concepts, qualities & ideas (rarest): inducement, logics, misbehavior, niceties, pitfall, reasonableness, beautification + a few Nouns | actions, events, holidays & activities words",
+"description": "Nouns | abstract concepts, qualities & ideas (rarest): extractions, fusions, handoff, hassles, inducement, logics, misbehavior + a few Nouns | actions, events, holidays & activities words",
 "categories": [
 {
 "id": "n_abstract",
-"count": 250
+"count": 254
 },
 {
 "id": "n_events",
-"count": 5
+"count": 1
 }
 ],
 "words": [
+"extractions",
+"fusions",
+"handoff",
+"hassles",
 "inducement",
 "logics",
 "misbehavior",
@@ -35021,17 +35025,13 @@
 "normalisation",
 "nostrum",
 "reconnection",
-"game",
-"party",
-"games",
-"act",
-"fire"
+"game"
 ]
 },
 {
 "id": "n-events-common",
 "title": "Nouns | actions, events, holidays & activities (common)",
-"description": "Nouns | actions, events, holidays & activities (common): action, event, meeting, events, conference, tour, movement",
+"description": "Nouns | actions, events, holidays & activities (common): party, games, act, fire, action, event, meeting",
 "categories": [
 {
 "id": "n_events",
@@ -35039,6 +35039,10 @@
 }
 ],
 "words": [
+"party",
+"games",
+"act",
+"fire",
 "action",
 "event",
 "meeting",
@@ -35289,17 +35293,13 @@
 "funerals",
 "rendezvous",
 "errands",
-"fiasco",
-"inferno",
-"sighting",
-"commemoration",
-"malfunction"
+"fiasco"
 ]
 },
 {
 "id": "n-events-less-common-3-of-4",
 "title": "Nouns | actions, events, holidays & activities (less common (3 of 4))",
-"description": "Nouns | actions, events, holidays & activities (less common (3 of 4)): ovation, parades, tragedies, wreckage, fray, sightings, rioting",
+"description": "Nouns | actions, events, holidays & activities (less common (3 of 4)): inferno, sighting, commemoration, malfunction, ovation, parades, tragedies",
 "categories": [
 {
 "id": "n_events",
@@ -35307,6 +35307,10 @@
 }
 ],
 "words": [
+"inferno",
+"sighting",
+"commemoration",
+"malfunction",
 "ovation",
 "parades",
 "tragedies",
@@ -35557,28 +35561,28 @@
 "misfire",
 "togethers",
 "visitations",
-"immolation",
-"makeovers",
-"soiree",
-"ascents",
-"purim"
+"immolation"
 ]
 },
 {
 "id": "n-communication-most-common",
 "title": "Nouns | language, communication & media (most common)",
-"description": "Nouns | actions, events, holidays & activities (rarest): spats, telethon, wanderings, blowouts + Nouns | language, communication & media (most common): name, story, news, book, information, post, question",
+"description": "Nouns | actions, events, holidays & activities (rarest): makeovers, soiree, ascents, purim + Nouns | language, communication & media (most common): name, story, news, book, information, post, question",
 "categories": [
 {
 "id": "n_events",
-"count": 49
+"count": 53
 },
 {
 "id": "n_communication",
-"count": 206
+"count": 202
 }
 ],
 "words": [
+"makeovers",
+"soiree",
+"ascents",
+"purim",
 "spats",
 "telethon",
 "wanderings",
@@ -35829,17 +35833,13 @@
 "apology",
 "buzz",
 "symbols",
-"editors",
-"headline",
-"hype",
-"paragraph",
-"broadcasting"
+"editors"
 ]
 },
 {
 "id": "n-communication-common",
 "title": "Nouns | language, communication & media (common)",
-"description": "Nouns | language, communication & media (common): consultation, dictionary, observations, reporters, rumors, tweets, disclosure",
+"description": "Nouns | language, communication & media (common): headline, hype, paragraph, broadcasting, consultation, dictionary, observations",
 "categories": [
 {
 "id": "n_communication",
@@ -35847,6 +35847,10 @@
 }
 ],
 "words": [
+"headline",
+"hype",
+"paragraph",
+"broadcasting",
 "consultation",
 "dictionary",
 "observations",
@@ -36097,17 +36101,13 @@
 "brochure",
 "chats",
 "anecdotes",
-"attribution",
-"enquiries",
-"handshake",
-"reminders",
-"understatement"
+"attribution"
 ]
 },
 {
 "id": "n-communication-less-common-3-of-5",
 "title": "Nouns | language, communication & media (less common (3 of 5))",
-"description": "Nouns | language, communication & media (less common (3 of 5)): adjective, bestseller, prompts, envelopes, leaflets, persuasion, previews",
+"description": "Nouns | language, communication & media (less common (3 of 5)): enquiries, handshake, reminders, understatement, adjective, bestseller, prompts",
 "categories": [
 {
 "id": "n_communication",
@@ -36115,6 +36115,10 @@
 }
 ],
 "words": [
+"enquiries",
+"handshake",
+"reminders",
+"understatement",
 "adjective",
 "bestseller",
 "prompts",
@@ -36365,17 +36369,13 @@
 "tabloids",
 "zine",
 "faqs",
-"inflection",
-"litany",
-"retraction",
-"sonnets",
-"thesaurus"
+"inflection"
 ]
 },
 {
 "id": "n-communication-less-common-4-of-5",
 "title": "Nouns | language, communication & media (less common (4 of 5))",
-"description": "Nouns | language, communication & media (less common (4 of 5)): acronyms, audiobooks, dashes, epithet, preamble, tirade, vitriol",
+"description": "Nouns | language, communication & media (less common (4 of 5)): litany, retraction, sonnets, thesaurus, acronyms, audiobooks, dashes",
 "categories": [
 {
 "id": "n_communication",
@@ -36383,6 +36383,10 @@
 }
 ],
 "words": [
+"litany",
+"retraction",
+"sonnets",
+"thesaurus",
 "acronyms",
 "audiobooks",
 "dashes",
@@ -36633,28 +36637,28 @@
 "memoranda",
 "subsections",
 "superlatives",
-"uppercase",
-"vocabularies",
-"autobiographies",
-"editorship",
-"mailings"
+"uppercase"
 ]
 },
 {
 "id": "n-arts-most-common",
 "title": "Nouns | arts, music, film & entertainment (most common)",
-"description": "Nouns | language, communication & media (rarest): masthead, photocopies, signpost, telegraphy + Nouns | arts, music, film & entertainment (most common): show, music, video, series, art, song, shows",
+"description": "Nouns | language, communication & media (rarest): vocabularies, autobiographies, editorship, mailings + Nouns | arts, music, film & entertainment (most common): show, music, video, series, art, song, shows",
 "categories": [
 {
 "id": "n_communication",
-"count": 111
+"count": 115
 },
 {
 "id": "n_arts",
-"count": 144
+"count": 140
 }
 ],
 "words": [
+"vocabularies",
+"autobiographies",
+"editorship",
+"mailings",
 "masthead",
 "photocopies",
 "signpost",
@@ -36905,17 +36909,13 @@
 "productions",
 "sculpture",
 "anthem",
-"thriller",
-"vocals",
-"chorus",
-"classics",
-"recordings"
+"thriller"
 ]
 },
 {
 "id": "n-arts-common",
 "title": "Nouns | arts, music, film & entertainment (common)",
-"description": "Nouns | arts, music, film & entertainment (common): spotlight, choir, illustrations, portraits, trilogy, compilation, galleries",
+"description": "Nouns | arts, music, film & entertainment (common): vocals, chorus, classics, recordings, spotlight, choir, illustrations",
 "categories": [
 {
 "id": "n_arts",
@@ -36923,6 +36923,10 @@
 }
 ],
 "words": [
+"vocals",
+"chorus",
+"classics",
+"recordings",
 "spotlight",
 "choir",
 "illustrations",
@@ -37173,17 +37177,13 @@
 "miniatures",
 "crayons",
 "engravings",
-"hula",
-"kpop",
-"overture",
-"rhapsody",
-"ukulele"
+"hula"
 ]
 },
 {
 "id": "n-arts-less-common-3-of-4",
 "title": "Nouns | arts, music, film & entertainment (less common (3 of 4))",
-"description": "Nouns | arts, music, film & entertainment (less common (3 of 4)): carvings, pantomime, soloist, ensembles, figurines, pianos, soundtracks",
+"description": "Nouns | arts, music, film & entertainment (less common (3 of 4)): kpop, overture, rhapsody, ukulele, carvings, pantomime, soloist",
 "categories": [
 {
 "id": "n_arts",
@@ -37191,6 +37191,10 @@
 }
 ],
 "words": [
+"kpop",
+"overture",
+"rhapsody",
+"ukulele",
 "carvings",
 "pantomime",
 "soloist",
@@ -37441,28 +37445,28 @@
 "futurism",
 "madrigal",
 "plotline",
-"tracklist",
-"cowbell",
-"illuminations",
-"koto",
-"lithographs"
+"tracklist"
 ]
 },
 {
 "id": "n-sports-most-common",
 "title": "Nouns | sports, games & hobbies (most common)",
-"description": "Nouns | arts, music, film & entertainment (rarest): masterwork, woodwind, cajon, clef + Nouns | sports, games & hobbies (most common): team, players, player, league, match, football, race",
+"description": "Nouns | arts, music, film & entertainment (rarest): cowbell, illuminations, koto, lithographs + Nouns | sports, games & hobbies (most common): team, players, player, league, match, football, race",
 "categories": [
 {
 "id": "n_arts",
-"count": 96
+"count": 100
 },
 {
 "id": "n_sports",
-"count": 159
+"count": 155
 }
 ],
 "words": [
+"cowbell",
+"illuminations",
+"koto",
+"lithographs",
 "masterwork",
 "woodwind",
 "cajon",
@@ -37713,17 +37717,13 @@
 "puck",
 "scorer",
 "heavyweight",
-"mascot",
-"midfield",
-"knockout",
-"premiership",
-"champs"
+"mascot"
 ]
 },
 {
 "id": "n-sports-common",
 "title": "Nouns | sports, games & hobbies (common)",
-"description": "Nouns | sports, games & hobbies (common): gymnastics, brackets, mma, wicket, touchdowns, hobbies, jockey",
+"description": "Nouns | sports, games & hobbies (common): midfield, knockout, premiership, champs, gymnastics, brackets, mma",
 "categories": [
 {
 "id": "n_sports",
@@ -37731,6 +37731,10 @@
 }
 ],
 "words": [
+"midfield",
+"knockout",
+"premiership",
+"champs",
 "gymnastics",
 "brackets",
 "mma",
@@ -37981,17 +37985,13 @@
 "canoeing",
 "kickboxing",
 "footballing",
-"regionals",
-"backhand",
-"billiard",
-"equaliser",
-"pars"
+"regionals"
 ]
 },
 {
 "id": "n-sports-less-common-3-of-4",
 "title": "Nouns | sports, games & hobbies (less common (3 of 4))",
-"description": "Nouns | sports, games & hobbies (less common (3 of 4)): tryout, welterweight, muay, billiards, bungee, goalkeepers, mountaineering",
+"description": "Nouns | sports, games & hobbies (less common (3 of 4)): backhand, billiard, equaliser, pars, tryout, welterweight, muay",
 "categories": [
 {
 "id": "n_sports",
@@ -37999,6 +37999,10 @@
 }
 ],
 "words": [
+"backhand",
+"billiard",
+"equaliser",
+"pars",
 "tryout",
 "welterweight",
 "muay",
@@ -38249,28 +38253,28 @@
 "pachinko",
 "scorecards",
 "stirrups",
-"birdwatching",
-"cooldown",
-"eventing",
-"hold'em",
-"hurdler"
+"birdwatching"
 ]
 },
 {
 "id": "n-food-most-common",
 "title": "Nouns | food, drink & cooking (most common)",
-"description": "Nouns | sports, games & hobbies (rarest): longboard, peekaboo, platforming, rummy + Nouns | food, drink & cooking (most common): food, coffee, dinner, wine, taste, tea, beer",
+"description": "Nouns | sports, games & hobbies (rarest): cooldown, eventing, hold'em, hurdler + Nouns | food, drink & cooking (most common): food, coffee, dinner, wine, taste, tea, beer",
 "categories": [
 {
 "id": "n_sports",
-"count": 28
+"count": 32
 },
 {
 "id": "n_food",
-"count": 227
+"count": 223
 }
 ],
 "words": [
+"cooldown",
+"eventing",
+"hold'em",
+"hurdler",
 "longboard",
 "peekaboo",
 "platforming",
@@ -38521,17 +38525,13 @@
 "oyster",
 "pea",
 "poultry",
-"strawberries",
-"almond",
-"dinners",
-"pastry",
-"salsa"
+"strawberries"
 ]
 },
 {
 "id": "n-food-common",
 "title": "Nouns | food, drink & cooking (common)",
-"description": "Nouns | food, drink & cooking (common): oranges, peanuts, rye, brandy, nutrient, broccoli, cider",
+"description": "Nouns | food, drink & cooking (common): almond, dinners, pastry, salsa, oranges, peanuts, rye",
 "categories": [
 {
 "id": "n_food",
@@ -38539,6 +38539,10 @@
 }
 ],
 "words": [
+"almond",
+"dinners",
+"pastry",
+"salsa",
 "oranges",
 "peanuts",
 "rye",
@@ -38789,17 +38793,13 @@
 "apricot",
 "chardonnay",
 "fizz",
-"granola",
-"lard",
-"millet",
-"mocha",
-"pretzel"
+"granola"
 ]
 },
 {
 "id": "n-food-less-common-3-of-5",
 "title": "Nouns | food, drink & cooking (less common (3 of 5))",
-"description": "Nouns | food, drink & cooking (less common (3 of 5)): raspberries, tarts, crumb, fillet, plums, rhubarb, shanks",
+"description": "Nouns | food, drink & cooking (less common (3 of 5)): lard, millet, mocha, pretzel, raspberries, tarts, crumb",
 "categories": [
 {
 "id": "n_food",
@@ -38807,6 +38807,10 @@
 }
 ],
 "words": [
+"lard",
+"millet",
+"mocha",
+"pretzel",
 "raspberries",
 "tarts",
 "crumb",
@@ -39057,17 +39061,13 @@
 "ambrosia",
 "americano",
 "anise",
-"barbecues",
-"crawfish",
-"frankfurter",
-"grog",
-"lox"
+"barbecues"
 ]
 },
 {
 "id": "n-food-less-common-4-of-5",
 "title": "Nouns | food, drink & cooking (less common (4 of 5))",
-"description": "Nouns | food, drink & cooking (less common (4 of 5)): stews, choc, choco, coleslaw, collard, falafel, gastronomy",
+"description": "Nouns | food, drink & cooking (less common (4 of 5)): crawfish, frankfurter, grog, lox, stews, choc, choco",
 "categories": [
 {
 "id": "n_food",
@@ -39075,6 +39075,10 @@
 }
 ],
 "words": [
+"crawfish",
+"frankfurter",
+"grog",
+"lox",
 "stews",
 "choc",
 "choco",
@@ -39325,28 +39329,28 @@
 "mung",
 "trotters",
 "amla",
-"baklava",
-"deviled",
-"drumstick",
-"flavouring",
-"foodstuff"
+"baklava"
 ]
 },
 {
 "id": "n-animals-most-common",
 "title": "Nouns | animals & creatures (most common)",
-"description": "Nouns | food, drink & cooking (rarest): fruitcake, ganache, malts, pastas + Nouns | animals & creatures (most common): dog, fish, animals, animal, cat, dogs, horse",
+"description": "Nouns | food, drink & cooking (rarest): deviled, drumstick, flavouring, foodstuff + Nouns | animals & creatures (most common): dog, fish, animals, animal, cat, dogs, horse",
 "categories": [
 {
 "id": "n_food",
-"count": 53
+"count": 57
 },
 {
 "id": "n_animals",
-"count": 202
+"count": 198
 }
 ],
 "words": [
+"deviled",
+"drumstick",
+"flavouring",
+"foodstuff",
 "fruitcake",
 "ganache",
 "malts",
@@ -39597,17 +39601,13 @@
 "bulldog",
 "caterpillar",
 "cougar",
-"ticks",
-"otter",
-"scorpion",
-"coyote",
-"fins"
+"ticks"
 ]
 },
 {
 "id": "n-animals-common",
 "title": "Nouns | animals & creatures (common)",
-"description": "Nouns | animals & creatures (common): pigeons, reptiles, catfish, geese, wasp, beetles, sturgeon",
+"description": "Nouns | animals & creatures (common): otter, scorpion, coyote, fins, pigeons, reptiles, catfish",
 "categories": [
 {
 "id": "n_animals",
@@ -39615,6 +39615,10 @@
 }
 ],
 "words": [
+"otter",
+"scorpion",
+"coyote",
+"fins",
 "pigeons",
 "reptiles",
 "catfish",
@@ -39865,17 +39869,13 @@
 "mermaids",
 "nautilus",
 "rattlesnake",
-"fireflies",
-"kitties",
-"racehorse",
-"crayfish",
-"maggots"
+"fireflies"
 ]
 },
 {
 "id": "n-animals-less-common-3-of-4",
 "title": "Nouns | animals & creatures (less common (3 of 4))",
-"description": "Nouns | animals & creatures (less common (3 of 4)): pollack, rhinoceros, carnivores, holstein, roos, shad, strays",
+"description": "Nouns | animals & creatures (less common (3 of 4)): kitties, racehorse, crayfish, maggots, pollack, rhinoceros, carnivores",
 "categories": [
 {
 "id": "n_animals",
@@ -39883,6 +39883,10 @@
 }
 ],
 "words": [
+"kitties",
+"racehorse",
+"crayfish",
+"maggots",
 "pollack",
 "rhinoceros",
 "carnivores",
@@ -40133,28 +40137,28 @@
 "meerkat",
 "pitbulls",
 "rattlesnakes",
-"squids",
-"stingers",
-"warblers",
-"warthog",
-"whelp"
+"squids"
 ]
 },
 {
 "id": "n-animals-rarest",
 "title": "Nouns | animals & creatures (rarest)",
-"description": "Nouns | animals & creatures (rarest): blackbirds, grubs, parakeet, snook, aedes, cicadas, clydesdale + Nouns | plants, nature, landscape & weather (most common): air, light, field, land",
+"description": "Nouns | animals & creatures (rarest): stingers, warblers, warthog, whelp, blackbirds, grubs, parakeet + Nouns | plants, nature, landscape & weather (most common): air, light, field, land",
 "categories": [
 {
 "id": "n_animals",
-"count": 133
+"count": 137
 },
 {
 "id": "n_nature",
-"count": 122
+"count": 118
 }
 ],
 "words": [
+"stingers",
+"warblers",
+"warthog",
+"whelp",
 "blackbirds",
 "grubs",
 "parakeet",
@@ -40405,17 +40409,13 @@
 "tide",
 "warming",
 "sunset",
-"flames",
-"harvest",
-"peninsula",
-"environments",
-"roses"
+"flames"
 ]
 },
 {
 "id": "n-nature-common",
 "title": "Nouns | plants, nature, landscape & weather (common)",
-"description": "Nouns | plants, nature, landscape & weather (common): habitat, lawn, pond, flooding, beaches, canyon, frost",
+"description": "Nouns | plants, nature, landscape & weather (common): harvest, peninsula, environments, roses, habitat, lawn, pond",
 "categories": [
 {
 "id": "n_nature",
@@ -40423,6 +40423,10 @@
 }
 ],
 "words": [
+"harvest",
+"peninsula",
+"environments",
+"roses",
 "habitat",
 "lawn",
 "pond",
@@ -40673,17 +40677,13 @@
 "deforestation",
 "linden",
 "magma",
-"plume",
-"rainbows",
-"shrub",
-"wasteland",
-"fireball"
+"plume"
 ]
 },
 {
 "id": "n-nature-less-common-3-of-5",
 "title": "Nouns | plants, nature, landscape & weather (less common (3 of 5))",
-"description": "Nouns | plants, nature, landscape & weather (less common (3 of 5)): moors, snowball, tulip, waterway, boulders, eruptions, infestation",
+"description": "Nouns | plants, nature, landscape & weather (less common (3 of 5)): rainbows, shrub, wasteland, fireball, moors, snowball, tulip",
 "categories": [
 {
 "id": "n_nature",
@@ -40691,6 +40691,10 @@
 }
 ],
 "words": [
+"rainbows",
+"shrub",
+"wasteland",
+"fireball",
 "moors",
 "snowball",
 "tulip",
@@ -40941,17 +40945,13 @@
 "stamens",
 "subsidence",
 "carnation",
-"lakeshore",
-"typhoons",
-"headland",
-"moraine",
-"thicket"
+"lakeshore"
 ]
 },
 {
 "id": "n-nature-less-common-4-of-5",
 "title": "Nouns | plants, nature, landscape & weather (less common (4 of 5))",
-"description": "Nouns | plants, nature, landscape & weather (less common (4 of 5)): wildflower, avalanches, catnip, moorland, quicksand, watersheds, wisp",
+"description": "Nouns | plants, nature, landscape & weather (less common (4 of 5)): typhoons, headland, moraine, thicket, wildflower, avalanches, catnip",
 "categories": [
 {
 "id": "n_nature",
@@ -40959,6 +40959,10 @@
 }
 ],
 "words": [
+"typhoons",
+"headland",
+"moraine",
+"thicket",
 "wildflower",
 "avalanches",
 "catnip",
@@ -41209,28 +41213,28 @@
 "sinkholes",
 "sunrises",
 "watercourses",
-"brier",
-"clovers",
-"coulee",
-"gorse",
-"gourds"
+"brier"
 ]
 },
 {
 "id": "n-home-most-common",
 "title": "Nouns | home, furniture & household objects (most common)",
-"description": "Nouns | plants, nature, landscape & weather (rarest): jarrah, phlox, seascape, tillage + Nouns | home, furniture & household objects (most common): home, house, room, cup, door, bed, table",
+"description": "Nouns | plants, nature, landscape & weather (rarest): clovers, coulee, gorse, gourds + Nouns | home, furniture & household objects (most common): home, house, room, cup, door, bed, table",
 "categories": [
 {
 "id": "n_nature",
-"count": 35
+"count": 39
 },
 {
 "id": "n_home",
-"count": 220
+"count": 216
 }
 ],
 "words": [
+"clovers",
+"coulee",
+"gorse",
+"gourds",
 "jarrah",
 "phlox",
 "seascape",
@@ -41481,17 +41485,13 @@
 "jars",
 "cupboard",
 "interiors",
-"patio",
-"villas",
-"bins",
-"blender",
-"corridors"
+"patio"
 ]
 },
 {
 "id": "n-home-common",
 "title": "Nouns | home, furniture & household objects (common)",
-"description": "Nouns | home, furniture & household objects (common): shack, broom, drawers, farmhouse, coop, cottages, bedding",
+"description": "Nouns | home, furniture & household objects (common): villas, bins, blender, corridors, shack, broom, drawers",
 "categories": [
 {
 "id": "n_home",
@@ -41499,6 +41499,10 @@
 }
 ],
 "words": [
+"villas",
+"bins",
+"blender",
+"corridors",
 "shack",
 "broom",
 "drawers",
@@ -41749,28 +41753,28 @@
 "shacks",
 "trinket",
 "bookshelves",
-"carpeting",
-"cistern",
-"tablecloth",
-"townhouses",
-"casement"
+"carpeting"
 ]
 },
 {
 "id": "n-home-rare",
 "title": "Nouns | home, furniture & household objects (rare)",
-"description": "Nouns | home, furniture & household objects (rare): cupola, decking, fridges, manors, saucers, slats, courtyards + Nouns | clothing, fashion & personal items (most common): style, fashion, ring, bag",
+"description": "Nouns | home, furniture & household objects (rare): cistern, tablecloth, townhouses, casement, cupola, decking, fridges + Nouns | clothing, fashion & personal items (most common): style, fashion, ring, bag",
 "categories": [
 {
 "id": "n_home",
-"count": 182
+"count": 186
 },
 {
 "id": "n_clothing",
-"count": 73
+"count": 69
 }
 ],
 "words": [
+"cistern",
+"tablecloth",
+"townhouses",
+"casement",
 "cupola",
 "decking",
 "fridges",
@@ -42021,17 +42025,13 @@
 "scent",
 "tee",
 "jackets",
-"ribbon",
-"wardrobe",
-"strap",
-"backpack",
-"sweater"
+"ribbon"
 ]
 },
 {
 "id": "n-clothing-common",
 "title": "Nouns | clothing, fashion & personal items (common)",
-"description": "Nouns | clothing, fashion & personal items (common): gown, perfume, belts, coats, jewellery, glove, vest",
+"description": "Nouns | clothing, fashion & personal items (common): wardrobe, strap, backpack, sweater, gown, perfume, belts",
 "categories": [
 {
 "id": "n_clothing",
@@ -42039,6 +42039,10 @@
 }
 ],
 "words": [
+"wardrobe",
+"strap",
+"backpack",
+"sweater",
 "gown",
 "perfume",
 "belts",
@@ -42289,28 +42293,28 @@
 "parka",
 "bandana",
 "bangles",
-"duds",
-"suspenders",
-"waistband",
-"aprons",
-"duffel"
+"duds"
 ]
 },
 {
 "id": "n-clothing-rare",
 "title": "Nouns | clothing, fashion & personal items (rare)",
-"description": "Nouns | clothing, fashion & personal items (rare): stiletto, toga, toiletries, cloaks, stetson, wristbands, mitts + Nouns | buildings, places & the city (most common): world, place, city, country",
+"description": "Nouns | clothing, fashion & personal items (rare): suspenders, waistband, aprons, duffel, stiletto, toga, toiletries + Nouns | buildings, places & the city (most common): world, place, city, country",
 "categories": [
 {
 "id": "n_clothing",
-"count": 191
+"count": 195
 },
 {
 "id": "n_places",
-"count": 64
+"count": 60
 }
 ],
 "words": [
+"suspenders",
+"waistband",
+"aprons",
+"duffel",
 "stiletto",
 "toga",
 "toiletries",
@@ -42561,17 +42565,13 @@
 "palace",
 "temple",
 "avenue",
-"grounds",
-"centers",
-"downtown",
-"entrance",
-"towns"
+"grounds"
 ]
 },
 {
 "id": "n-places-common",
 "title": "Nouns | buildings, places & the city (common)",
-"description": "Nouns | buildings, places & the city (common): mill, resort, headquarters, exit, restaurants, shops, arena",
+"description": "Nouns | buildings, places & the city (common): centers, downtown, entrance, towns, mill, resort, headquarters",
 "categories": [
 {
 "id": "n_places",
@@ -42579,6 +42579,10 @@
 }
 ],
 "words": [
+"centers",
+"downtown",
+"entrance",
+"towns",
 "mill",
 "resort",
 "headquarters",
@@ -42829,17 +42833,13 @@
 "dispensary",
 "playgrounds",
 "basilica",
-"morgue",
-"drugstore",
-"alleys",
-"inns",
-"nave"
+"morgue"
 ]
 },
 {
 "id": "n-places-less-common-3-of-4",
 "title": "Nouns | buildings, places & the city (less common (3 of 4))",
-"description": "Nouns | buildings, places & the city (less common (3 of 4)): quarries, bistro, campground, causeway, hideout, jetty, mortuary",
+"description": "Nouns | buildings, places & the city (less common (3 of 4)): drugstore, alleys, inns, nave, quarries, bistro, campground",
 "categories": [
 {
 "id": "n_places",
@@ -42847,6 +42847,10 @@
 }
 ],
 "words": [
+"drugstore",
+"alleys",
+"inns",
+"nave",
 "quarries",
 "bistro",
 "campground",
@@ -43097,28 +43101,28 @@
 "skatepark",
 "canteens",
 "necropolis",
-"smelters",
-"streetlights",
-"discos",
-"slaughterhouses",
-"cafeterias"
+"smelters"
 ]
 },
 {
 "id": "n-transport-most-common",
 "title": "Nouns | vehicles, transport & travel (most common)",
-"description": "Nouns | buildings, places & the city (rarest): emporia, glasshouse, interstates, smokehouse + Nouns | vehicles, transport & travel (most common): car, train, ship, cars, flight, traffic, airport",
+"description": "Nouns | buildings, places & the city (rarest): streetlights, discos, slaughterhouses, cafeterias + Nouns | vehicles, transport & travel (most common): car, train, ship, cars, flight, traffic, airport",
 "categories": [
 {
 "id": "n_places",
-"count": 51
+"count": 55
 },
 {
 "id": "n_transport",
-"count": 204
+"count": 200
 }
 ],
 "words": [
+"streetlights",
+"discos",
+"slaughterhouses",
+"cafeterias",
 "emporia",
 "glasshouse",
 "interstates",
@@ -43369,28 +43373,28 @@
 "pickups",
 "atv",
 "autos",
-"runways",
-"shipwreck",
-"grille",
-"junctions",
-"livery"
+"runways"
 ]
 },
 {
 "id": "n-transport-less-common",
 "title": "Nouns | vehicles, transport & travel (less common)",
-"description": "Nouns | vehicles, transport & travel (less common): seater, expressway, fuselage, glider, stroller, airliner, ambulances + Nouns | technology, computers, internet & devices (most common): system, data, phone, program",
+"description": "Nouns | vehicles, transport & travel (less common): shipwreck, grille, junctions, livery, seater, expressway, fuselage + Nouns | technology, computers, internet & devices (most common): system, data, phone, program",
 "categories": [
 {
 "id": "n_transport",
-"count": 228
+"count": 232
 },
 {
 "id": "n_tech",
-"count": 27
+"count": 23
 }
 ],
 "words": [
+"shipwreck",
+"grille",
+"junctions",
+"livery",
 "seater",
 "expressway",
 "fuselage",
@@ -43641,17 +43645,13 @@
 "application",
 "mobile",
 "screen",
-"profile",
-"http",
-"software",
-"net",
-"file"
+"profile"
 ]
 },
 {
 "id": "n-tech-common",
 "title": "Nouns | technology, computers, internet & devices (common)",
-"description": "Nouns | technology, computers, internet & devices (common): sites, web, blog, links, tech, user, device",
+"description": "Nouns | technology, computers, internet & devices (common): http, software, net, file, sites, web, blog",
 "categories": [
 {
 "id": "n_tech",
@@ -43659,6 +43659,10 @@
 }
 ],
 "words": [
+"http",
+"software",
+"net",
+"file",
 "sites",
 "web",
 "blog",
@@ -43909,17 +43913,13 @@
 "tor",
 "calculator",
 "connectivity",
-"encryption",
-"multimedia",
-"processors",
-"scanner",
-"consoles"
+"encryption"
 ]
 },
 {
 "id": "n-tech-less-common-3-of-5",
 "title": "Nouns | technology, computers, internet & devices (less common (3 of 5))",
-"description": "Nouns | technology, computers, internet & devices (less common (3 of 5)): headset, js, laptops, lasers, specs, robotics, screenshots",
+"description": "Nouns | technology, computers, internet & devices (less common (3 of 5)): multimedia, processors, scanner, consoles, headset, js, laptops",
 "categories": [
 {
 "id": "n_tech",
@@ -43927,6 +43927,10 @@
 }
 ],
 "words": [
+"multimedia",
+"processors",
+"scanner",
+"consoles",
 "headset",
 "js",
 "laptops",
@@ -44177,17 +44181,13 @@
 "telemetry",
 "cyberspace",
 "mainframe",
-"ringtone",
-"streamers",
-"calculators",
-"earphones",
-"kernels"
+"ringtone"
 ]
 },
 {
 "id": "n-tech-less-common-4-of-5",
 "title": "Nouns | technology, computers, internet & devices (less common (4 of 5))",
-"description": "Nouns | technology, computers, internet & devices (less common (4 of 5)): saas, sexting, headsets, perl, projectors, watermark, webcast",
+"description": "Nouns | technology, computers, internet & devices (less common (4 of 5)): streamers, calculators, earphones, kernels, saas, sexting, headsets",
 "categories": [
 {
 "id": "n_tech",
@@ -44195,6 +44195,10 @@
 }
 ],
 "words": [
+"streamers",
+"calculators",
+"earphones",
+"kernels",
 "saas",
 "sexting",
 "headsets",
@@ -44445,28 +44449,28 @@
 "transducers",
 "typescript",
 "viewfinder",
-"chatroom",
-"datacenter",
-"decryption",
-"integrator",
-"middleware"
+"chatroom"
 ]
 },
 {
 "id": "n-tech-rarest",
 "title": "Nouns | technology, computers, internet & devices (rarest)",
-"description": "Nouns | technology, computers, internet & devices (rarest): redirection, repeaters, sequencer, subclasses, csv, freeware, linker + Nouns | science, mathematics & academic fields (most common): history, research, energy, force",
+"description": "Nouns | technology, computers, internet & devices (rarest): datacenter, decryption, integrator, middleware, redirection, repeaters, sequencer + Nouns | science, mathematics & academic fields (most common): history, research, energy, force",
 "categories": [
 {
 "id": "n_tech",
-"count": 200
+"count": 204
 },
 {
 "id": "n_science",
-"count": 55
+"count": 51
 }
 ],
 "words": [
+"datacenter",
+"decryption",
+"integrator",
+"middleware",
 "redirection",
 "repeaters",
 "sequencer",
@@ -44717,17 +44721,13 @@
 "theories",
 "gravity",
 "scientist",
-"experiments",
-"bacteria",
-"compound",
-"ion",
-"mathematics"
+"experiments"
 ]
 },
 {
 "id": "n-science-common",
 "title": "Nouns | science, mathematics & academic fields (common)",
-"description": "Nouns | science, mathematics & academic fields (common): genes, mechanics, delta, variable, proteins, particles, matrix",
+"description": "Nouns | science, mathematics & academic fields (common): bacteria, compound, ion, mathematics, genes, mechanics, delta",
 "categories": [
 {
 "id": "n_science",
@@ -44735,6 +44735,10 @@
 }
 ],
 "words": [
+"bacteria",
+"compound",
+"ion",
+"mathematics",
 "genes",
 "mechanics",
 "delta",
@@ -44985,17 +44989,13 @@
 "pathogen",
 "biotech",
 "deformation",
-"neuron",
-"probabilities",
-"singularity",
-"impedance",
-"incubation"
+"neuron"
 ]
 },
 {
 "id": "n-science-less-common-3-of-5",
 "title": "Nouns | science, mathematics & academic fields (less common (3 of 5))",
-"description": "Nouns | science, mathematics & academic fields (less common (3 of 5)): isotope, pcr, peptides, pharmacology, renewables, actin, adhesion",
+"description": "Nouns | science, mathematics & academic fields (less common (3 of 5)): probabilities, singularity, impedance, incubation, isotope, pcr, peptides",
 "categories": [
 {
 "id": "n_science",
@@ -45003,6 +45003,10 @@
 }
 ],
 "words": [
+"probabilities",
+"singularity",
+"impedance",
+"incubation",
 "isotope",
 "pcr",
 "peptides",
@@ -45253,17 +45257,13 @@
 "algebras",
 "cytochrome",
 "domestication",
-"ergonomics",
-"homeostasis",
-"lemma",
-"nanotubes",
-"nihilism"
+"ergonomics"
 ]
 },
 {
 "id": "n-science-less-common-4-of-5",
 "title": "Nouns | science, mathematics & academic fields (less common (4 of 5))",
-"description": "Nouns | science, mathematics & academic fields (less common (4 of 5)): quarks, acidification, darwinism, deceleration, hydroxy, phenomenology, philology",
+"description": "Nouns | science, mathematics & academic fields (less common (4 of 5)): homeostasis, lemma, nanotubes, nihilism, quarks, acidification, darwinism",
 "categories": [
 {
 "id": "n_science",
@@ -45271,6 +45271,10 @@
 }
 ],
 "words": [
+"homeostasis",
+"lemma",
+"nanotubes",
+"nihilism",
 "quarks",
 "acidification",
 "darwinism",
@@ -45521,28 +45525,28 @@
 "isoforms",
 "lattices",
 "superconductors",
-"actuation",
-"astronautics",
-"congruence",
-"cyanobacteria",
-"facies"
+"actuation"
 ]
 },
 {
 "id": "n-science-rarest",
 "title": "Nouns | science, mathematics & academic fields (rarest)",
-"description": "Nouns | science, mathematics & academic fields (rarest): gasification, geosciences, hyphae, magnetization, precession, singularities, agronomy + Nouns | education, school & learning (most common): school, course, university, class",
+"description": "Nouns | science, mathematics & academic fields (rarest): astronautics, congruence, cyanobacteria, facies, gasification, geosciences, hyphae + Nouns | education, school & learning (most common): school, course, university, class",
 "categories": [
 {
 "id": "n_science",
-"count": 162
+"count": 166
 },
 {
 "id": "n_education",
-"count": 93
+"count": 89
 }
 ],
 "words": [
+"astronautics",
+"congruence",
+"cyanobacteria",
+"facies",
 "gasification",
 "geosciences",
 "hyphae",
@@ -45793,28 +45797,28 @@
 "mba",
 "academia",
 "accreditation",
-"gpa",
-"seminary",
-"recess",
-"preschool",
-"seminars"
+"gpa"
 ]
 },
 {
 "id": "n-business-most-common",
 "title": "Nouns | work, business, jobs & the economy (most common)",
-"description": "Nouns | education, school & learning (less common): commencement, apprenticeship, grading, tutorials + Nouns | work, business, jobs & the economy (most common): company, business, job, service, deal, development, services",
+"description": "Nouns | education, school & learning (less common): seminary, recess, preschool, seminars + Nouns | work, business, jobs & the economy (most common): company, business, job, service, deal, development, services",
 "categories": [
 {
 "id": "n_education",
-"count": 118
+"count": 122
 },
 {
 "id": "n_business",
-"count": 137
+"count": 133
 }
 ],
 "words": [
+"seminary",
+"recess",
+"preschool",
+"seminars",
 "commencement",
 "apprenticeship",
 "grading",
@@ -46065,17 +46069,13 @@
 "pricing",
 "sponsor",
 "trades",
-"workplace",
-"analyst",
-"buyer",
-"executives",
-"carriers"
+"workplace"
 ]
 },
 {
 "id": "n-business-common",
 "title": "Nouns | work, business, jobs & the economy (common)",
-"description": "Nouns | work, business, jobs & the economy (common): resignation, seller, shifts, enterprises, gdp, recruitment, affiliate",
+"description": "Nouns | work, business, jobs & the economy (common): analyst, buyer, executives, carriers, resignation, seller, shifts",
 "categories": [
 {
 "id": "n_business",
@@ -46083,6 +46083,10 @@
 }
 ],
 "words": [
+"analyst",
+"buyer",
+"executives",
+"carriers",
 "resignation",
 "seller",
 "shifts",
@@ -46333,28 +46337,28 @@
 "franchising",
 "furlough",
 "multinationals",
-"payrolls",
-"workloads",
-"receivership",
-"franchisees",
-"subcontractor"
+"payrolls"
 ]
 },
 {
 "id": "n-money-most-common",
 "title": "Nouns | money, finance & banking (most common)",
-"description": "Nouns | work, business, jobs & the economy (rare): corporates, incubators, ranching, vcs + Nouns | money, finance & banking (most common): money, cost, price, interest, bank, bill, tax",
+"description": "Nouns | work, business, jobs & the economy (rare): workloads, receivership, franchisees, subcontractor + Nouns | money, finance & banking (most common): money, cost, price, interest, bank, bill, tax",
 "categories": [
 {
 "id": "n_business",
-"count": 108
+"count": 112
 },
 {
 "id": "n_money",
-"count": 147
+"count": 143
 }
 ],
 "words": [
+"workloads",
+"receivership",
+"franchisees",
+"subcontractor",
 "corporates",
 "incubators",
 "ranching",
@@ -46605,17 +46609,13 @@
 "derivatives",
 "forex",
 "lender",
-"tariffs",
-"balances",
-"currencies",
-"debit",
-"fortunes"
+"tariffs"
 ]
 },
 {
 "id": "n-money-common",
 "title": "Nouns | money, finance & banking (common)",
-"description": "Nouns | money, finance & banking (common): payday, crypto, billing, rents, riches, liabilities, subsidy",
+"description": "Nouns | money, finance & banking (common): balances, currencies, debit, fortunes, payday, crypto, billing",
 "categories": [
 {
 "id": "n_money",
@@ -46623,6 +46623,10 @@
 }
 ],
 "words": [
+"balances",
+"currencies",
+"debit",
+"fortunes",
 "payday",
 "crypto",
 "billing",
@@ -46873,28 +46877,28 @@
 "buybacks",
 "debits",
 "depositary",
-"redemptions",
-"maturities",
-"reits",
-"repossession",
-"guilders"
+"redemptions"
 ]
 },
 {
 "id": "n-law-most-common",
 "title": "Nouns | law, crime, police & justice (most common)",
-"description": "Nouns | money, finance & banking (rare): florin, paye, compensations, kronor + Nouns | law, crime, police & justice (most common): law, court, police, security, rights, evidence, rules",
+"description": "Nouns | money, finance & banking (rare): maturities, reits, repossession, guilders + Nouns | law, crime, police & justice (most common): law, court, police, security, rights, evidence, rules",
 "categories": [
 {
 "id": "n_money",
-"count": 20
+"count": 24
 },
 {
 "id": "n_law",
-"count": 235
+"count": 231
 }
 ],
 "words": [
+"maturities",
+"reits",
+"repossession",
+"guilders",
 "florin",
 "paye",
 "compensations",
@@ -47145,17 +47149,13 @@
 "evasion",
 "eviction",
 "robbers",
-"arson",
-"bribery",
-"culprit",
-"legalization",
-"bandits"
+"arson"
 ]
 },
 {
 "id": "n-law-common",
 "title": "Nouns | law, crime, police & justice (common)",
-"description": "Nouns | law, crime, police & justice (common): detainees, heist, robber, rulings, affidavit, defamation, manslaughter",
+"description": "Nouns | law, crime, police & justice (common): bribery, culprit, legalization, bandits, detainees, heist, robber",
 "categories": [
 {
 "id": "n_law",
@@ -47163,6 +47163,10 @@
 }
 ],
 "words": [
+"bribery",
+"culprit",
+"legalization",
+"bandits",
 "detainees",
 "heist",
 "robber",
@@ -47413,28 +47417,28 @@
 "dismemberment",
 "informers",
 "jailhouse",
-"bestiality",
-"handcuff",
-"infringements",
-"jailer",
-"bylaw"
+"bestiality"
 ]
 },
 {
 "id": "n-politics-most-common",
 "title": "Nouns | politics, government & society (most common)",
-"description": "Nouns | law, crime, police & justice (rare): executors, malfeasance, misappropriation, priors + Nouns | politics, government & society (most common): state, government, states, president, policy, society, vote",
+"description": "Nouns | law, crime, police & justice (rare): handcuff, infringements, jailer, bylaw + Nouns | politics, government & society (most common): state, government, states, president, policy, society, vote",
 "categories": [
 {
 "id": "n_law",
-"count": 90
+"count": 94
 },
 {
 "id": "n_politics",
-"count": 165
+"count": 161
 }
 ],
 "words": [
+"handcuff",
+"infringements",
+"jailer",
+"bylaw",
 "executors",
 "malfeasance",
 "misappropriation",
@@ -47685,17 +47689,13 @@
 "accord",
 "communism",
 "royalty",
-"oppression",
-"prejudice",
-"commissioners",
-"incumbent",
-"tories"
+"oppression"
 ]
 },
 {
 "id": "n-politics-common",
 "title": "Nouns | politics, government & society (common)",
-"description": "Nouns | politics, government & society (common): communists, uprising, constituents, ethnicity, patriot, revolt, nationality",
+"description": "Nouns | politics, government & society (common): prejudice, commissioners, incumbent, tories, communists, uprising, constituents",
 "categories": [
 {
 "id": "n_politics",
@@ -47703,6 +47703,10 @@
 }
 ],
 "words": [
+"prejudice",
+"commissioners",
+"incumbent",
+"tories",
 "communists",
 "uprising",
 "constituents",
@@ -47953,28 +47957,28 @@
 "radicalism",
 "polity",
 "referendums",
-"coups",
-"enslavement",
-"partisanship",
-"pacs",
-"councilor"
+"coups"
 ]
 },
 {
 "id": "n-politics-rare",
 "title": "Nouns | politics, government & society (rare)",
-"description": "Nouns | politics, government & society (rare): oligarchy, islamophobia, liberalization, rebellions, geopolitics, revolts, totalitarianism + Nouns | military, war & weapons (most common): war, shot, army, forces",
+"description": "Nouns | politics, government & society (rare): enslavement, partisanship, pacs, councilor, oligarchy, islamophobia, liberalization + Nouns | military, war & weapons (most common): war, shot, army, forces",
 "categories": [
 {
 "id": "n_politics",
-"count": 210
+"count": 214
 },
 {
 "id": "n_military",
-"count": 45
+"count": 41
 }
 ],
 "words": [
+"enslavement",
+"partisanship",
+"pacs",
+"councilor",
 "oligarchy",
 "islamophobia",
 "liberalization",
@@ -48225,17 +48229,13 @@
 "spy",
 "terrorism",
 "civilian",
-"invasion",
-"fighters",
-"veteran",
-"terrorists",
-"raid"
+"invasion"
 ]
 },
 {
 "id": "n-military-common",
 "title": "Nouns | military, war & weapons (common)",
-"description": "Nouns | military, war & weapons (common): bases, battles, rifle, tactics, warrior, bombs, missile",
+"description": "Nouns | military, war & weapons (common): fighters, veteran, terrorists, raid, bases, battles, rifle",
 "categories": [
 {
 "id": "n_military",
@@ -48243,6 +48243,10 @@
 }
 ],
 "words": [
+"fighters",
+"veteran",
+"terrorists",
+"raid",
 "bases",
 "battles",
 "rifle",
@@ -48493,28 +48497,28 @@
 "hilt",
 "musket",
 "countermeasures",
-"tomahawk",
-"airman",
-"counterattack",
-"firefight",
-"marksman"
+"tomahawk"
 ]
 },
 {
 "id": "n-military-rare",
 "title": "Nouns | military, war & weapons (rare)",
-"description": "Nouns | military, war & weapons (rare): sergeants, cannonball, flotilla, kamikaze, arrowhead, salvo, broadside + Nouns | religion, myth, magic & the supernatural (most common): god, lord, faith, soul",
+"description": "Nouns | military, war & weapons (rare): airman, counterattack, firefight, marksman, sergeants, cannonball, flotilla + Nouns | religion, myth, magic & the supernatural (most common): god, lord, faith, soul",
 "categories": [
 {
 "id": "n_military",
-"count": 200
+"count": 204
 },
 {
 "id": "n_religion",
-"count": 55
+"count": 51
 }
 ],
 "words": [
+"airman",
+"counterattack",
+"firefight",
+"marksman",
 "sergeants",
 "cannonball",
 "flotilla",
@@ -48765,17 +48769,13 @@
 "goddess",
 "priests",
 "demons",
-"doctrine",
-"prophet",
-"salvation",
-"zombie",
-"monk"
+"doctrine"
 ]
 },
 {
 "id": "n-religion-common",
 "title": "Nouns | religion, myth, magic & the supernatural (common)",
-"description": "Nouns | religion, myth, magic & the supernatural (common): satan, wizard, theology, religions, cardinal, trinity, allah",
+"description": "Nouns | religion, myth, magic & the supernatural (common): prophet, salvation, zombie, monk, satan, wizard, theology",
 "categories": [
 {
 "id": "n_religion",
@@ -48783,6 +48783,10 @@
 }
 ],
 "words": [
+"prophet",
+"salvation",
+"zombie",
+"monk",
 "satan",
 "wizard",
 "theology",
@@ -49033,17 +49037,13 @@
 "orc",
 "puritan",
 "redeemer",
-"seer",
-"yeti",
-"chalice",
-"coven",
-"heretic"
+"seer"
 ]
 },
 {
 "id": "n-religion-less-common-3-of-4",
 "title": "Nouns | religion, myth, magic & the supernatural (less common (3 of 4))",
-"description": "Nouns | religion, myth, magic & the supernatural (less common (3 of 4)): orcs, sphinx, theologian, amulet, calvary, druid, hadith",
+"description": "Nouns | religion, myth, magic & the supernatural (less common (3 of 4)): yeti, chalice, coven, heretic, orcs, sphinx, theologian",
 "categories": [
 {
 "id": "n_religion",
@@ -49051,6 +49051,10 @@
 }
 ],
 "words": [
+"yeti",
+"chalice",
+"coven",
+"heretic",
 "orcs",
 "sphinx",
 "theologian",
@@ -49301,28 +49305,28 @@
 "chantry",
 "creationist",
 "heresies",
-"mullahs",
-"mythologies",
-"ogres",
-"ork",
-"sangha"
+"mullahs"
 ]
 },
 {
 "id": "n-religion-rarest",
 "title": "Nouns | religion, myth, magic & the supernatural (rarest)",
-"description": "Nouns | religion, myth, magic & the supernatural (rarest): taoism, ummah, apocrypha, gravestones, lamentations, sati, djinn + Nouns | materials, substances & chemicals (most common): water, gold, oil, paper",
+"description": "Nouns | religion, myth, magic & the supernatural (rarest): mythologies, ogres, ork, sangha, taoism, ummah, apocrypha + Nouns | materials, substances & chemicals (most common): water, gold, oil, paper",
 "categories": [
 {
 "id": "n_religion",
-"count": 133
+"count": 137
 },
 {
 "id": "n_materials",
-"count": 122
+"count": 118
 }
 ],
 "words": [
+"mythologies",
+"ogres",
+"ork",
+"sangha",
 "taoism",
 "ummah",
 "apocrypha",
@@ -49573,17 +49577,13 @@
 "grease",
 "petrol",
 "coating",
-"cork",
-"litter",
-"gravel",
-"quartz",
-"chalk"
+"cork"
 ]
 },
 {
 "id": "n-materials-common",
 "title": "Nouns | materials, substances & chemicals (common)",
-"description": "Nouns | materials, substances & chemicals (common): shale, pulp, fibre, insulation, cardboard, oxide, zinc",
+"description": "Nouns | materials, substances & chemicals (common): litter, gravel, quartz, chalk, shale, pulp, fibre",
 "categories": [
 {
 "id": "n_materials",
@@ -49591,6 +49591,10 @@
 }
 ],
 "words": [
+"litter",
+"gravel",
+"quartz",
+"chalk",
 "shale",
 "pulp",
 "fibre",
@@ -49841,17 +49845,13 @@
 "brimstone",
 "droppings",
 "steels",
-"agate",
-"disinfectant",
-"potash",
-"teflon",
-"emeralds"
+"agate"
 ]
 },
 {
 "id": "n-materials-less-common-3-of-4",
 "title": "Nouns | materials, substances & chemicals (less common (3 of 4))",
-"description": "Nouns | materials, substances & chemicals (less common (3 of 4)): herbicide, polystyrene, primers, radium, acetone, amine, chloroform",
+"description": "Nouns | materials, substances & chemicals (less common (3 of 4)): disinfectant, potash, teflon, emeralds, herbicide, polystyrene, primers",
 "categories": [
 {
 "id": "n_materials",
@@ -49859,6 +49859,10 @@
 }
 ],
 "words": [
+"disinfectant",
+"potash",
+"teflon",
+"emeralds",
 "herbicide",
 "polystyrene",
 "primers",
@@ -50109,28 +50113,28 @@
 "halides",
 "hdpe",
 "methylene",
-"strychnine",
-"tortoiseshell",
-"disinfectants",
-"emulsions",
-"bakelite"
+"strychnine"
 ]
 },
 {
 "id": "n-tools-most-common",
 "title": "Nouns | tools, machines, parts & generic objects (most common)",
-"description": "Nouns | materials, substances & chemicals (rarest): benzoyl, birthstone, cinders, greenstone + Nouns | tools, machines, parts & generic objects (most common): box, machine, equipment, engine, chain, bell, tools",
+"description": "Nouns | materials, substances & chemicals (rarest): tortoiseshell, disinfectants, emulsions, bakelite + Nouns | tools, machines, parts & generic objects (most common): box, machine, equipment, engine, chain, bell, tools",
 "categories": [
 {
 "id": "n_materials",
-"count": 28
+"count": 32
 },
 {
 "id": "n_tools",
-"count": 227
+"count": 223
 }
 ],
 "words": [
+"tortoiseshell",
+"disinfectants",
+"emulsions",
+"bakelite",
 "benzoyl",
 "birthstone",
 "cinders",
@@ -50381,17 +50385,13 @@
 "compressor",
 "rake",
 "rein",
-"tack",
-"wrench",
-"coils",
-"souvenir",
-"spinner"
+"tack"
 ]
 },
 {
 "id": "n-tools-common",
 "title": "Nouns | tools, machines, parts & generic objects (common)",
-"description": "Nouns | tools, machines, parts & generic objects (common): boilers, casing, cords, pedestal, ax, hinges, latch",
+"description": "Nouns | tools, machines, parts & generic objects (common): wrench, coils, souvenir, spinner, boilers, casing, cords",
 "categories": [
 {
 "id": "n_tools",
@@ -50399,6 +50399,10 @@
 }
 ],
 "words": [
+"wrench",
+"coils",
+"souvenir",
+"spinner",
 "boilers",
 "casing",
 "cords",
@@ -50649,17 +50653,13 @@
 "wiper",
 "wipers",
 "blindfold",
-"flipper",
-"grinders",
-"prong",
-"resonator",
-"tongs"
+"flipper"
 ]
 },
 {
 "id": "n-tools-less-common-3-of-4",
 "title": "Nouns | tools, machines, parts & generic objects (less common (3 of 4))",
-"description": "Nouns | tools, machines, parts & generic objects (less common (3 of 4)): crankshaft, jib, shaver, vise, bridle, cogs, harnesses",
+"description": "Nouns | tools, machines, parts & generic objects (less common (3 of 4)): grinders, prong, resonator, tongs, crankshaft, jib, shaver",
 "categories": [
 {
 "id": "n_tools",
@@ -50667,6 +50667,10 @@
 }
 ],
 "words": [
+"grinders",
+"prong",
+"resonator",
+"tongs",
 "crankshaft",
 "jib",
 "shaver",
@@ -50917,28 +50921,28 @@
 "awl",
 "blinder",
 "contraptions",
-"eliminator",
-"illuminator",
-"jammers",
-"leashes",
-"atomizer"
+"eliminator"
 ]
 },
 {
 "id": "n-space-most-common",
 "title": "Nouns | shapes, space, position & direction (most common)",
-"description": "Nouns | tools, machines, parts & generic objects (rarest): blowtorch, cisterns, gratings, oscilloscope + Nouns | shapes, space, position & direction (most common): end, top, side, line, south, north, west",
+"description": "Nouns | tools, machines, parts & generic objects (rarest): illuminator, jammers, leashes, atomizer + Nouns | shapes, space, position & direction (most common): end, top, side, line, south, north, west",
 "categories": [
 {
 "id": "n_tools",
-"count": 78
+"count": 82
 },
 {
 "id": "n_space",
-"count": 177
+"count": 173
 }
 ],
 "words": [
+"illuminator",
+"jammers",
+"leashes",
+"atomizer",
 "blowtorch",
 "cisterns",
 "gratings",
@@ -51189,28 +51193,28 @@
 "expanse",
 "rotations",
 "circumference",
-"fringes",
-"slant",
-"starboard",
-"flanks",
-"incline"
+"fringes"
 ]
 },
 {
 "id": "n-groups-most-common",
 "title": "Nouns | groups, organisations & institutions (most common)",
-"description": "Nouns | shapes, space, position & direction (less common): grids, contours, blob, brim + Nouns | groups, organisations & institutions (most common): group, community, board, department, club, groups, council",
+"description": "Nouns | shapes, space, position & direction (less common): slant, starboard, flanks, incline + Nouns | groups, organisations & institutions (most common): group, community, board, department, club, groups, council",
 "categories": [
 {
 "id": "n_space",
-"count": 92
+"count": 96
 },
 {
 "id": "n_groups",
-"count": 163
+"count": 159
 }
 ],
 "words": [
+"slant",
+"starboard",
+"flanks",
+"incline",
 "grids",
 "contours",
 "blob",
@@ -51461,28 +51465,28 @@
 "subcultures",
 "watchdogs",
 "sororities",
-"fandoms",
-"bevy",
-"publics",
-"triumvirate",
-"threesomes"
+"fandoms"
 ]
 },
 {
-"id": "pn-first-male-aamir-to-benito",
-"title": "First names | male (aamir to benito)",
-"description": "a few Nouns | groups, organisations & institutions words + First names | male (aamir to benito): aamir, afzal, alek, ambrose, anthony, aron, avram",
+"id": "pn-first-male-aamir-to-ben",
+"title": "First names | male (aamir to ben)",
+"description": "Nouns | groups, organisations & institutions (less common): bevy, publics, triumvirate, threesomes + First names | male (aamir to ben): aamir, adrien, aleister, amar, anselm, arnie, augusto",
 "categories": [
 {
 "id": "n_groups",
-"count": 10
+"count": 14
 },
 {
 "id": "pn_first_male",
-"count": 245
+"count": 241
 }
 ],
 "words": [
+"bevy",
+"publics",
+"triumvirate",
+"threesomes",
 "trios",
 "troika",
 "coterie",
@@ -51733,17 +51737,13 @@
 "baz",
 "beau",
 "bela",
-"ben",
-"benedetto",
-"benedict",
-"benigno",
-"benito"
+"ben"
 ]
 },
 {
-"id": "pn-first-male-benjamin-to-dinesh",
-"title": "First names | male (benjamin to dinesh)",
-"description": "First names | male (benjamin to dinesh): benjamin, bojan, byron, charley, clyde, cyril, dean",
+"id": "pn-first-male-benedetto-to-dillon",
+"title": "First names | male (benedetto to dillon)",
+"description": "First names | male (benedetto to dillon): benedetto, boban, bryson, chandler, cleve, cristobal, davie",
 "categories": [
 {
 "id": "pn_first_male",
@@ -51751,6 +51751,10 @@
 }
 ],
 "words": [
+"benedetto",
+"benedict",
+"benigno",
+"benito",
 "benjamin",
 "benji",
 "benjy",
@@ -52001,17 +52005,13 @@
 "dickie",
 "didier",
 "dilip",
-"dillon",
-"dima",
-"dimitar",
-"dimitri",
-"dinesh"
+"dillon"
 ]
 },
 {
-"id": "pn-first-male-dionysius-to-gideon",
-"title": "First names | male (dionysius to gideon)",
-"description": "First names | male (dionysius to gideon): dionysius, dwyane, elie, erich, fabrice, francis, gaurav",
+"id": "pn-first-male-dima-to-gianluigi",
+"title": "First names | male (dima to gianluigi)",
+"description": "First names | male (dima to gianluigi): dima, duncan, eleazar, eoin, ezra, florian, garth",
 "categories": [
 {
 "id": "pn_first_male",
@@ -52019,6 +52019,10 @@
 }
 ],
 "words": [
+"dima",
+"dimitar",
+"dimitri",
+"dinesh",
 "dionysius",
 "dirk",
 "dmitri",
@@ -52269,17 +52273,13 @@
 "giacomo",
 "gian",
 "giancarlo",
-"gianluigi",
-"gianni",
-"giannis",
-"gibby",
-"gideon"
+"gianluigi"
 ]
 },
 {
-"id": "pn-first-male-gil-to-jim",
-"title": "First names | male (gil to jim)",
-"description": "First names | male (gil to jim): gil, gregory, hamza, hernando, hyuk, ivar, jarrod",
+"id": "pn-first-male-gianni-to-jethro",
+"title": "First names | male (gianni to jethro)",
+"description": "First names | male (gianni to jethro): gianni, gregg, haman, herc, huw, ismail, jani",
 "categories": [
 {
 "id": "pn_first_male",
@@ -52287,6 +52287,10 @@
 }
 ],
 "words": [
+"gianni",
+"giannis",
+"gibby",
+"gideon",
 "gil",
 "gilad",
 "gilberto",
@@ -52537,17 +52541,13 @@
 "jerzy",
 "jesper",
 "jesse",
-"jethro",
-"jett",
-"jez",
-"jian",
-"jim"
+"jethro"
 ]
 },
 {
-"id": "pn-first-male-jimbo-to-malcolm",
-"title": "First names | male (jimbo to malcolm)",
-"description": "First names | male (jimbo to malcolm): jimbo, jordi, kalyan, kemal, konstantin, leandro, lothar",
+"id": "pn-first-male-jett-to-majid",
+"title": "First names | male (jett to majid)",
+"description": "First names | male (jett to majid): jett, jono, kaito, keith, koichi, layne, lonzo",
 "categories": [
 {
 "id": "pn_first_male",
@@ -52555,6 +52555,10 @@
 }
 ],
 "words": [
+"jett",
+"jez",
+"jian",
+"jim",
 "jimbo",
 "jimi",
 "jimin",
@@ -52805,17 +52809,13 @@
 "mahinda",
 "mahmoud",
 "mahmud",
-"majid",
-"makoto",
-"maksim",
-"malachi",
-"malcolm"
+"majid"
 ]
 },
 {
-"id": "pn-first-male-malcom-to-patric",
-"title": "First names | male (malcom to patric)",
-"description": "First names | male (malcom to patric): malcom, marty, melvin, mitchel, mykola, nicolas, oleg",
+"id": "pn-first-male-makoto-to-pappu",
+"title": "First names | male (makoto to pappu)",
+"description": "First names | male (makoto to pappu): makoto, maro, mehdi, miroslav, murph, nicky, octavio",
 "categories": [
 {
 "id": "pn_first_male",
@@ -52823,6 +52823,10 @@
 }
 ],
 "words": [
+"makoto",
+"maksim",
+"malachi",
+"malcolm",
 "malcom",
 "mamadou",
 "manasseh",
@@ -53073,17 +53077,13 @@
 "paddy",
 "pancho",
 "paolo",
-"pappu",
-"pascal",
-"pasquale",
-"pat",
-"patric"
+"pappu"
 ]
 },
 {
-"id": "pn-first-male-patricio-to-seon",
-"title": "First names | male (patricio to seon)",
-"description": "First names | male (patricio to seon): patricio, pierre, raheem, raymond, rik, rowan, sam",
+"id": "pn-first-male-pascal-to-selim",
+"title": "First names | male (pascal to selim)",
+"description": "First names | male (pascal to selim): pascal, phillipe, raffaele, raul, rick, ronnie, salim",
 "categories": [
 {
 "id": "pn_first_male",
@@ -53091,6 +53091,10 @@
 }
 ],
 "words": [
+"pascal",
+"pasquale",
+"pat",
+"patric",
 "patricio",
 "patrick",
 "patrik",
@@ -53341,17 +53345,13 @@
 "sebastian",
 "sebastien",
 "seif",
-"selim",
-"selwyn",
-"semyon",
-"seok",
-"seon"
+"selim"
 ]
 },
 {
-"id": "pn-first-male-seong-to-wayne",
-"title": "First names | male (seong to wayne)",
-"description": "First names | male (seong to wayne): seong, shiro, stefano, tanner, tien, tuan, victor",
+"id": "pn-first-male-selwyn-to-walt",
+"title": "First names | male (selwyn to walt)",
+"description": "First names | male (selwyn to walt): selwyn, shimon, stanislaw, talal, thurgood, tristan, vern",
 "categories": [
 {
 "id": "pn_first_male",
@@ -53359,6 +53359,10 @@
 }
 ],
 "words": [
+"selwyn",
+"semyon",
+"seok",
+"seon",
 "seong",
 "sepp",
 "serge",
@@ -53609,28 +53613,28 @@
 "waleed",
 "walid",
 "wally",
-"walt",
-"walter",
-"wasim",
-"waylon",
-"wayne"
+"walt"
 ]
 },
 {
-"id": "pn-first-female-aaliyah-to-bernadette",
-"title": "First names | female (aaliyah to bernadette)",
-"description": "First names | male (wei to zoran): wei, wilfried, wolfie, yann + First names | female (aaliyah to bernadette): aaliyah, aiko, alina, amelia, anjali, ariel, ayesha",
+"id": "pn-first-female-aaliyah-to-bella",
+"title": "First names | female (aaliyah to bella)",
+"description": "First names | male (walter to zoran): walter, wilford, winston, yahya + First names | female (aaliyah to bella): aaliyah, aiko, alicia, amaya, anita, ariana, ava",
 "categories": [
 {
 "id": "pn_first_male",
-"count": 95
+"count": 99
 },
 {
 "id": "pn_first_female",
-"count": 160
+"count": 156
 }
 ],
 "words": [
+"walter",
+"wasim",
+"waylon",
+"wayne",
 "wei",
 "wendell",
 "werner",
@@ -53881,17 +53885,13 @@
 "becca",
 "becky",
 "belinda",
-"bella",
-"bellas",
-"belle",
-"benazir",
-"bernadette"
+"bella"
 ]
 },
 {
-"id": "pn-first-female-bernice-to-elissa",
-"title": "First names | female (bernice to elissa)",
-"description": "First names | female (bernice to elissa): bernice, bri, carmela, charlize, coco, darya, dinah",
+"id": "pn-first-female-bellas-to-elisa",
+"title": "First names | female (bellas to elisa)",
+"description": "First names | female (bellas to elisa): bellas, brandi, carley, chantal, claudia, dara, dianna",
 "categories": [
 {
 "id": "pn_first_female",
@@ -53899,6 +53899,10 @@
 }
 ],
 "words": [
+"bellas",
+"belle",
+"benazir",
+"bernadette",
 "bernice",
 "berta",
 "bertha",
@@ -54149,17 +54153,13 @@
 "elena",
 "elin",
 "elinor",
-"elisa",
-"elisabeth",
-"elisabetta",
-"elise",
-"elissa"
+"elisa"
 ]
 },
 {
-"id": "pn-first-female-eliza-to-jia",
-"title": "First names | female (eliza to jia)",
-"description": "First names | female (eliza to jia): eliza, eudora, frieda, giuliana, helen, indu, janes",
+"id": "pn-first-female-elisabeth-to-jessi",
+"title": "First names | female (elisabeth to jessi)",
+"description": "First names | female (elisabeth to jessi): elisabeth, esther, franny, giovanna, hayley, imelda, jami",
 "categories": [
 {
 "id": "pn_first_female",
@@ -54167,6 +54167,10 @@
 }
 ],
 "words": [
+"elisabeth",
+"elisabetta",
+"elise",
+"elissa",
 "eliza",
 "elizabeth",
 "ella",
@@ -54417,17 +54421,13 @@
 "jenny",
 "jess",
 "jessa",
-"jessi",
-"jessica",
-"jessie",
-"jessy",
-"jia"
+"jessi"
 ]
 },
 {
-"id": "pn-first-female-jie-to-maddie",
-"title": "First names | female (jie to maddie)",
-"description": "First names | female (jie to maddie): jie, justine, kathleen, kiko, lata, leyla, lorena",
+"id": "pn-first-female-jessica-to-lyra",
+"title": "First names | female (jessica to lyra)",
+"description": "First names | female (jessica to lyra): jessica, juliet, katharina, khloe, laney, letty, lois",
 "categories": [
 {
 "id": "pn_first_female",
@@ -54435,6 +54435,10 @@
 }
 ],
 "words": [
+"jessica",
+"jessie",
+"jessy",
+"jia",
 "jie",
 "jill",
 "jillian",
@@ -54685,17 +54689,13 @@
 "lynette",
 "lynn",
 "lynne",
-"lyra",
-"mabel",
-"macey",
-"mackenzie",
-"maddie"
+"lyra"
 ]
 },
 {
-"id": "pn-first-female-maddison-to-penelope",
-"title": "First names | female (maddison to penelope)",
-"description": "First names | female (maddison to penelope): maddison, maren, marti, michaela, miyuki, natsuki, noor",
+"id": "pn-first-female-mabel-to-paulette",
+"title": "First names | female (mabel to paulette)",
+"description": "First names | female (mabel to paulette): mabel, marci, marnie, melissa, missy, natalya, noa",
 "categories": [
 {
 "id": "pn_first_female",
@@ -54703,6 +54703,10 @@
 }
 ],
 "words": [
+"mabel",
+"macey",
+"mackenzie",
+"maddie",
 "maddison",
 "maddy",
 "madeleine",
@@ -54953,17 +54957,13 @@
 "patti",
 "pattie",
 "paula",
-"paulette",
-"paulina",
-"pauline",
-"peggy",
-"penelope"
+"paulette"
 ]
 },
 {
-"id": "pn-first-female-perla-to-tonya",
-"title": "First names | female (perla to tonya)",
-"description": "First names | female (perla to tonya): perla, rayne, rosa, sandi, shinobu, sophia, tammy",
+"id": "pn-first-female-paulina-to-tomoko",
+"title": "First names | female (paulina to tomoko)",
+"description": "First names | female (paulina to tomoko): paulina, raquel, romana, sammi, sherri, sonya, tamara",
 "categories": [
 {
 "id": "pn_first_female",
@@ -54971,6 +54971,10 @@
 }
 ],
 "words": [
+"paulina",
+"pauline",
+"peggy",
+"penelope",
 "perla",
 "petra",
 "phaedra",
@@ -55053,11 +55057,9 @@
 "roseanne",
 "rosey",
 "rosie",
-"rosina",
 "rosita",
 "roslyn",
 "rowena",
-"roxana",
 "roxanne",
 "roxie",
 "roxy",
@@ -55223,26 +55225,26 @@
 "tina",
 "tish",
 "tomi",
-"tomoko",
-"toni",
-"tonya"
+"tomoko"
 ]
 },
 {
-"id": "pn-surnames-abad-to-arndt",
-"title": "Surnames & famous people (abad to arndt)",
-"description": "First names | female (tori to zsa): tori, tyra, vera, vina + Surnames & famous people (abad to arndt): abad, addo, agu, albee, allen, amiri, anstey",
+"id": "pn-surnames-abad-to-armitage",
+"title": "Surnames & famous people (abad to armitage)",
+"description": "First names | female (toni to zsa): toni, trudy, velma, viktoria + Surnames & famous people (abad to armitage): abad, addington, agron, albarn, allegri, ames, ansell",
 "categories": [
 {
 "id": "pn_first_female",
-"count": 86
+"count": 88
 },
 {
 "id": "pn_surnames",
-"count": 169
+"count": 167
 }
 ],
 "words": [
+"toni",
+"tonya",
 "tori",
 "tove",
 "tracey",
@@ -55495,15 +55497,13 @@
 "aristophanes",
 "aristotle",
 "ariza",
-"armitage",
-"armstrong",
-"arndt"
+"armitage"
 ]
 },
 {
-"id": "pn-surnames-arnett-to-berg",
-"title": "Surnames & famous people (arnett to berg)",
-"description": "Surnames & famous people (arnett to berg): arnett, atwater, bader, bana, barrington, bayard, begg",
+"id": "pn-surnames-armstrong-to-berenson",
+"title": "Surnames & famous people (armstrong to berenson)",
+"description": "Surnames & famous people (armstrong to berenson): armstrong, attlee, backus, bamber, barret, bax, beekman",
 "categories": [
 {
 "id": "pn_surnames",
@@ -55511,6 +55511,8 @@
 }
 ],
 "words": [
+"armstrong",
+"arndt",
 "arnett",
 "arnott",
 "aronson",
@@ -55763,15 +55765,13 @@
 "benton",
 "benzema",
 "berdych",
-"berenson",
-"beresford",
-"berg"
+"berenson"
 ]
 },
 {
-"id": "pn-surnames-bergdahl-to-brouwer",
-"title": "Surnames & famous people (bergdahl to brouwer)",
-"description": "Surnames & famous people (bergdahl to brouwer): bergdahl, bharti, blackwood, bolan, botha, bradfield, breslin",
+"id": "pn-surnames-beresford-to-broughton",
+"title": "Surnames & famous people (beresford to broughton)",
+"description": "Surnames & famous people (beresford to broughton): beresford, bezos, blackmore, bohn, boswell, bradbury, brenner",
 "categories": [
 {
 "id": "pn_surnames",
@@ -55779,6 +55779,8 @@
 }
 ],
 "words": [
+"beresford",
+"berg",
 "bergdahl",
 "berger",
 "bergeron",
@@ -56031,15 +56033,13 @@
 "brophy",
 "brosnan",
 "brough",
-"broughton",
-"broussard",
-"brouwer"
+"broughton"
 ]
 },
 {
-"id": "pn-surnames-browder-to-chaudhry",
-"title": "Surnames & famous people (browder to chaudhry)",
-"description": "Surnames & famous people (browder to chaudhry): browder, bui, burroughs, callas, cardozo, cartwright, chabot",
+"id": "pn-surnames-broussard-to-chaucer",
+"title": "Surnames & famous people (broussard to chaucer)",
+"description": "Surnames & famous people (broussard to chaucer): broussard, bugg, burrell, callahan, cardin, carter, cesaro",
 "categories": [
 {
 "id": "pn_surnames",
@@ -56047,6 +56047,8 @@
 }
 ],
 "words": [
+"broussard",
+"brouwer",
 "browder",
 "brower",
 "brownback",
@@ -56299,15 +56301,13 @@
 "chatfield",
 "chatterjee",
 "chau",
-"chaucer",
-"chaudhary",
-"chaudhry"
+"chaucer"
 ]
 },
 {
-"id": "pn-surnames-chauhan-to-crowe",
-"title": "Surnames & famous people (chauhan to crowe)",
-"description": "Surnames & famous people (chauhan to crowe): chauhan, choudhury, clinton, collier, conti, corry, coyle",
+"id": "pn-surnames-chaudhary-to-crouse",
+"title": "Surnames & famous people (chaudhary to crouse)",
+"description": "Surnames & famous people (chaudhary to crouse): chaudhary, chopra, clifton, collette, contador, correa, cowper",
 "categories": [
 {
 "id": "pn_surnames",
@@ -56315,6 +56315,8 @@
 }
 ],
 "words": [
+"chaudhary",
+"chaudhry",
 "chauhan",
 "chavez",
 "cheadle",
@@ -56567,15 +56569,13 @@
 "cropper",
 "crosby",
 "crossley",
-"crouse",
-"crowder",
-"crowe"
+"crouse"
 ]
 },
 {
-"id": "pn-surnames-crowell-to-dreyfuss",
-"title": "Surnames & famous people (crowell to dreyfuss)",
-"description": "Surnames & famous people (crowell to dreyfuss): crowell, custer, darrow, delgado, devlin, dinwiddie, dooley",
+"id": "pn-surnames-crowder-to-dreyer",
+"title": "Surnames & famous people (crowder to dreyer)",
+"description": "Surnames & famous people (crowder to dreyer): crowder, cushing, darley, deleuze, devine, dinh, donner",
 "categories": [
 {
 "id": "pn_surnames",
@@ -56583,6 +56583,8 @@
 }
 ],
 "words": [
+"crowder",
+"crowe",
 "crowell",
 "crowley",
 "crowther",
@@ -56835,15 +56837,13 @@
 "draxler",
 "drayton",
 "drexler",
-"dreyer",
-"dreyfus",
-"dreyfuss"
+"dreyer"
 ]
 },
 {
-"id": "pn-surnames-drinkwater-to-ferreira",
-"title": "Surnames & famous people (drinkwater to ferreira)",
-"description": "Surnames & famous people (drinkwater to ferreira): drinkwater, dunmore, eastwood, elba, erickson, fairbairn, fawkes",
+"id": "pn-surnames-dreyfus-to-ferrante",
+"title": "Surnames & famous people (dreyfus to ferrante)",
+"description": "Surnames & famous people (dreyfus to ferrante): dreyfus, dunlap, eastman, eisner, epstein, fagan, favreau",
 "categories": [
 {
 "id": "pn_surnames",
@@ -56851,6 +56851,8 @@
 }
 ],
 "words": [
+"dreyfus",
+"dreyfuss",
 "drinkwater",
 "driscoll",
 "drogba",
@@ -57103,15 +57105,13 @@
 "fernandez",
 "fernandinho",
 "ferrand",
-"ferrante",
-"ferraro",
-"ferreira"
+"ferrante"
 ]
 },
 {
-"id": "pn-surnames-ferrell-to-gilman",
-"title": "Surnames & famous people (ferrell to gilman)",
-"description": "Surnames & famous people (ferrell to gilman): ferrell, fitzgibbon, fonseca, freeland, gadot, garnett, genovese",
+"id": "pn-surnames-ferraro-to-gillies",
+"title": "Surnames & famous people (ferraro to gillies)",
+"description": "Surnames & famous people (ferraro to gillies): ferraro, fitz, fonda, fredericks, gabor, garibaldi, geng",
 "categories": [
 {
 "id": "pn_surnames",
@@ -57119,6 +57119,8 @@
 }
 ],
 "words": [
+"ferraro",
+"ferreira",
 "ferrell",
 "ferrer",
 "ferri",
@@ -57371,15 +57373,13 @@
 "gillett",
 "gilliam",
 "gillibrand",
-"gillies",
-"gillis",
-"gilman"
+"gillies"
 ]
 },
 {
-"id": "pn-surnames-gilmer-to-hampson",
-"title": "Surnames & famous people (gilmer to hampson)",
-"description": "Surnames & famous people (gilmer to hampson): gilmer, goel, gore, greaves, grisham, gupta, haig",
+"id": "pn-surnames-gillis-to-hammond",
+"title": "Surnames & famous people (gillis to hammond)",
+"description": "Surnames & famous people (gillis to hammond): gillis, godwin, gorbachev, grayling, grimm, gunn, haggerty",
 "categories": [
 {
 "id": "pn_surnames",
@@ -57387,6 +57387,8 @@
 }
 ],
 "words": [
+"gillis",
+"gilman",
 "gilmer",
 "gilmore",
 "gilmour",
@@ -57639,15 +57641,13 @@
 "hamm",
 "hammerstein",
 "hammett",
-"hammond",
-"hamon",
-"hampson"
+"hammond"
 ]
 },
 {
-"id": "pn-surnames-hancock-to-hoke",
-"title": "Surnames & famous people (hancock to hoke)",
-"description": "Surnames & famous people (hancock to hoke): hancock, harington, hasegawa, hayworth, hemphill, heston, hine",
+"id": "pn-surnames-hamon-to-hogg",
+"title": "Surnames & famous people (hamon to hogg)",
+"description": "Surnames & famous people (hamon to hogg): hamon, hargrove, harwell, hayward, hemingway, hess, hindmarsh",
 "categories": [
 {
 "id": "pn_surnames",
@@ -57655,6 +57655,8 @@
 }
 ],
 "words": [
+"hamon",
+"hampson",
 "hancock",
 "handel",
 "handley",
@@ -57907,15 +57909,13 @@
 "hofmann",
 "hogan",
 "hogarth",
-"hogg",
-"hogue",
-"hoke"
+"hogg"
 ]
 },
 {
-"id": "pn-surnames-holbein-to-kabila",
-"title": "Surnames & famous people (holbein to kabila)",
-"description": "Surnames & famous people (holbein to kabila): holbein, horowitz, huddleston, huxley, isherwood, jang, jimenez",
+"id": "pn-surnames-hogue-to-jung",
+"title": "Surnames & famous people (hogue to jung)",
+"description": "Surnames & famous people (hogue to jung): hogue, horner, huber, hutchison, isaacson, jamieson, jha",
 "categories": [
 {
 "id": "pn_surnames",
@@ -57923,6 +57923,8 @@
 }
 ],
 "words": [
+"hogue",
+"hoke",
 "holbein",
 "holbrook",
 "holcomb",
@@ -58175,15 +58177,13 @@
 "judd",
 "judson",
 "juncker",
-"jung",
-"justinian",
-"kabila"
+"jung"
 ]
 },
 {
-"id": "pn-surnames-kadri-to-ladd",
-"title": "Surnames & famous people (kadri to ladd)",
-"description": "Surnames & famous people (kadri to ladd): kadri, karzai, kellerman, khalifa, kirwan, kompany, krug",
+"id": "pn-surnames-justinian-to-labeouf",
+"title": "Surnames & famous people (justinian to labeouf)",
+"description": "Surnames & famous people (justinian to labeouf): justinian, karpov, kelleher, keyser, kirkpatrick, kok, kross",
 "categories": [
 {
 "id": "pn_surnames",
@@ -58191,6 +58191,8 @@
 }
 ],
 "words": [
+"justinian",
+"kabila",
 "kadri",
 "kaepernick",
 "kafka",
@@ -58443,15 +58445,13 @@
 "kyi",
 "kyrgios",
 "labelle",
-"labeouf",
-"lacan",
-"ladd"
+"labeouf"
 ]
 },
 {
-"id": "pn-surnames-laden-to-ludacris",
-"title": "Surnames & famous people (laden to ludacris)",
-"description": "Surnames & famous people (laden to ludacris): laden, lanham, lavrov, lem, liberace, liszt, longoria",
+"id": "pn-surnames-lacan-to-luce",
+"title": "Surnames & famous people (lacan to luce)",
+"description": "Surnames & famous people (lacan to luce): lacan, langham, lavin, leitch, liang, lister, longley",
 "categories": [
 {
 "id": "pn_surnames",
@@ -58459,6 +58459,8 @@
 }
 ],
 "words": [
+"lacan",
+"ladd",
 "laden",
 "lafferty",
 "lagarde",
@@ -58711,15 +58713,13 @@
 "lozano",
 "lu",
 "lucan",
-"luce",
-"lucero",
-"ludacris"
+"luce"
 ]
 },
 {
-"id": "pn-surnames-ludlow-to-mcclintock",
-"title": "Surnames & famous people (ludlow to mcclintock)",
-"description": "Surnames & famous people (ludlow to mcclintock): ludlow, maas, madsen, mallett, marciano, masson, mazur",
+"id": "pn-surnames-lucero-to-mcclellan",
+"title": "Surnames & famous people (lucero to mcclellan)",
+"description": "Surnames & famous people (lucero to mcclellan): lucero, lytton, madigan, malkin, marchand, massey, mays",
 "categories": [
 {
 "id": "pn_surnames",
@@ -58727,6 +58727,8 @@
 }
 ],
 "words": [
+"lucero",
+"ludacris",
 "ludlow",
 "lue",
 "lugar",
@@ -58979,15 +58981,13 @@
 "mcclaren",
 "mcclatchy",
 "mcclean",
-"mcclellan",
-"mcclelland",
-"mcclintock"
+"mcclellan"
 ]
 },
 {
-"id": "pn-surnames-mccloskey-to-mond",
-"title": "Surnames & famous people (mccloskey to mond)",
-"description": "Surnames & famous people (mccloskey to mond): mccloskey, mcdougal, mckellar, mcrae, mendes, mickelson, mishra",
+"id": "pn-surnames-mcclelland-to-monaghan",
+"title": "Surnames & famous people (mcclelland to monaghan)",
+"description": "Surnames & famous people (mcclelland to monaghan): mcclelland, mcdonnell, mckean, mcquaid, mendelssohn, michelson, mises",
 "categories": [
 {
 "id": "pn_surnames",
@@ -58995,6 +58995,8 @@
 }
 ],
 "words": [
+"mcclelland",
+"mcclintock",
 "mccloskey",
 "mccloud",
 "mcclure",
@@ -59247,15 +59249,13 @@
 "moloney",
 "molotov",
 "molyneux",
-"monaghan",
-"monahan",
-"mond"
+"monaghan"
 ]
 },
 {
-"id": "pn-surnames-mondale-to-nott",
-"title": "Surnames & famous people (mondale to nott)",
-"description": "Surnames & famous people (mondale to nott): mondale, moreland, moulton, murakami, nanak, neruda, nicol",
+"id": "pn-surnames-monahan-to-nostradamus",
+"title": "Surnames & famous people (monahan to nostradamus)",
+"description": "Surnames & famous people (monahan to nostradamus): monahan, morehead, mott, munson, nakamoto, neri, nicklaus",
 "categories": [
 {
 "id": "pn_surnames",
@@ -59263,6 +59263,8 @@
 }
 ],
 "words": [
+"monahan",
+"mond",
 "mondale",
 "mondrian",
 "mone",
@@ -59515,15 +59517,13 @@
 "northrup",
 "norton",
 "norwood",
-"nostradamus",
-"noth",
-"nott"
+"nostradamus"
 ]
 },
 {
-"id": "pn-surnames-nouri-to-petersen",
-"title": "Surnames & famous people (nouri to petersen)",
-"description": "Surnames & famous people (nouri to petersen): nouri, o'mara, oliphant, osuna, pappas, patton, pellegrini",
+"id": "pn-surnames-noth-to-peterman",
+"title": "Surnames & famous people (noth to peterman)",
+"description": "Surnames & famous people (noth to peterman): noth, o'leary, oldman, osorio, papadopoulos, pattinson, pelham",
 "categories": [
 {
 "id": "pn_surnames",
@@ -59531,6 +59531,8 @@
 }
 ],
 "words": [
+"noth",
+"nott",
 "nouri",
 "novak",
 "novello",
@@ -59783,15 +59785,13 @@
 "pershing",
 "persie",
 "persson",
-"peterman",
-"peters",
-"petersen"
+"peterman"
 ]
 },
 {
-"id": "pn-surnames-peterson-to-redfield",
-"title": "Surnames & famous people (peterson to redfield)",
-"description": "Surnames & famous people (peterson to redfield): peterson, pincus, pogue, pratchett, pulisic, rackham, ransome",
+"id": "pn-surnames-peters-to-reddick",
+"title": "Surnames & famous people (peters to reddick)",
+"description": "Surnames & famous people (peters to reddick): peters, pimentel, poehler, prager, pulaski, rabb, rankine",
 "categories": [
 {
 "id": "pn_surnames",
@@ -59799,6 +59799,8 @@
 }
 ],
 "words": [
+"peters",
+"petersen",
 "peterson",
 "petraeus",
 "petrie",
@@ -60051,15 +60053,13 @@
 "reardon",
 "reaves",
 "reay",
-"reddick",
-"reddy",
-"redfield"
+"reddick"
 ]
 },
 {
-"id": "pn-surnames-redford-to-salter",
-"title": "Surnames & famous people (redford to salter)",
-"description": "Surnames & famous people (redford to salter): redford, revis, riggs, rocha, rooney, rowe, ryback",
+"id": "pn-surnames-reddy-to-salter",
+"title": "Surnames & famous people (reddy to salter)",
+"description": "Surnames & famous people (reddy to salter): reddy, reuss, rigg, rocca, ronaldo, rove, ryback",
 "categories": [
 {
 "id": "pn_surnames",
@@ -60067,6 +60067,8 @@
 }
 ],
 "words": [
+"reddy",
+"redfield",
 "redford",
 "redgrave",
 "redick",
@@ -60239,7 +60241,6 @@
 "rothko",
 "rothman",
 "rothschild",
-"rothschilds",
 "rothstein",
 "rothwell",
 "rouhani",
@@ -60256,7 +60257,6 @@
 "rowley",
 "rowling",
 "rowntree",
-"royle",
 "ruan",
 "rubens",
 "rubenstein",

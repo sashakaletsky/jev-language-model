@@ -27,9 +27,14 @@ speech moves forward rather than piling up synonyms. That framing matters: asked
 next?", a decision model tends to favour words that already appear in the text and ends up repeating the
 last word, or stringing adjectives together.
 
+Punctuation is offered the same way: `.` `,` `?` and `!` are four of the 255 options in the core block, so
+Jev can end a sentence or pause it instead of choosing a word.
+
 Jev returns a full probability distribution for each question. The code multiplies
-P(block) × P(word | block), sorts, and shows the top word as ghost text. That is the whole algorithm;
-see [`lib/predict.ts`](lib/predict.ts). The only text processing is splitting the input into
+P(block) × P(word | block) and sorts. At temperature 0 the top word is the suggestion; above 0 the
+suggestion is sampled from the top ten in proportion to p^(1/T), so the second or third choice sometimes
+wins and runs of the same word are broken up. That is the whole algorithm; see
+[`lib/predict.ts`](lib/predict.ts). The only text processing is splitting the input into
 "everything typed so far" and "the letters of the current word", in [`lib/tokenize.ts`](lib/tokenize.ts).
 
 The site shows both decisions for every keystroke, with probabilities, latency and token usage, and can
@@ -44,7 +49,7 @@ Built once, in advance, and committed as plain data. Jev never sees anything els
 | `data/words.json` | 65,025 words in frequency order | [`scripts/build_words.py`](scripts/build_words.py): walk [wordfreq](https://github.com/rspeer/wordfreq)'s English list from most to least frequent, keep purely alphabetic tokens (apostrophes allowed, so `it's` and `wouldn't` stay), stop at 65,025. wordfreq merges subtitles, Twitter, Reddit, news, books and Wikipedia, which is why `gonna`, `tbh` and `idk` are in. |
 | `data/taxonomy.json` | 89 themes, e.g. *Verbs \| movement & travel*, *Nouns \| food, drink & cooking*, *Contractions \| negatives* | Written by hand for this project. |
 | `data/labels.json` | one theme per word | Assigned by Claude at build time, in chunks of ~1,000 words, following [`docs/LABELLING.md`](docs/LABELLING.md). [`scripts/label_chunks.py`](scripts/label_chunks.py) prepares the chunks and merges the results. |
-| `data/blocks.json` | the 255 blocks Jev navigates | [`scripts/build_blocks.py`](scripts/build_blocks.py): merge the tiny function-word and contraction themes into one core theme, lay the themes out in order, keep frequency order inside a theme (alphabetical for names, places, brands and possessives), cut into 255 consecutive blocks of 255, and describe each block by its theme, its position in the theme and example words. |
+| `data/blocks.json` | the 255 blocks Jev navigates | [`scripts/build_blocks.py`](scripts/build_blocks.py): merge the tiny function-word and contraction themes into one core theme, put `.` `,` `?` `!` at its head in place of the four rarest words, lay the themes out in order, keep frequency order inside a theme (alphabetical for names, places, brands and possessives), cut into 255 consecutive blocks of 255, and describe each block by its theme, its position in the theme and example words. |
 
 Block descriptions look like
 `Verbs | movement & travel (most common): go, come, walk, run, leave, arrive, move`
@@ -78,6 +83,7 @@ One environment variable, `TYPESAFE_API_KEY`. No database. Nothing about visitor
 | `TYPESAFE_API_KEY` | required | Your TypeSafe key. Server-side only. |
 | `JEV_FANOUT` | `3` | How many of the top level-1 blocks to open at level 2. Opening several lets a strong word from a runner-up block win once the two probabilities are multiplied, which stops runs of near-synonyms. Each extra block is one more 255-option question per keystroke. Also adjustable in the UI. |
 | `NEXT_PUBLIC_JEV_PRICE_PER_M_INPUT_TOKENS` | unset | Your price per million input tokens, used only to show an estimated cost in the UI. |
+| `JEV_TEMPERATURE` | `0.8` | Sampling temperature for the suggestion. 0 always takes the top candidate. Also adjustable in the UI. |
 | `JEV_MAX_FANOUT` | `5` | The most blocks a visitor may open at level 2. |
 | `JEV_RATE_LIMIT` | `40` | Requests per visitor per 10 seconds before the API answers 429. Per server instance, so for a busy public deployment also enable your host's firewall rate limiting (Vercel: Firewall → Rate limiting). |
 
@@ -87,14 +93,14 @@ from a small in-memory cache, so a burst of typing does not become a burst of AP
 ## API
 
 ```
-POST /api/predict   { "text": "I want to wo", "fanout": 1, "trace": "summary" | "full" }
+POST /api/predict   { "text": "I want to wo", "fanout": 3, "temperature": 0.8, "trace": "summary" | "full" }
 GET  /api/predict?text=I%20want%20to%20wo&trace=full
 GET  /api/blocks              the 255 block descriptions Jev reads at level 1
 GET  /api/blocks?id=<block>   one block with its 255 words
 ```
 
-The response carries the candidates, the opened blocks, token usage, timing and a `trace` of each Jev
-call. With `trace=full` the trace includes the complete 255-option criteria exactly as sent.
+The response carries the candidates, the sampled `chosen` suggestion, the opened blocks, token usage,
+timing and a `trace` of each Jev call. With `trace=full` the trace includes the complete 255-option criteria exactly as sent.
 
 ## Measuring accuracy
 

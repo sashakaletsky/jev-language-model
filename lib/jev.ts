@@ -31,3 +31,9 @@ export function defaultFanout(): number {
   const n = Number(process.env.JEV_FANOUT ?? "3");
   return Number.isFinite(n) && n >= 1 ? Math.min(Math.floor(n), 8) : 1;
 }
+
+/** Sampling temperature for the suggestion. 0 always takes the top candidate. Default 0.8. */
+export function defaultTemperature(): number {
+  const t = Number(process.env.JEV_TEMPERATURE ?? "0.8");
+  return Number.isFinite(t) && t >= 0 ? Math.min(t, 2) : 0.8;
+}

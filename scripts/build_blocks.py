@@ -38,6 +38,10 @@ EXAMPLES_MINOR = 4  # example words shown for a theme that only spills into a bl
 MINOR_MIN = 12      # a spill-over smaller than this is just mentioned, not exemplified
 EXAMPLE_OVERRIDES = {"core": 24}  # the function-word block spans several word classes; show more
 
+# Punctuation is offered to Jev like any other option, at the head of the core block, so a
+# sentence can be ended or paused. The rarest words are dropped to keep 255 x 255 entries.
+PUNCTUATION = [".", ",", "?", "!"]
+
 # Tiny themes that belong together are merged before laying out, so that the most
 # important words of English (function words and contractions, 375 in all) form one
 # coherent block instead of a chain of fragments. Labels in data/labels.json keep
@@ -45,8 +49,8 @@ EXAMPLE_OVERRIDES = {"core": 24}  # the function-word block spans several word c
 MERGES = [
     {
         "id": "core",
-        "name": "Function words & contractions | articles, pronouns, prepositions, conjunctions, "
-                "auxiliaries, question words, it's / don't forms",
+        "name": "Function words, contractions & punctuation | articles, pronouns, prepositions, "
+                "conjunctions, auxiliaries, question words, it's / don't forms, . , ? !",
         "members": ["fn_determiners", "fn_pronouns", "fn_wh_words", "fn_prepositions",
                     "fn_conjunctions", "fn_auxiliaries", "ctr_pronoun_verb", "ctr_negative"],
         "order": "freq",
@@ -108,6 +112,11 @@ def spread(words: list[str], n: int) -> list[str]:
     return [words[int(i * step)] for i in range(n)]
 
 
+def fmt(word: str) -> str:
+    """Example words as shown in a description; punctuation is quoted so it reads clearly."""
+    return word if word[0].isalnum() else f"'{word}'"
+
+
 def slug(s: str) -> str:
     return re.sub(r"[^a-z0-9]+", "-", s.lower()).strip("-")
 
@@ -127,11 +136,13 @@ def main() -> None:
     themes = OrderedDict((t["id"], t) for t in taxonomy)
     if len(words) != BLOCK * BLOCK:
         sys.exit(f"expected {BLOCK * BLOCK} words, found {len(words)}")
+    words = words[:len(words) - len(PUNCTUATION)]  # make room for punctuation
 
     # 1. group by theme, keeping frequency order, or alphabetical for "alpha" themes
     grouped: dict[str, list[str]] = {tid: [] for tid in themes}
     for w in words:
         grouped[labels[w]].append(w)
+    grouped["core"] = PUNCTUATION + grouped["core"]
     for tid, t in themes.items():
         if t["order"] == "alpha":
             grouped[tid].sort()
@@ -189,9 +200,9 @@ def main() -> None:
         for p in parts:  # in sequence order, so letter ranges and tiers read naturally
             label = short_name(p["name"]) + (f" ({p['where']})" if p["where"] else "")
             if p["id"] == primary:
-                pieces.append(f"{label}: " + ", ".join(p["examples"][:EXAMPLE_OVERRIDES.get(p["id"], EXAMPLES)]))
+                pieces.append(f"{label}: " + ", ".join(map(fmt, p["examples"][:EXAMPLE_OVERRIDES.get(p["id"], EXAMPLES)])))
             elif p["count"] >= MINOR_MIN:
-                pieces.append(f"{label}: " + ", ".join(p["examples"][:EXAMPLES_MINOR]))
+                pieces.append(f"{label}: " + ", ".join(map(fmt, p["examples"][:EXAMPLES_MINOR])))
             else:
                 pieces.append(f"a few {short_name(p['name'])} words")
         desc = " + ".join(pieces)
@@ -210,7 +221,8 @@ def main() -> None:
     out = {
         "generated": datetime.date.today().isoformat(),
         "method": "See scripts/build_blocks.py. Themes in taxonomy order, frequency order inside a theme "
-                  "(alphabetical for name-like themes), cut into 255 consecutive blocks of 255.",
+                  "(alphabetical for name-like themes), punctuation at the head of the core theme, "
+                  "cut into 255 consecutive blocks of 255.",
         "block_size": BLOCK,
         "block_count": BLOCK,
         "blocks": blocks,

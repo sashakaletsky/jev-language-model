@@ -12,7 +12,7 @@
 import { choice } from "@typesafe-ai/sdk";
 import type { ChoiceResponse, SystemOneResult, Questions } from "@typesafe-ai/sdk";
 import { blockById, level1Criteria, level2Criteria } from "./blocks";
-import { defaultFanout, getJevClient } from "./jev";
+import { defaultFanout, defaultTemperature, getJevClient } from "./jev";
 import { splitInput, tailContext } from "./tokenize";
 
 /** What Jev is shown. A type literal rather than an interface so it satisfies the SDK's JSON state type. */
@@ -56,6 +56,9 @@ export interface PredictResult {
   blocks: BlockPick[];
   /** Top candidate words across the opened blocks, highest combined probability first. */
   candidates: Candidate[];
+  /** The suggestion: the top candidate at temperature 0, otherwise sampled from `candidates`. */
+  chosen: Candidate;
+  temperature: number;
   usage: { input_tokens: number; output_tokens: number };
   timing: { level1_ms: number; level2_ms: number; total_ms: number };
   /** Exact requests and responses, for anyone who wants to check what Jev was asked. */
@@ -64,9 +67,15 @@ export interface PredictResult {
 
 export interface PredictOptions {
   fanout?: number;
-  /** Return at most this many candidates. */
+  /** Return at most this many candidates; the suggestion is sampled from among them. */
   limit?: number;
+  /** 0 always suggests the top candidate; higher values sample from Jev's distribution more freely. */
+  temperature?: number;
 }
+
+const PUNCTUATION = new Set([".", ",", "?", "!"]);
+/** Punctuation is offered to Jev alongside words (see scripts/build_blocks.py). */
+export const isPunctuation = (word: string): boolean => PUNCTUATION.has(word);
 
 const BLANK = "____";
 
@@ -87,6 +96,8 @@ const TASK = {
     "Good speech moves forward. After a description comes the thing described, a linking word, or the next part of " +
       "the sentence, never another synonym. After a subject comes a verb; after a verb comes what it acts on.",
     "Prefer the plain, natural word a clear speaker would use over a rare or flowery one, unless the text itself is formal.",
+    "Punctuation marks are options too: choose '.' when the sentence is complete, ',' where a clear speaker would " +
+      "pause before continuing, '?' after a question. A sentence that has said its piece should end.",
     "If `partial_word` is not empty, the writer has already typed those letters of the next word, so the answer " +
       "starts with exactly those letters and is the complete word.",
   ],
@@ -96,6 +107,8 @@ const TASK = {
     { text: `I can't believe how m${BLANK}`, partial_word: "m", answer: "much", kind: "adverb of degree" },
     { text: `It was a very very ${BLANK}`, partial_word: "", answer: "long", kind: "adjective" },
     { text: `Honestly, I think we should ${BLANK}`, partial_word: "", answer: "wait", kind: "verb" },
+    { text: `That is everything I wanted to say ${BLANK}`, partial_word: "", answer: ".", kind: "punctuation" },
+    { text: `If you ask me ${BLANK}`, partial_word: "", answer: ",", kind: "punctuation" },
   ],
 };
 
@@ -132,9 +145,23 @@ export const level2Question = (blockId: string, context: string) => {
   const tail = lastWords(context);
   if (!tail) return choice(LEVEL2_INSTRUCTIONS, level2Criteria(blockId));
   const criteria = Object.create(null) as Record<string, string>;
-  for (const word of blockById(blockId).words) criteria[word] = `${tail} ${word}`;
+  for (const word of blockById(blockId).words) {
+    criteria[word] = isPunctuation(word) ? `${tail}${word}` : `${tail} ${word}`;
+  }
   return choice(LEVEL2_INSTRUCTIONS, criteria);
 };
+
+/** Index of a candidate drawn with probability proportional to p^(1/temperature); 0 means the top one. */
+function sampleIndex(candidates: Candidate[], temperature: number): number {
+  if (temperature <= 0 || candidates.length <= 1) return 0;
+  const weights = candidates.map((c) => Math.pow(Math.max(c.p, 1e-12), 1 / temperature));
+  let r = Math.random() * weights.reduce((a, b) => a + b, 0);
+  for (let i = 0; i < weights.length; i++) {
+    r -= weights[i];
+    if (r <= 0) return i;
+  }
+  return weights.length - 1;
+}
 
 function sortedEntries(probabilities: Readonly<Record<string, number>>): [string, number][] {
   return Object.entries(probabilities).sort((a, b) => b[1] - a[1]);
@@ -160,6 +187,7 @@ export function summariseTrace(result: PredictResult): PredictResult {
 export async function predict(rawText: string, options: PredictOptions = {}): Promise<PredictResult> {
   const fanout = Math.max(1, Math.min(options.fanout ?? defaultFanout(), 8));
   const limit = options.limit ?? 10;
+  const temperature = Math.max(0, Math.min(options.temperature ?? defaultTemperature(), 2));
   const client = getJevClient();
 
   const { context, fragment } = splitInput(rawText);
@@ -195,6 +223,8 @@ export async function predict(rawText: string, options: PredictOptions = {}): Pr
     }
   }
   candidates.sort((a, b) => b.p - a.p);
+  const top = candidates.slice(0, limit);
+  const chosen = top[sampleIndex(top, temperature)];
 
   return {
     context,
@@ -202,7 +232,9 @@ export async function predict(rawText: string, options: PredictOptions = {}): Pr
     model: r2.model,
     fanout,
     blocks: ranked.slice(0, Math.max(fanout, 5)),
-    candidates: candidates.slice(0, limit),
+    candidates: top,
+    chosen,
+    temperature,
     usage: {
       input_tokens: r1.usage.input_tokens + r2.usage.input_tokens,
       output_tokens: r1.usage.output_tokens + r2.usage.output_tokens,

@@ -257,6 +257,14 @@ ol.bars li .bar {
   border-radius: 6px;
 }
 
+ol.bars li.chosen .label {
+  font-weight: 600;
+}
+
+.editor .mirror .ghost.punctuation {
+  color: var(--accent);
+}
+
 ol.bars li.opened .bar {
   background: var(--bar-opened);
   opacity: 0.35;

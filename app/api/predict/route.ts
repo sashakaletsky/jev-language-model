@@ -1,6 +1,6 @@
 /**
- * POST /api/predict  { text: string, fanout?: number, trace?: "full" | "summary" }
- * GET  /api/predict?text=...&fanout=1&trace=full
+ * POST /api/predict  { text: string, fanout?: number, temperature?: number, trace?: "full" | "summary" }
+ * GET  /api/predict?text=...&fanout=3&temperature=0.8&trace=full
  *
  * Returns Jev's prediction for the next word. See lib/predict.ts.
  */
@@ -40,11 +40,11 @@ function clientIp(req: NextRequest): string {
 /** Identical text + settings returns the cached Jev answers instead of paying for them again. */
 const cache = new Map<string, Promise<PredictResult>>();
 
-function cached(text: string, fanout: number | undefined): Promise<PredictResult> {
-  const key = `${fanout ?? "default"}\u0000${text}`;
+function cached(text: string, fanout: number | undefined, temperature: number | undefined): Promise<PredictResult> {
+  const key = `${fanout ?? "default"}\u0000${temperature ?? "default"}\u0000${text}`;
   const hit = cache.get(key);
   if (hit) return hit;
-  const pending = predict(text, { fanout, limit: 10 }).catch((err) => {
+  const pending = predict(text, { fanout, temperature, limit: 10 }).catch((err) => {
     cache.delete(key);
     throw err;
   });
@@ -56,7 +56,11 @@ function cached(text: string, fanout: number | undefined): Promise<PredictResult
   return pending;
 }
 
-async function handle(req: NextRequest, text: unknown, fanoutRaw: unknown, traceRaw: unknown) {
+function optionalNumber(raw: unknown): number | undefined {
+  return raw === undefined || raw === null || raw === "" ? undefined : Number(raw);
+}
+
+async function handle(req: NextRequest, text: unknown, fanoutRaw: unknown, temperatureRaw: unknown, traceRaw: unknown) {
   if (rateLimited(clientIp(req))) {
     return NextResponse.json({ error: "Too many requests; slow down a little." }, { status: 429 });
   }
@@ -64,12 +68,16 @@ async function handle(req: NextRequest, text: unknown, fanoutRaw: unknown, trace
     return NextResponse.json({ error: "`text` must be a string" }, { status: 400 });
   }
   const trimmed = text.length > MAX_TEXT_CHARS ? text.slice(-MAX_TEXT_CHARS) : text;
-  const fanoutNum = fanoutRaw === undefined || fanoutRaw === null || fanoutRaw === "" ? undefined : Number(fanoutRaw);
+  const fanoutNum = optionalNumber(fanoutRaw);
   if (fanoutNum !== undefined && !(Number.isInteger(fanoutNum) && fanoutNum >= 1 && fanoutNum <= MAX_FANOUT)) {
     return NextResponse.json({ error: `\`fanout\` must be an integer from 1 to ${MAX_FANOUT}` }, { status: 400 });
   }
+  const temperatureNum = optionalNumber(temperatureRaw);
+  if (temperatureNum !== undefined && !(Number.isFinite(temperatureNum) && temperatureNum >= 0 && temperatureNum <= 2)) {
+    return NextResponse.json({ error: "`temperature` must be a number from 0 to 2" }, { status: 400 });
+  }
   try {
-    const result = await cached(trimmed, fanoutNum);
+    const result = await cached(trimmed, fanoutNum, temperatureNum);
     return NextResponse.json(traceRaw === "full" ? result : summariseTrace(result));
   } catch (err) {
     if (err instanceof APIError) {
@@ -83,15 +91,15 @@ async function handle(req: NextRequest, text: unknown, fanoutRaw: unknown, trace
 
 export async function GET(req: NextRequest) {
   const sp = req.nextUrl.searchParams;
-  return handle(req, sp.get("text") ?? "", sp.get("fanout") ?? undefined, sp.get("trace") ?? undefined);
+  return handle(req, sp.get("text") ?? "", sp.get("fanout") ?? undefined, sp.get("temperature") ?? undefined, sp.get("trace") ?? undefined);
 }
 
 export async function POST(req: NextRequest) {
-  let body: { text?: unknown; fanout?: unknown; trace?: unknown };
+  let body: { text?: unknown; fanout?: unknown; temperature?: unknown; trace?: unknown };
   try {
     body = await req.json();
   } catch {
     return NextResponse.json({ error: "body must be JSON" }, { status: 400 });
   }
-  return handle(req, body.text, body.fanout, body.trace);
+  return handle(req, body.text, body.fanout, body.temperature, body.trace);
 }
