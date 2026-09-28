@@ -1,12 +1,39 @@
 {
   "name": "jev-language-model",
   "version": "0.1.0",
+  "description": "A next-word predictor built entirely from Jev, TypeSafe's System One decision model: three 255-way choices per word, no text generation.",
   "private": true,
+  "type": "module",
+  "homepage": "https://jevlanguagemodel.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sashakaletsky/jev-language-model"
+  },
+  "bugs": {
+    "url": "https://github.com/sashakaletsky/jev-language-model/issues"
+  },
+  "license": "MIT",
+  "keywords": [
+    "jev",
+    "typesafe",
+    "system-one",
+    "next-word-prediction",
+    "language-model",
+    "nextjs"
+  ],
+  "engines": {
+    "node": ">=22.18"
+  },
   "scripts": {
     "dev": "next dev",
+    "dev:mock": "node scripts/dev-mock.mjs",
+    "mock": "node scripts/mock-typesafe.mjs",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
+    "typecheck": "tsc --noEmit",
+    "test": "node --test tests/*.test.ts",
+    "check": "npm run lint && npm run typecheck && npm test && npm run build",
     "harness": "node scripts/harness.mjs"
   },
   "dependencies": {
@@ -22,9 +49,5 @@
     "eslint": "^9",
     "eslint-config-next": "16.3.6",
     "typescript": "^5"
-  },
-  "description": "A next-word predictor built entirely from Jev, TypeSafe's System One decision model.",
-  "engines": {
-    "node": ">=20"
   }
 }

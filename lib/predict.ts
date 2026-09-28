@@ -16,9 +16,9 @@
  */
 import { choice } from "@typesafe-ai/sdk";
 import type { ChoiceResponse, SystemOneResult, Questions } from "@typesafe-ai/sdk";
-import { blockById, level1Criteria, level2Criteria } from "./blocks";
-import { defaultFanout, defaultTemperature, getJevClient } from "./jev";
-import { normalise, tailContext } from "./tokenize";
+import { blockById, level1Criteria, level2Criteria } from "./blocks.ts";
+import { defaultFanout, defaultTemperature, getJevClient } from "./jev.ts";
+import { normalise, tailContext } from "./tokenize.ts";
 
 /** What Jev is shown. A type literal rather than an interface so it satisfies the SDK's JSON state type. */
 export type JevState = {
@@ -178,7 +178,7 @@ const LEVEL3_INSTRUCTIONS = {
 };
 
 /** The last few words before the cursor, used to show each level-3 candidate in place. */
-function lastWords(context: string, n = 4): string {
+export function lastWords(context: string, n = 4): string {
   return context.trim().split(/\s+/).filter(Boolean).slice(-n).join(" ");
 }
 
@@ -266,7 +266,7 @@ export function allocate(probs: number[], total = SHORTLIST_SIZE, min = shortlis
  * Index of a candidate drawn with probability proportional to p^(1/temperature), from the
  * nucleus of candidates covering TOP_P of the mass; 0 means the top one.
  */
-function sampleIndex(candidates: Candidate[], temperature: number): number {
+export function sampleIndex(candidates: Candidate[], temperature: number): number {
   if (temperature <= 0 || candidates.length <= 1) return 0;
   const total = candidates.reduce((a, c) => a + c.p, 0) || 1;
   let acc = 0;

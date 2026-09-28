@@ -2,10 +2,11 @@
  * The dictionary as Jev sees it: 255 themed blocks of 255 words each.
  *
  * `data/blocks.json` is generated once by `scripts/build_blocks.py` from the
- * word list and the theme labels (see README, "How the blocks were built").
- * Nothing here is computed at request time beyond reading that file.
+ * word list and the theme labels (see docs/DATA.md). Nothing here is computed
+ * at request time beyond reading that file.
  */
-import blocksJson from "@/data/blocks.json";
+import fs from "node:fs";
+import path from "node:path";
 
 export interface Block {
   /** Short unique id, used as the option label Jev picks. */
@@ -16,18 +17,22 @@ export interface Block {
   description: string;
   /** Theme ids contributing to this block and how many words each contributes. */
   categories: { id: string; count: number }[];
-  /** Exactly 255 lowercase words. */
+  /** Exactly 255 lowercase words (four of them punctuation marks). */
   words: string[];
 }
 
 export interface BlocksFile {
   generated: string;
+  method: string;
   block_size: number;
   block_count: number;
   blocks: Block[];
 }
 
-export const blocksFile = blocksJson as BlocksFile;
+/** Where the data lives, relative to the project root (the working directory in dev and on Vercel). */
+export const BLOCKS_PATH = path.join(process.cwd(), "data", "blocks.json");
+
+export const blocksFile: BlocksFile = JSON.parse(fs.readFileSync(BLOCKS_PATH, "utf8"));
 export const blocks: Block[] = blocksFile.blocks;
 
 const byId = new Map<string, Block>(blocks.map((b) => [b.id, b]));
