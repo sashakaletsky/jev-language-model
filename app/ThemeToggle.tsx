@@ -1,43 +1,13 @@
 "use client";
 
 import { useSyncExternalStore } from "react";
-
-type Theme = "light" | "dark";
-
-const listeners = new Set<() => void>();
-
-function resolved(): Theme {
-  const set = document.documentElement.dataset.theme;
-  if (set === "light" || set === "dark") return set;
-  return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-}
-
-function subscribe(onChange: () => void) {
-  listeners.add(onChange);
-  const media = window.matchMedia("(prefers-color-scheme: dark)");
-  media.addEventListener("change", onChange);
-  return () => {
-    listeners.delete(onChange);
-    media.removeEventListener("change", onChange);
-  };
-}
+import { resolvedTheme, setTheme, subscribeTheme } from "./theme";
 
 /** Light or dark. Follows the system until the visitor picks one; the pick is remembered in this browser. */
 export default function ThemeToggle() {
   // "unknown" on the server and during hydration, so the markup matches whatever the theme turns out to be.
-  const theme = useSyncExternalStore(subscribe, resolved, () => "unknown" as const);
-
-  const toggle = () => {
-    const next: Theme = resolved() === "dark" ? "light" : "dark";
-    document.documentElement.dataset.theme = next;
-    try {
-      localStorage.setItem("theme", next);
-    } catch {
-      // Private mode or blocked storage: the choice still applies to this page.
-    }
-    for (const l of listeners) l();
-  };
-
+  const theme = useSyncExternalStore(subscribeTheme, resolvedTheme, () => "unknown" as const);
+  const toggle = () => setTheme(resolvedTheme() === "dark" ? "light" : "dark");
   const label = theme === "dark" ? "Switch to light mode" : theme === "light" ? "Switch to dark mode" : "Switch colour mode";
   return (
     <button type="button" className="theme-toggle" onClick={toggle} aria-label={label} title={label}>

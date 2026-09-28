@@ -1,4 +1,5 @@
 import Image from "next/image";
+import CvLogo from "./CvLogo";
 import Predictor from "./Predictor";
 import ThemeToggle from "./ThemeToggle";
 import logo from "./logo.png";
@@ -53,7 +54,7 @@ export default function Home() {
       <footer className="site-footer">
         <p>
           Built (with, among other things, Jev) by <a href="https://x.com/SashaKaletsky">Sasha Kaletsky</a> from{" "}
-          <a href="https://www.creator.ventures/">Creator Ventures</a>.
+          <CvLogo />
         </p>
       </footer>
     </main>

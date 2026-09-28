@@ -574,6 +574,59 @@ button.accept:disabled {
   margin: 0;
 }
 
+/* The wordmark at the end of the credit: a short animation per colour scheme, a still for reduced motion. */
+.cv-logo {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 0.1rem;
+  line-height: 0;
+  text-decoration: none;
+  border-radius: 4px;
+}
+
+.cv-logo:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
+.cv-logo video,
+.cv-logo img {
+  display: none;
+  height: 48px;
+  width: auto;
+}
+
+.cv-logo .still {
+  display: none;
+}
+
+:root[data-theme="light"] .cv-logo .light,
+:root[data-theme="dark"] .cv-logo .dark {
+  display: inline-block;
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme]) .cv-logo .light {
+    display: inline-block;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) .cv-logo .dark {
+    display: inline-block;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cv-logo .motion {
+    display: none;
+  }
+
+  .cv-logo .still {
+    display: inline;
+  }
+}
+
 @media (max-width: 640px) {
   :root {
     --editor-size: 1.25rem;
