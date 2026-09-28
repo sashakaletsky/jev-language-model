@@ -1,12 +1,17 @@
 /**
- * Next-word prediction, done entirely by Jev in two Choice questions.
+ * Next-word prediction, done entirely by Jev in three Choice questions.
  *
  *   Level 1: given the text, which of the 255 themed blocks holds the next word?
- *   Level 2: given the text, which of that block's 255 words is it?
+ *            The top K blocks are opened (default 10).
+ *   Level 2: for each opened block, which of its 255 words is it? One request, K questions.
+ *            Each block then contributes a shortlist sized by its level-1 probability;
+ *            the shortlists together make exactly 255 candidates.
+ *   Level 3: which of those 255 candidates is it? Each is shown in place at the end
+ *            of the text, so Jev compares phrases rather than bare words.
  *
- * Code contributes nothing linguistic: it splits the text into context and the
- * partial word (see tokenize.ts), sends both questions, multiplies the two
- * probabilities Jev returns, and sorts. No prefix matching, no frequency data,
+ * Code contributes nothing linguistic: it splits the text (see tokenize.ts), sizes the
+ * shortlists from Jev's own probabilities, and at temperature above zero samples the
+ * suggestion from Jev's final distribution. No prefix matching, no frequency data,
  * no other model.
  */
 import { choice } from "@typesafe-ai/sdk";
@@ -26,9 +31,11 @@ export type JevState = {
 export interface Candidate {
   word: string;
   block: string;
-  /** P(block) * P(word | block) */
+  /** Jev's level-3 probability for this word, the final ranking. */
   p: number;
+  /** Level-1 probability of the word's block. */
   pBlock: number;
+  /** Level-2 probability of the word within its block. */
   pWord: number;
 }
 
@@ -40,8 +47,16 @@ export interface BlockPick {
   opened: boolean;
 }
 
+export interface ShortlistEntry {
+  block: string;
+  title: string;
+  pBlock: number;
+  /** How many of the block's words went through to level 3. */
+  quota: number;
+}
+
 export interface CallTrace {
-  level: 1 | 2;
+  level: 1 | 2 | 3;
   ms: number;
   request: { state: JevState; questions: Record<string, unknown> };
   response: unknown;
@@ -51,21 +66,25 @@ export interface PredictResult {
   context: string;
   fragment: string;
   model: string;
+  /** Blocks opened at level 2. */
   fanout: number;
-  /** Top blocks from level 1 (at least the opened ones, plus a few runners-up), highest probability first. */
+  /** Top blocks from level 1 (at least the opened ones), highest probability first. */
   blocks: BlockPick[];
-  /** Top candidate words across the opened blocks, highest combined probability first. */
+  /** How the 255 level-3 candidates were drawn from the opened blocks. */
+  shortlist: ShortlistEntry[];
+  /** Top candidates from level 3, highest probability first. */
   candidates: Candidate[];
   /** The suggestion: the top candidate at temperature 0, otherwise sampled from `candidates`. */
   chosen: Candidate;
   temperature: number;
   usage: { input_tokens: number; output_tokens: number };
-  timing: { level1_ms: number; level2_ms: number; total_ms: number };
+  timing: { level1_ms: number; level2_ms: number; level3_ms: number; total_ms: number };
   /** Exact requests and responses, for anyone who wants to check what Jev was asked. */
   trace: CallTrace[];
 }
 
 export interface PredictOptions {
+  /** Blocks to open at level 2. */
   fanout?: number;
   /** Return at most this many candidates; the suggestion is sampled from among them. */
   limit?: number;
@@ -78,9 +97,14 @@ const PUNCTUATION = new Set([".", ",", "?", "!"]);
 export const isPunctuation = (word: string): boolean => PUNCTUATION.has(word);
 
 const BLANK = "____";
+const SHORTLIST_SIZE = 255;
+const SHORTLIST_MIN = 8;
+const SHORTLIST_MAX = 128;
+/** Sampling only ever draws from the smallest set of candidates covering this much probability. */
+const TOP_P = 0.9;
 
 /**
- * Both questions are framed as filling in a blank at the cursor. Decision models
+ * Every question is framed as filling in a blank at the cursor. Decision models
  * tend to favour options that already appear in the input, which makes a plain
  * "what comes next?" question echo the last word typed; a blank with worked
  * examples keeps the model looking past the text rather than into it.
@@ -124,37 +148,86 @@ const LEVEL1_INSTRUCTIONS = {
 const LEVEL2_INSTRUCTIONS = {
   ...TASK,
   question:
+    `Which of these words fills ${BLANK}? Each option is one candidate word from a single themed block of the ` +
+    "dictionary. Rank them by how naturally each would continue the text.",
+};
+
+const LEVEL3_INSTRUCTIONS = {
+  ...TASK,
+  question:
     `Which of these words fills ${BLANK}? ` +
     "Each option is one candidate word. Its description shows the end of the text with that word in the blank; " +
     "choose the candidate a clear, articulate speaker would most naturally say next.",
 };
 
-/** The last few words before the cursor, used to show each level-2 candidate in place. */
+/** The last few words before the cursor, used to show each level-3 candidate in place. */
 function lastWords(context: string, n = 4): string {
   return context.trim().split(/\s+/).filter(Boolean).slice(-n).join(" ");
 }
 
 export const level1Question = () => choice(LEVEL1_INSTRUCTIONS, level1Criteria);
 
+/** Level-2 options are a block's 255 words, undescribed: this round only shortlists within the block. */
+export const level2Question = (blockId: string) => choice(LEVEL2_INSTRUCTIONS, level2Criteria(blockId));
+
 /**
- * Level-2 options are the block's 255 words. When there is text before the cursor, each
- * option is described as the end of that text with the word filled in ("Hello how are"),
- * so Jev judges phrases rather than bare words. With no text yet, descriptions are omitted.
+ * Level-3 options are the shortlisted words. When there is text before the cursor, each is
+ * described as the end of that text with the word filled in ("Hello how are"), so Jev judges
+ * phrases rather than bare words. With no text yet, descriptions are omitted.
  */
-export const level2Question = (blockId: string, context: string) => {
+export const level3Question = (words: string[], context: string) => {
   const tail = lastWords(context);
-  if (!tail) return choice(LEVEL2_INSTRUCTIONS, level2Criteria(blockId));
-  const criteria = Object.create(null) as Record<string, string>;
-  for (const word of blockById(blockId).words) {
-    criteria[word] = isPunctuation(word) ? `${tail}${word}` : `${tail} ${word}`;
+  const criteria = Object.create(null) as Record<string, string | null>;
+  for (const word of words) {
+    criteria[word] = tail ? (isPunctuation(word) ? `${tail}${word}` : `${tail} ${word}`) : null;
   }
-  return choice(LEVEL2_INSTRUCTIONS, criteria);
+  return choice(LEVEL3_INSTRUCTIONS, criteria);
 };
 
-/** Index of a candidate drawn with probability proportional to p^(1/temperature); 0 means the top one. */
+/**
+ * Splits `total` shortlist slots among the opened blocks in proportion to their level-1
+ * probabilities, with a floor so every opened block is represented and a cap so no block
+ * dominates. The floor and cap are relaxed when they cannot be met.
+ */
+export function allocate(probs: number[], total = SHORTLIST_SIZE, min = SHORTLIST_MIN, max = SHORTLIST_MAX): number[] {
+  const n = probs.length;
+  if (n === 0) return [];
+  min = Math.min(min, Math.floor(total / n));
+  max = Math.max(max, Math.ceil(total / n));
+  const sum = probs.reduce((a, b) => a + b, 0) || 1;
+  const quotas = probs.map((p) => Math.min(max, Math.max(min, Math.floor((p / sum) * total))));
+  let diff = total - quotas.reduce((a, b) => a + b, 0);
+  const order = probs.map((_, i) => i).sort((a, b) => probs[b] - probs[a]);
+  for (let guard = 0; diff !== 0 && guard < 10 * total; guard++) {
+    for (const i of order) {
+      if (diff > 0 && quotas[i] < max) {
+        quotas[i]++;
+        diff--;
+      } else if (diff < 0 && quotas[i] > min) {
+        quotas[i]--;
+        diff++;
+      }
+      if (diff === 0) break;
+    }
+  }
+  return quotas;
+}
+
+/**
+ * Index of a candidate drawn with probability proportional to p^(1/temperature), from the
+ * nucleus of candidates covering TOP_P of the mass; 0 means the top one.
+ */
 function sampleIndex(candidates: Candidate[], temperature: number): number {
   if (temperature <= 0 || candidates.length <= 1) return 0;
-  const weights = candidates.map((c) => Math.pow(Math.max(c.p, 1e-12), 1 / temperature));
+  const total = candidates.reduce((a, c) => a + c.p, 0) || 1;
+  let acc = 0;
+  let n = 0;
+  for (const c of candidates) {
+    acc += c.p;
+    n++;
+    if (acc / total >= TOP_P) break;
+  }
+  const weights = candidates.slice(0, n).map((c) => Math.pow(Math.max(c.p, 1e-12), 1 / temperature));
   let r = Math.random() * weights.reduce((a, b) => a + b, 0);
   for (let i = 0; i < weights.length; i++) {
     r -= weights[i];
@@ -167,7 +240,7 @@ function sortedEntries(probabilities: Readonly<Record<string, number>>): [string
   return Object.entries(probabilities).sort((a, b) => b[1] - a[1]);
 }
 
-/** Replaces each 255-option criteria object in the trace with a count, to keep API responses small. */
+/** Replaces each many-option criteria object in the trace with a count, to keep API responses small. */
 export function summariseTrace(result: PredictResult): PredictResult {
   const trace = result.trace.map((call) => ({
     ...call,
@@ -185,7 +258,7 @@ export function summariseTrace(result: PredictResult): PredictResult {
 }
 
 export async function predict(rawText: string, options: PredictOptions = {}): Promise<PredictResult> {
-  const fanout = Math.max(1, Math.min(options.fanout ?? defaultFanout(), 8));
+  const fanout = Math.max(1, Math.min(options.fanout ?? defaultFanout(), 12));
   const limit = options.limit ?? 10;
   const temperature = Math.max(0, Math.min(options.temperature ?? defaultTemperature(), 2));
   const client = getJevClient();
@@ -197,7 +270,7 @@ export async function predict(rawText: string, options: PredictOptions = {}): Pr
   const separator = shown && !/\s$/.test(shown) && !partial ? " " : "";
   const state: JevState = { text: `${shown}${separator}${partial}${BLANK}`, partial_word: partial };
 
-  // Level 1: which themed block?
+  // Level 1: which themed blocks?
   const t0 = performance.now();
   const q1 = { block: level1Question() };
   const r1 = await client.systemOne({ state, questions: q1 });
@@ -208,45 +281,58 @@ export async function predict(rawText: string, options: PredictOptions = {}): Pr
     p,
     opened: i < fanout,
   }));
-  const blockPicks = ranked.filter((b) => b.opened);
+  const opened = ranked.filter((b) => b.opened);
 
-  // Level 2: which word, asked for each opened block in one request.
-  const q2: Questions = Object.fromEntries(blockPicks.map((b) => [b.id, level2Question(b.id, shown)]));
+  // Level 2: shortlist within each opened block, all in one request.
+  const q2: Questions = Object.fromEntries(opened.map((b) => [b.id, level2Question(b.id)]));
   const r2 = (await client.systemOne({ state, questions: q2 })) as SystemOneResult<Questions>;
   const t2 = performance.now();
+  const quotas = allocate(opened.map((b) => b.p));
+  const shortlist: ShortlistEntry[] = [];
+  const shortlisted: { word: string; block: string; pBlock: number; pWord: number }[] = [];
+  opened.forEach((b, i) => {
+    const answer = r2.answers[b.id] as ChoiceResponse;
+    const top = sortedEntries(answer.probabilities).slice(0, quotas[i]);
+    shortlist.push({ block: b.id, title: b.title, pBlock: b.p, quota: top.length });
+    for (const [word, pWord] of top) shortlisted.push({ word, block: b.id, pBlock: b.p, pWord });
+  });
 
-  const candidates: Candidate[] = [];
-  for (const pick of blockPicks) {
-    const answer = r2.answers[pick.id] as ChoiceResponse;
-    for (const [word, pWord] of Object.entries(answer.probabilities)) {
-      candidates.push({ word, block: pick.id, pBlock: pick.p, pWord, p: pick.p * pWord });
-    }
-  }
-  candidates.sort((a, b) => b.p - a.p);
+  // Level 3: which of the shortlisted words?
+  const q3 = { word: level3Question(shortlisted.map((s) => s.word), shown) };
+  const r3 = await client.systemOne({ state, questions: q3 });
+  const t3 = performance.now();
+  const byWord = new Map(shortlisted.map((s) => [s.word, s]));
+  const candidates: Candidate[] = sortedEntries(r3.answers.word.probabilities).map(([word, p]) => {
+    const s = byWord.get(word)!;
+    return { word, block: s.block, p, pBlock: s.pBlock, pWord: s.pWord };
+  });
   const top = candidates.slice(0, limit);
   const chosen = top[sampleIndex(top, temperature)];
 
   return {
     context,
     fragment,
-    model: r2.model,
+    model: r3.model,
     fanout,
     blocks: ranked.slice(0, Math.max(fanout, 5)),
+    shortlist,
     candidates: top,
     chosen,
     temperature,
     usage: {
-      input_tokens: r1.usage.input_tokens + r2.usage.input_tokens,
-      output_tokens: r1.usage.output_tokens + r2.usage.output_tokens,
+      input_tokens: r1.usage.input_tokens + r2.usage.input_tokens + r3.usage.input_tokens,
+      output_tokens: r1.usage.output_tokens + r2.usage.output_tokens + r3.usage.output_tokens,
     },
     timing: {
       level1_ms: Math.round(t1 - t0),
       level2_ms: Math.round(t2 - t1),
-      total_ms: Math.round(t2 - t0),
+      level3_ms: Math.round(t3 - t2),
+      total_ms: Math.round(t3 - t0),
     },
     trace: [
       { level: 1, ms: Math.round(t1 - t0), request: { state, questions: q1 }, response: r1 },
       { level: 2, ms: Math.round(t2 - t1), request: { state, questions: q2 }, response: r2 },
+      { level: 3, ms: Math.round(t3 - t2), request: { state, questions: q3 }, response: r3 },
     ],
   };
 }

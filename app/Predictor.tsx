@@ -52,7 +52,7 @@ export default function Predictor() {
   const [result, setResult] = useState<PredictResult | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-  const [fanout, setFanout] = useState(3);
+  const [fanout, setFanout] = useState(10);
   const [temperature, setTemperature] = useState(0.8);
   const [showRaw, setShowRaw] = useState(false);
   const [rawTrace, setRawTrace] = useState<PredictResult | null>(null);
@@ -220,7 +220,7 @@ export default function Predictor() {
 
       <aside className="panel">
         <h2>What Jev decided</h2>
-        {!result && <p className="muted">Type something to see the two decisions Jev makes for every keystroke.</p>}
+        {!result && <p className="muted">Type something to see the three decisions Jev makes for every keystroke.</p>}
         {result && (
           <>
             <section>
@@ -239,22 +239,40 @@ export default function Predictor() {
             </section>
             <section>
               <h3>
-                Level 2 · which word? <span className="muted">255 options per opened block</span>
+                Level 2 · shortlist within each <span className="muted">255 options per opened block</span>
+              </h3>
+              <ol className="bars">
+                {result.shortlist.slice(0, 5).map((s) => (
+                  <li key={s.block}>
+                    <span className="bar" style={{ width: `${Math.max(2, s.pBlock * 100)}%` }} />
+                    <span className="label">{s.title}</span>
+                    <span className="p">{s.quota} words</span>
+                  </li>
+                ))}
+              </ol>
+              {result.shortlist.length > 5 && (
+                <p className="muted small">
+                  and {result.shortlist.length - 5} more blocks contributing{" "}
+                  {result.shortlist.slice(5).reduce((n, s) => n + s.quota, 0)} words, for 255 candidates in all
+                </p>
+              )}
+            </section>
+            <section>
+              <h3>
+                Level 3 · which word? <span className="muted">255 shortlisted options</span>
               </h3>
               <ol className="bars">
                 {rows.map((c) => {
                   const isChosen = result.chosen && c.word === result.chosen.word && c.block === result.chosen.block;
                   return (
                     <li key={`${c.block}/${c.word}`} className={isChosen ? "chosen" : ""}>
-                      <span className="bar" style={{ width: `${Math.max(2, c.pWord * 100)}%` }} />
+                      <span className="bar" style={{ width: `${Math.max(2, c.p * 100)}%` }} />
                       <span className="label">
                         {c.word}
                         {isChosen && <span className="muted"> · suggested</span>}
-                        {result.fanout > 1 && <span className="muted"> · {c.block}</span>}
                       </span>
-                      <span className="p" title={`P(block) ${pct(c.pBlock)} × P(word | block) ${pct(c.pWord)} = ${pct(c.p)}`}>
-                        {pct(c.pWord)}
-                        {result.fanout > 1 && <span className="muted"> · {pct(c.p)}</span>}
+                      <span className="p" title={`from ${c.block}: P(block) ${pct(c.pBlock)}, P(word | block) ${pct(c.pWord)}`}>
+                        {pct(c.p)}
                       </span>
                     </li>
                   );
@@ -265,7 +283,10 @@ export default function Predictor() {
               <div>
                 <span className="k">latency</span>
                 <span className="v">
-                  {result.timing.total_ms} ms <span className="muted">({result.timing.level1_ms} + {result.timing.level2_ms})</span>
+                  {result.timing.total_ms} ms{" "}
+                  <span className="muted">
+                    ({result.timing.level1_ms} + {result.timing.level2_ms} + {result.timing.level3_ms})
+                  </span>
                 </span>
               </div>
               <div>
@@ -293,7 +314,7 @@ export default function Predictor() {
           <label>
             Blocks opened at level 2
             <select value={fanout} onChange={(e) => setFanout(Number(e.target.value))}>
-              {[1, 2, 3, 4, 5].map((n) => (
+              {[3, 5, 8, 10, 12].map((n) => (
                 <option key={n} value={n}>
                   {n}
                 </option>

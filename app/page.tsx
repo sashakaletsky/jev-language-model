@@ -10,8 +10,8 @@ export default function Home() {
         <p className="lede">
           A next-word predictor built entirely from <a href="https://typesafe.ai">Jev</a>, TypeSafe&rsquo;s decision
           model. Jev can&rsquo;t write; it can only pick one of up to 255 options. So the 65,025 most common English
-          words sit in 255 themed blocks of 255, and every keystroke asks Jev two questions: which block holds the
-          next word, then which word. Tab accepts.
+          words sit in 255 themed blocks of 255, and every keystroke asks Jev three questions: which blocks could hold
+          the next word, which words in each of them, then which of those 255. Tab accepts.
         </p>
       </header>
 
@@ -22,7 +22,8 @@ export default function Home() {
         <ul>
           <li>
             <strong>Only Jev decides.</strong> No other model, no frequency tables, no prefix matching. Code splits
-            the text, multiplies Jev&rsquo;s two probabilities and, above temperature zero, samples from them.
+            the text, sizes the shortlists from Jev&rsquo;s own probabilities and, above temperature zero, samples the
+            suggestion from Jev&rsquo;s final distribution.
           </li>
           <li>
             <strong>The blocks were built once, in advance.</strong> Words were grouped by theme and cut into 255s at

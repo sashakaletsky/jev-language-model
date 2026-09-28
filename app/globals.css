@@ -230,6 +230,11 @@ button.accept:disabled {
   color: var(--muted);
 }
 
+.small {
+  font-size: 0.82rem;
+  margin: 0.25rem 0 0;
+}
+
 ol.bars {
   list-style: none;
   margin: 0;

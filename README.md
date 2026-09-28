@@ -12,33 +12,36 @@ Every suggestion is the product of two Jev decisions and nothing else.
 ## How it works
 
 The 65,025 most frequent English words (that is 255 × 255, contractions and slang included) are
-arranged into **255 themed blocks of 255 words**. For every keystroke the server asks Jev two questions
+arranged into **255 themed blocks of 255 words**. For every keystroke the server asks Jev three questions
 about the text so far:
 
 1. **Level 1 (255 options):** which themed block contains the word this person is about to type?
-   Jev sees each block's theme and a few example words.
-2. **Level 2 (255 options):** which of that block's 255 words is it?
+   Jev sees each block's theme and a few example words. The ten likeliest blocks are opened.
+2. **Level 2 (255 options per opened block, one request):** within each opened block, which word is it?
+   Each block then contributes a shortlist, sized in proportion to its level-1 probability, and the
+   shortlists together make exactly 255 candidates.
+3. **Level 3 (255 options):** which of those candidates is it? Each is shown in place at the end of the
+   text, so Jev compares "Hello how are" against "Hello how you" as phrases.
 
-Both questions are framed as filling in a blank: Jev sees the text with `____` at the cursor
-(`Hello how ____`, or `Hello how a____` mid-word), a few worked examples, and, at level 2, each
-candidate word shown in place at the end of the text (`Hello how are`, `Hello how you`, …). The instructions
-ask for the word an articulate person, speaking clearly, would most naturally say next, and spell out that
-speech moves forward rather than piling up synonyms. That framing matters: asked plainly "what comes
-next?", a decision model tends to favour words that already appear in the text and ends up repeating the
-last word, or stringing adjectives together.
+Every question is framed as filling in a blank: Jev sees the text with `____` at the cursor
+(`Hello how ____`, or `Hello how a____` mid-word) and a few worked examples. The instructions ask for the
+word an articulate person, speaking clearly, would most naturally say next, and spell out that speech moves
+forward rather than piling up synonyms. That framing matters: asked plainly "what comes next?", a decision
+model tends to favour words that already appear in the text and ends up repeating the last word, or
+stringing adjectives together.
 
 Punctuation is offered the same way: `.` `,` `?` and `!` are four of the 255 options in the core block, so
 Jev can end a sentence or pause it instead of choosing a word.
 
-Jev returns a full probability distribution for each question. The code multiplies
-P(block) × P(word | block) and sorts. At temperature 0 the top word is the suggestion; above 0 the
-suggestion is sampled from the top ten in proportion to p^(1/T), so the second or third choice sometimes
-wins and runs of the same word are broken up. That is the whole algorithm; see
-[`lib/predict.ts`](lib/predict.ts). The only text processing is splitting the input into
-"everything typed so far" and "the letters of the current word", in [`lib/tokenize.ts`](lib/tokenize.ts).
+Jev returns a full probability distribution for each question. At temperature 0 the top level-3 word is
+the suggestion; above 0 the suggestion is sampled from the nucleus of the distribution (the smallest set
+of candidates covering 90% of the probability) in proportion to p^(1/T), so the second or third choice
+sometimes wins without junk from the tail ever being suggested. Code does nothing else: it splits the input
+into "everything typed so far" and "the letters of the current word" ([`lib/tokenize.ts`](lib/tokenize.ts)),
+sizes the shortlists from Jev's own probabilities, and samples. See [`lib/predict.ts`](lib/predict.ts).
 
-The site shows both decisions for every keystroke, with probabilities, latency and token usage, and can
-display the exact request and response JSON of each Jev call.
+The site shows all three decisions for every keystroke, with probabilities, latency and token usage, and
+can display the exact request and response JSON of each Jev call.
 
 ## The dictionary and its blocks
 
@@ -81,10 +84,10 @@ One environment variable, `TYPESAFE_API_KEY`. No database. Nothing about visitor
 | Variable | Default | Meaning |
 | --- | --- | --- |
 | `TYPESAFE_API_KEY` | required | Your TypeSafe key. Server-side only. |
-| `JEV_FANOUT` | `3` | How many of the top level-1 blocks to open at level 2. Opening several lets a strong word from a runner-up block win once the two probabilities are multiplied, which stops runs of near-synonyms. Each extra block is one more 255-option question per keystroke. Also adjustable in the UI. |
+| `JEV_FANOUT` | `10` | How many of the top level-1 blocks to open at level 2 and shortlist from. Each extra block is one more 255-option question per keystroke. Also adjustable in the UI. |
 | `NEXT_PUBLIC_JEV_PRICE_PER_M_INPUT_TOKENS` | unset | Your price per million input tokens, used only to show an estimated cost in the UI. |
 | `JEV_TEMPERATURE` | `0.8` | Sampling temperature for the suggestion. 0 always takes the top candidate. Also adjustable in the UI. |
-| `JEV_MAX_FANOUT` | `5` | The most blocks a visitor may open at level 2. |
+| `JEV_MAX_FANOUT` | `12` | The most blocks a visitor may open at level 2. |
 | `JEV_RATE_LIMIT` | `40` | Requests per visitor per 10 seconds before the API answers 429. Per server instance, so for a busy public deployment also enable your host's firewall rate limiting (Vercel: Firewall → Rate limiting). |
 
 The client waits 250 ms after the last keystroke before asking, and identical inputs are answered
@@ -93,14 +96,14 @@ from a small in-memory cache, so a burst of typing does not become a burst of AP
 ## API
 
 ```
-POST /api/predict   { "text": "I want to wo", "fanout": 3, "temperature": 0.8, "trace": "summary" | "full" }
+POST /api/predict   { "text": "I want to wo", "fanout": 10, "temperature": 0.8, "trace": "summary" | "full" }
 GET  /api/predict?text=I%20want%20to%20wo&trace=full
 GET  /api/blocks              the 255 block descriptions Jev reads at level 1
 GET  /api/blocks?id=<block>   one block with its 255 words
 ```
 
-The response carries the candidates, the sampled `chosen` suggestion, the opened blocks, token usage,
-timing and a `trace` of each Jev call. With `trace=full` the trace includes the complete 255-option criteria exactly as sent.
+The response carries the level-3 candidates, the sampled `chosen` suggestion, the opened blocks, the
+shortlist quotas, token usage, timing and a `trace` of each Jev call. With `trace=full` the trace includes the complete 255-option criteria exactly as sent.
 
 ## Measuring accuracy
 
@@ -124,7 +127,7 @@ letters typed | n   | top-1  | top-5  | block hit | tokens/pred | ms/pred
 ```
 
 "Block hit" is whether the hidden word's block was among those opened at level 2, which separates
-level-1 mistakes from level-2 mistakes.
+level-1 mistakes from later ones.
 
 ## Licence
 
