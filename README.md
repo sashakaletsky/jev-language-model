@@ -21,9 +21,11 @@ about the text so far:
 
 Both questions are framed as filling in a blank: Jev sees the text with `____` at the cursor
 (`Hello how ____`, or `Hello how a____` mid-word), a few worked examples, and, at level 2, each
-candidate word shown in place at the end of the text (`Hello how are`, `Hello how you`, …). That framing
-matters: asked plainly "what comes next?", a decision model tends to favour words that already appear in
-the text and ends up repeating the last word.
+candidate word shown in place at the end of the text (`Hello how are`, `Hello how you`, …). The instructions
+ask for the word an articulate person, speaking clearly, would most naturally say next, and spell out that
+speech moves forward rather than piling up synonyms. That framing matters: asked plainly "what comes
+next?", a decision model tends to favour words that already appear in the text and ends up repeating the
+last word, or stringing adjectives together.
 
 Jev returns a full probability distribution for each question. The code multiplies
 P(block) × P(word | block), sorts, and shows the top word as ghost text. That is the whole algorithm;
@@ -74,7 +76,7 @@ One environment variable, `TYPESAFE_API_KEY`. No database. Nothing about visitor
 | Variable | Default | Meaning |
 | --- | --- | --- |
 | `TYPESAFE_API_KEY` | required | Your TypeSafe key. Server-side only. |
-| `JEV_FANOUT` | `1` | How many of the top level-1 blocks to open at level 2. Each extra block is one more 255-option question per keystroke. Also adjustable in the UI. |
+| `JEV_FANOUT` | `3` | How many of the top level-1 blocks to open at level 2. Opening several lets a strong word from a runner-up block win once the two probabilities are multiplied, which stops runs of near-synonyms. Each extra block is one more 255-option question per keystroke. Also adjustable in the UI. |
 | `NEXT_PUBLIC_JEV_PRICE_PER_M_INPUT_TOKENS` | unset | Your price per million input tokens, used only to show an estimated cost in the UI. |
 | `JEV_MAX_FANOUT` | `5` | The most blocks a visitor may open at level 2. |
 | `JEV_RATE_LIMIT` | `40` | Requests per visitor per 10 seconds before the API answers 429. Per server instance, so for a busy public deployment also enable your host's firewall rate limiting (Vercel: Firewall → Rate limiting). |

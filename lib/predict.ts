@@ -78,18 +78,24 @@ const BLANK = "____";
  */
 const TASK = {
   task:
-    "A person is typing English text one keystroke at a time. `text` is what they have typed so far, and " +
-    `${BLANK} marks where their cursor is: the word they will type next goes there. Predict that word.`,
+    "A person is writing English one keystroke at a time. `text` is what they have written so far, and " +
+    `${BLANK} marks their cursor: the next word goes there. ` +
+    "Predict the word that an articulate person, speaking clearly and eloquently, would most naturally say next.",
   rules: [
-    `The answer is the word that fills ${BLANK}. It comes after everything in \`text\`; the words before the blank have already been typed and are not the answer, and the answer is usually not a repeat of the word just before the blank.`,
-    "If `partial_word` is not empty, the writer has already typed those letters of the blank's word, so the answer starts with exactly those letters and is the complete word.",
-    "Use the meaning and grammar of the whole text; the blank should read naturally.",
+    `The answer fills ${BLANK} and comes after everything in \`text\`. The words already in the text have been said; ` +
+      "they are not the answer, and the answer is not a repeat of the word just before the blank.",
+    "Good speech moves forward. After a description comes the thing described, a linking word, or the next part of " +
+      "the sentence, never another synonym. After a subject comes a verb; after a verb comes what it acts on.",
+    "Prefer the plain, natural word a clear speaker would use over a rare or flowery one, unless the text itself is formal.",
+    "If `partial_word` is not empty, the writer has already typed those letters of the next word, so the answer " +
+      "starts with exactly those letters and is the complete word.",
   ],
   examples: [
-    { text: `See you ${BLANK}`, partial_word: "", answer: "tomorrow" },
-    { text: `I can't believe how m${BLANK}`, partial_word: "m", answer: "much" },
-    { text: `It was a very very ${BLANK}`, partial_word: "", answer: "long" },
-    { text: `Thank you so much for your ${BLANK}`, partial_word: "", answer: "help" },
+    { text: `See you ${BLANK}`, partial_word: "", answer: "tomorrow", kind: "time word" },
+    { text: `The view from up here is stunning ${BLANK}`, partial_word: "", answer: "at", kind: "function word (preposition)" },
+    { text: `I can't believe how m${BLANK}`, partial_word: "m", answer: "much", kind: "adverb of degree" },
+    { text: `It was a very very ${BLANK}`, partial_word: "", answer: "long", kind: "adjective" },
+    { text: `Honestly, I think we should ${BLANK}`, partial_word: "", answer: "wait", kind: "verb" },
   ],
 };
 
@@ -97,8 +103,9 @@ const LEVEL1_INSTRUCTIONS = {
   ...TASK,
   question:
     `Which block of the dictionary contains the word that fills ${BLANK}? ` +
-    "Each option is a block of 255 words sharing a theme, described by the theme and some example words from the block. " +
-    "Choose the block most likely to contain that word.",
+    "Think first about what kind of word the sentence needs next (a noun, a verb, a linking word, a name, ...), " +
+    "then choose the block whose theme fits. Each option is a block of 255 words sharing a theme, described by " +
+    "the theme and some example words from the block.",
 };
 
 const LEVEL2_INSTRUCTIONS = {
@@ -106,7 +113,7 @@ const LEVEL2_INSTRUCTIONS = {
   question:
     `Which of these words fills ${BLANK}? ` +
     "Each option is one candidate word. Its description shows the end of the text with that word in the blank; " +
-    "choose the candidate that reads as the most natural continuation.",
+    "choose the candidate a clear, articulate speaker would most naturally say next.",
 };
 
 /** The last few words before the cursor, used to show each level-2 candidate in place. */

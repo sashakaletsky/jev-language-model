@@ -22,8 +22,12 @@ export function getJevClient(): TypeSafeClient {
   return client;
 }
 
-/** How many top-ranked blocks to open at level 2. Default 1; each extra block is one more question. */
+/**
+ * How many top-ranked blocks to open at level 2. Default 3: opening more than one block lets a
+ * strong word from the runner-up block (often a linking word) beat a weak word from the leading
+ * block once P(block) and P(word | block) are multiplied. Each extra block is one more question.
+ */
 export function defaultFanout(): number {
-  const n = Number(process.env.JEV_FANOUT ?? "1");
+  const n = Number(process.env.JEV_FANOUT ?? "3");
   return Number.isFinite(n) && n >= 1 ? Math.min(Math.floor(n), 8) : 1;
 }

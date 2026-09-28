@@ -45,7 +45,7 @@ export default function Predictor() {
   const [result, setResult] = useState<PredictResult | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-  const [fanout, setFanout] = useState(1);
+  const [fanout, setFanout] = useState(3);
   const [showRaw, setShowRaw] = useState(false);
   const [rawTrace, setRawTrace] = useState<PredictResult | null>(null);
   const [totals, setTotals] = useState({ calls: 0, tokens: 0 });
