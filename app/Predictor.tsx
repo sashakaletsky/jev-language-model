@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { PredictResult } from "@/lib/predict";
+import { endsMidWord } from "@/lib/tokenize";
 
 const DEBOUNCE_MS = 250;
 const PRICE_PER_M = Number(process.env.NEXT_PUBLIC_JEV_PRICE_PER_M_INPUT_TOKENS ?? "");
@@ -12,21 +13,17 @@ type Level1Response = { answers: { block: { probabilities: Record<string, number
 
 interface Suggestion {
   word: string;
-  /**
-   * "extend": the word continues what was typed.
-   * "punctuation": a mark that attaches to the previous word.
-   * "replace": Jev's pick does not start with the typed letters.
-   */
-  mode: "extend" | "punctuation" | "replace";
+  /** "word": a whole word to append. "punctuation": a mark that attaches to the previous word. */
+  mode: "word" | "punctuation";
+  /** What the ghost shows: the word, with a leading space when the text does not end in one. */
   display: string;
 }
 
-/** Presentation only: capitalise at sentence starts, for "I", and when the typist used a capital. */
-function capitalise(word: string, context: string, fragment: string): string {
+/** Presentation only: capitalise at sentence starts and for "I". */
+function capitalise(word: string, context: string): string {
   const atSentenceStart = context.trim() === "" || /[.!?]\s*$/.test(context);
-  const typedCapital = fragment.length > 0 && fragment[0] === fragment[0].toUpperCase() && fragment[0] !== fragment[0].toLowerCase();
   const isI = word === "i" || word.startsWith("i'");
-  if (atSentenceStart || typedCapital || isI) return word[0].toUpperCase() + word.slice(1);
+  if (atSentenceStart || isI) return word[0].toUpperCase() + word.slice(1);
   return word;
 }
 
@@ -34,13 +31,9 @@ function suggestionFor(result: PredictResult): Suggestion | null {
   const pick = result.chosen ?? result.candidates[0];
   if (!pick) return null;
   if (PUNCTUATION.has(pick.word)) return { word: pick.word, mode: "punctuation", display: pick.word };
-  const word = capitalise(pick.word, result.context, result.fragment);
-  const frag = result.fragment;
-  if (frag.length === 0) return { word, mode: "extend", display: word };
-  if (word.toLowerCase().startsWith(frag.toLowerCase())) {
-    return { word, mode: "extend", display: word.slice(frag.length) };
-  }
-  return { word, mode: "replace", display: `⇥ ${word}` };
+  const word = capitalise(pick.word, result.context);
+  const needsSpace = result.context.length > 0 && !/\s$/.test(result.context);
+  return { word, mode: "word", display: needsSpace ? ` ${word}` : word };
 }
 
 function pct(p: number): string {
@@ -63,7 +56,7 @@ export default function Predictor() {
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const cacheRef = useRef(new Map<string, PredictResult>());
 
-  const suggestion = useMemo(() => (result && result.context + result.fragment === text ? suggestionFor(result) : null), [result, text]);
+  const suggestion = useMemo(() => (result && result.context === text ? suggestionFor(result) : null), [result, text]);
 
   const request = useCallback(
     async (value: string, wantRaw: boolean) => {
@@ -104,10 +97,10 @@ export default function Predictor() {
     [fanout, temperature],
   );
 
-  // Debounced prediction on every change. Nothing is asked until the visitor has typed something.
+  // Debounced prediction whenever a word has been finished. Nothing is asked mid-word or on an empty editor.
   useEffect(() => {
     if (timerRef.current) clearTimeout(timerRef.current);
-    if (text.trim() === "") return;
+    if (text.trim() === "" || endsMidWord(text)) return;
     timerRef.current = setTimeout(() => void request(text, false), DEBOUNCE_MS);
     return () => {
       if (timerRef.current) clearTimeout(timerRef.current);
@@ -115,7 +108,7 @@ export default function Predictor() {
   }, [text, request]);
 
   useEffect(() => {
-    if (showRaw && result && (!rawTrace || rawTrace.context + rawTrace.fragment !== text)) void request(text, true);
+    if (showRaw && result && (!rawTrace || rawTrace.context !== text)) void request(text, true);
   }, [showRaw, result, rawTrace, text, request]);
 
   // Keep the textarea sized to its content so the ghost-text overlay lines up.
@@ -128,14 +121,7 @@ export default function Predictor() {
 
   const accept = () => {
     if (!suggestion || !result) return;
-    let next: string;
-    if (suggestion.mode === "punctuation") {
-      next = `${text.replace(/\s+$/, "")}${suggestion.word} `;
-    } else if (suggestion.mode === "extend") {
-      next = `${text}${suggestion.display} `;
-    } else {
-      next = `${result.context}${suggestion.word} `;
-    }
+    const next = suggestion.mode === "punctuation" ? `${text.replace(/\s+$/, "")}${suggestion.word} ` : `${text}${suggestion.display} `;
     setText(next);
     requestAnimationFrame(() => {
       const el = textareaRef.current;
@@ -182,13 +168,7 @@ export default function Predictor() {
   }, [result]);
 
   const cost = (tokens: number) => (PRICE_PER_M > 0 ? `$${((tokens / 1e6) * PRICE_PER_M).toFixed(4)}` : null);
-  const statusText = loading
-    ? "asking Jev…"
-    : suggestion
-      ? suggestion.mode === "replace"
-        ? "Tab to replace with Jev's pick"
-        : "Tab to accept"
-      : " ";
+  const statusText = loading ? "asking Jev…" : suggestion ? "Tab to accept" : endsMidWord(text) ? "finish the word to get a suggestion" : " ";
 
   return (
     <div className="predictor">
@@ -203,7 +183,7 @@ export default function Predictor() {
             value={text}
             onChange={onChange}
             onKeyDown={onKeyDown}
-            placeholder="Start typing… Jev will suggest the next word. Press Tab to accept."
+            placeholder="Start typing… after each word Jev suggests the next one. Press Tab to accept."
             spellCheck={false}
             autoFocus
             rows={3}
@@ -220,7 +200,7 @@ export default function Predictor() {
 
       <aside className="panel">
         <h2>What Jev decided</h2>
-        {!result && <p className="muted">Type something to see the three decisions Jev makes for every keystroke.</p>}
+        {!result && <p className="muted">Type a word and a space to see the three decisions Jev makes for every word.</p>}
         {result && (
           <>
             <section>
@@ -237,6 +217,10 @@ export default function Predictor() {
                 ))}
               </ol>
             </section>
+            <p className="muted small">
+              May a punctuation mark come next? Jev says {result.marks.allowed ? "yes" : "no"} ({pct(result.marks.p)}
+              {result.marks.allowed ? "" : " yes"}), so the four marks are {result.marks.allowed ? "in" : "out of"} the shortlist.
+            </p>
             <section>
               <h3>
                 Level 2 · shortlist within each <span className="muted">255 options per opened block</span>

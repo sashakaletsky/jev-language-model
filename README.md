@@ -4,7 +4,7 @@ A next-word predictor built entirely from [Jev](https://typesafe.ai), TypeSafe's
 
 Jev cannot generate text. It answers typed questions: pick one of up to 255 options, and say how
 confident it is about each. This project asks whether that is enough to behave like a language model.
-You type, it predicts the next word, you press **Tab** to accept.
+You type a word, it predicts the next one, you press **Tab** to accept.
 
 **No other model is involved at inference time.** No n-grams, no frequency tables, no prefix matching.
 Every suggestion is the product of two Jev decisions and nothing else.
@@ -12,8 +12,8 @@ Every suggestion is the product of two Jev decisions and nothing else.
 ## How it works
 
 The 65,025 most frequent English words (that is 255 × 255, contractions and slang included) are
-arranged into **255 themed blocks of 255 words**. For every keystroke the server asks Jev three questions
-about the text so far:
+arranged into **255 themed blocks of 255 words**. The word is the unit: after every finished word the
+server asks Jev three questions about the text so far (nothing is asked mid-word):
 
 1. **Level 1 (255 options):** which themed block contains the word this person is about to type?
    Jev sees each block's theme and a few example words. The thirty likeliest blocks are opened
@@ -25,28 +25,30 @@ about the text so far:
 3. **Level 3 (255 options):** which of those candidates is it? Each is shown in place at the end of the
    text, so Jev compares "Hello how are" against "Hello how you" as phrases.
 
-Every question is framed as filling in a blank: Jev sees the text with `____` at the cursor
-(`Hello how ____`, or `Hello how a____` mid-word) and a few worked examples. The instructions ask for the
+Every question is framed as filling in a blank: Jev sees the text with `____` where the next word goes
+(`Hello how ____`) and a few worked examples. The instructions ask for the
 word an articulate person, speaking clearly, would most naturally say next, and spell out that speech moves
 forward rather than piling up synonyms. That framing matters: asked plainly "what comes next?", a decision
 model tends to favour words that already appear in the text and ends up repeating the last word, or
 stringing adjectives together.
 
 Punctuation is offered the same way: `.` `,` `?` and `!` are four of the 255 options in the core block, so
-Jev can end a sentence or pause it instead of choosing a word. One rule of the writing system is applied
-by code rather than left to Jev: a mark is only offered right after a word, never after another mark, at
-the start, or mid-word. Without it a stray full stop echoes into `..` and `...`. After a sentence ends, the
-level-3 candidates are shown capitalised in place (`the world. Offers`), and the instructions say a new
-sentence should begin a new thought rather than restate the last one.
+Jev can end a sentence or pause it instead of choosing a word. Whether a mark may come next is also
+Jev's call: a yes/no question rides along with level 1 ("could the next thing legitimately be a
+punctuation mark?"), and when the answer is no, because the text is empty or already ends with a mark,
+the four marks are left out of the shortlist. Without that, a stray full stop echoes into `..` and
+`...`. After a sentence ends, the level-3 candidates are shown capitalised in place
+(`the world. Offers`), and the instructions say a new sentence should begin a new thought rather than
+restate the last one.
 
 Jev returns a full probability distribution for each question. At temperature 0 the top level-3 word is
 the suggestion; above 0 the suggestion is sampled from the nucleus of the distribution (the smallest set
 of candidates covering 90% of the probability) in proportion to p^(1/T), so the second or third choice
-sometimes wins without junk from the tail ever being suggested. Code does nothing else: it splits the input
-into "everything typed so far" and "the letters of the current word" ([`lib/tokenize.ts`](lib/tokenize.ts)),
+sometimes wins without junk from the tail ever being suggested. Code does nothing else: it straightens curly apostrophes and bounds the context sent
+([`lib/tokenize.ts`](lib/tokenize.ts)),
 sizes the shortlists from Jev's own probabilities, and samples. See [`lib/predict.ts`](lib/predict.ts).
 
-The site shows all three decisions for every keystroke, with probabilities, latency and token usage, and
+The site shows all three decisions for every word, with probabilities, latency and token usage, and
 can display the exact request and response JSON of each Jev call.
 
 ## The dictionary and its blocks
@@ -90,20 +92,21 @@ One environment variable, `TYPESAFE_API_KEY`. No database. Nothing about visitor
 | Variable | Default | Meaning |
 | --- | --- | --- |
 | `TYPESAFE_API_KEY` | required | Your TypeSafe key. Server-side only. |
-| `JEV_FANOUT` | `30` | How many of the top level-1 blocks to open at level 2 and shortlist from, up to 50. More blocks give the final round more variety; each block is one more 255-option question per keystroke, so tokens scale with it. Also adjustable in the UI. |
+| `JEV_FANOUT` | `30` | How many of the top level-1 blocks to open at level 2 and shortlist from, up to 50. More blocks give the final round more variety; each block is one more 255-option question per word, so tokens scale with it. Also adjustable in the UI. |
 | `NEXT_PUBLIC_JEV_PRICE_PER_M_INPUT_TOKENS` | unset | Your price per million input tokens, used only to show an estimated cost in the UI. |
 | `JEV_TEMPERATURE` | `0.8` | Sampling temperature for the suggestion. 0 always takes the top candidate. Also adjustable in the UI. |
 | `JEV_MAX_FANOUT` | `50` | The most blocks a visitor may open at level 2. |
 | `JEV_RATE_LIMIT` | `40` | Requests per visitor per 10 seconds before the API answers 429. Per server instance, so for a busy public deployment also enable your host's firewall rate limiting (Vercel: Firewall → Rate limiting). |
 
-The client waits 250 ms after the last keystroke before asking, and identical inputs are answered
-from a small in-memory cache, so a burst of typing does not become a burst of API calls.
+The client asks only once a word has been finished with a space or a mark, waits 250 ms after the last
+keystroke, and answers identical inputs from a small in-memory cache, so typing does not become a burst
+of API calls.
 
 ## API
 
 ```
-POST /api/predict   { "text": "I want to wo", "fanout": 30, "temperature": 0.8, "trace": "summary" | "full" }
-GET  /api/predict?text=I%20want%20to%20wo&trace=full
+POST /api/predict   { "text": "I want to ", "fanout": 30, "temperature": 0.8, "trace": "summary" | "full" }
+GET  /api/predict?text=I%20want%20to%20&trace=full
 GET  /api/blocks              the 255 block descriptions Jev reads at level 1
 GET  /api/blocks?id=<block>   one block with its 255 words
 ```
@@ -113,9 +116,9 @@ shortlist quotas, token usage, timing and a `trace` of each Jev call. With `trac
 
 ## Measuring accuracy
 
-[`scripts/harness.mjs`](scripts/harness.mjs) replays the same two Jev questions over real text. It
-hides a word, shows Jev the text before it plus the first 0, 1, 2 or 3 letters, and counts exact
-matches. Jev is the only model in the loop; scoring is string equality.
+[`scripts/harness.mjs`](scripts/harness.mjs) replays the same three Jev questions over real text. It
+hides a word, shows Jev the text before it, and counts exact matches at temperature 0. Jev is the only
+model in the loop; scoring is string equality.
 
 ```bash
 npm run dev                                   # in one terminal
@@ -127,9 +130,8 @@ Any plain-text file works. Public-domain English text is easy to find, for examp
 informal web text, `gutenberg.zip` is classic novels). It prints a table like:
 
 ```
-letters typed | n   | top-1  | top-5  | block hit | tokens/pred | ms/pred
-0             | 100 | ...    | ...    | ...       | ...         | ...
-1             | 100 | ...    | ...    | ...       | ...         | ...
+n   | top-1  | top-5  | block hit | tokens/pred | ms/pred
+100 | ...    | ...    | ...       | ...         | ...
 ```
 
 "Block hit" is whether the hidden word's block was among those opened at level 2, which separates

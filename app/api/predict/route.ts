@@ -1,6 +1,8 @@
 /**
  * POST /api/predict  { text: string, fanout?: number, temperature?: number, trace?: "full" | "summary" }
- * GET  /api/predict?text=...&fanout=30&temperature=0.8&trace=full
+ * GET  /api/predict?text=I%20want%20to%20&fanout=30&temperature=0.8&trace=full
+ *
+ * `text` should end where a word has been finished (a space or a mark); the blank stands for a whole word.
  *
  * Returns Jev's prediction for the next word. See lib/predict.ts.
  */

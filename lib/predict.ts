@@ -14,18 +14,16 @@
  * suggestion from Jev's final distribution. No prefix matching, no frequency data,
  * no other model.
  */
-import { choice } from "@typesafe-ai/sdk";
+import { choice, noul } from "@typesafe-ai/sdk";
 import type { ChoiceResponse, SystemOneResult, Questions } from "@typesafe-ai/sdk";
 import { blockById, level1Criteria, level2Criteria } from "./blocks";
 import { defaultFanout, defaultTemperature, getJevClient } from "./jev";
-import { splitInput, tailContext } from "./tokenize";
+import { normalise, tailContext } from "./tokenize";
 
 /** What Jev is shown. A type literal rather than an interface so it satisfies the SDK's JSON state type. */
 export type JevState = {
-  /** The text typed so far, with a blank (____) where the cursor is. */
+  /** The text typed so far, with a blank (____) where the next word goes. */
   text: string;
-  /** Letters of the current word typed so far; empty when the last word is complete. */
-  partial_word: string;
 };
 
 export interface Candidate {
@@ -65,9 +63,11 @@ export interface CallTrace {
 }
 
 export interface PredictResult {
+  /** The text the prediction was made for, exactly as received. */
   context: string;
-  fragment: string;
   model: string;
+  /** Jev's answer to "could a punctuation mark legitimately come next?", asked alongside level 1. */
+  marks: { allowed: boolean; p: number };
   /** Blocks opened at level 2. */
   fanout: number;
   /** Top blocks from level 1 (at least the opened ones), highest probability first. */
@@ -119,8 +119,8 @@ const TOP_P = 0.9;
  */
 const TASK = {
   task:
-    "A person is writing English one keystroke at a time. `text` is what they have written so far, and " +
-    `${BLANK} marks their cursor: the next word goes there. ` +
+    "A person is writing English one word at a time. `text` is what they have written so far, and " +
+    `${BLANK} marks where their next word goes. ` +
     "Predict the word that an articulate person, speaking clearly and eloquently, would most naturally say next.",
   rules: [
     `The answer fills ${BLANK} and comes after everything in \`text\`. The words already in the text have been said; ` +
@@ -134,18 +134,16 @@ const TASK = {
       "sentence, never another punctuation mark. If it ends with ',', the same sentence continues with a word.",
     "A new sentence begins a new thought. It should move on from the previous sentence and add something new, in " +
       "the same voice, rather than restate it, list more of the same, or repeat its words.",
-    "If `partial_word` is not empty, the writer has already typed those letters of the next word, so the answer " +
-      "starts with exactly those letters and is the complete word.",
   ],
   examples: [
-    { text: `See you ${BLANK}`, partial_word: "", answer: "tomorrow", kind: "time word" },
-    { text: `The view from up here is stunning ${BLANK}`, partial_word: "", answer: "at", kind: "function word (preposition)" },
-    { text: `I can't believe how m${BLANK}`, partial_word: "m", answer: "much", kind: "adverb of degree" },
-    { text: `It was a very very ${BLANK}`, partial_word: "", answer: "long", kind: "adjective" },
-    { text: `Honestly, I think we should ${BLANK}`, partial_word: "", answer: "wait", kind: "verb" },
-    { text: `That is everything I wanted to say ${BLANK}`, partial_word: "", answer: ".", kind: "punctuation" },
-    { text: `If you ask me ${BLANK}`, partial_word: "", answer: ",", kind: "punctuation" },
-    { text: `We had a wonderful time. ${BLANK}`, partial_word: "", answer: "thank", kind: "first word of a new sentence" },
+    { text: `See you ${BLANK}`, answer: "tomorrow", kind: "time word" },
+    { text: `The view from up here is stunning ${BLANK}`, answer: "at", kind: "function word (preposition)" },
+    { text: `I can't believe how ${BLANK}`, answer: "much", kind: "adverb of degree" },
+    { text: `It was a very very ${BLANK}`, answer: "long", kind: "adjective" },
+    { text: `Honestly, I think we should ${BLANK}`, answer: "wait", kind: "verb" },
+    { text: `That is everything I wanted to say ${BLANK}`, answer: ".", kind: "punctuation" },
+    { text: `If you ask me ${BLANK}`, answer: ",", kind: "punctuation" },
+    { text: `We had a wonderful time. ${BLANK}`, answer: "thank", kind: "first word of a new sentence" },
   ],
 };
 
@@ -161,12 +159,11 @@ const LEVEL1_INSTRUCTIONS = {
 /** Sent once per opened block, so kept short; the full task description travels with levels 1 and 3. */
 const LEVEL2_INSTRUCTIONS = {
   task:
-    `A person is writing English. \`text\` is what they have written so far and ${BLANK} marks their cursor. ` +
+    `A person is writing English. \`text\` is what they have written so far and ${BLANK} marks where the next word goes. ` +
     "Which of these words would an articulate, clear speaker most naturally say next, in the blank?",
   rules: [
     "The answer comes after the text; it is not a word the text already ends with.",
     `If \`text\` ends with '.', '?' or '!', the answer starts a new sentence.`,
-    "If `partial_word` is not empty, the answer starts with exactly those letters.",
   ],
 };
 
@@ -207,13 +204,26 @@ export const level3Question = (words: string[], context: string) => {
 };
 
 /**
- * The one orthographic rule code applies: a punctuation mark is only offered where English allows
- * one, right after a word. Never after another mark, at the very start, or while a word is being
- * typed. Without it a stray "." can echo into ".." and then "...", whatever the instructions say.
+ * Asked alongside level 1: may a punctuation mark come next? When Jev says no, because the text
+ * is empty or already ends with a mark, the four marks are left out of the shortlist. Without this
+ * a stray "." can echo into ".." and then "...", whatever the other instructions say.
  */
-export function punctuationAllowed(context: string, fragment: string): boolean {
-  return fragment === "" && /[A-Za-z0-9)"']$/.test(context.trimEnd());
-}
+export const marksQuestion = () =>
+  noul(
+    {
+      task:
+        `\`text\` is what a person has written so far, with ${BLANK} marking where the next word goes. ` +
+        "Could the next thing they write legitimately be a punctuation mark such as . , ? or !",
+      rules: [
+        "Yes only if the text right before the blank ends with a word (letters or digits) or a closing quote or bracket.",
+        "No if the text is empty, or if it already ends with a punctuation mark: English never puts one mark straight after another.",
+      ],
+    },
+    {
+      true: "The text ends with a word, so a punctuation mark could follow.",
+      false: "The text is empty or already ends with a punctuation mark, so another mark cannot follow.",
+    },
+  );
 
 /**
  * Splits `total` shortlist slots among the opened blocks in proportion to their level-1
@@ -279,8 +289,9 @@ export function summariseTrace(result: PredictResult): PredictResult {
       ...call.request,
       questions: Object.fromEntries(
         Object.entries(call.request.questions).map(([name, q]) => {
-          const question = q as { type: string; instructions: unknown; criteria: Record<string, unknown> };
-          return [name, { ...question, criteria: `<${Object.keys(question.criteria).length} options omitted>` }];
+          const question = q as { type: string; instructions: unknown; criteria?: Record<string, unknown> | null };
+          const n = question.criteria ? Object.keys(question.criteria).length : 0;
+          return [name, n > 10 ? { ...question, criteria: `<${n} options omitted>` } : question];
         }),
       ),
     },
@@ -294,18 +305,18 @@ export async function predict(rawText: string, options: PredictOptions = {}): Pr
   const temperature = Math.max(0, Math.min(options.temperature ?? defaultTemperature(), 2));
   const client = getJevClient();
 
-  const { context, fragment } = splitInput(rawText);
+  const context = normalise(rawText);
   const shown = tailContext(context);
-  const partial = fragment.toLowerCase();
-  // "Hello how ____", or "Hello how a____" while a word is being typed.
-  const separator = shown && !/\s$/.test(shown) && !partial ? " " : "";
-  const state: JevState = { text: `${shown}${separator}${partial}${BLANK}`, partial_word: partial };
+  // "Hello how ____"; the blank always stands for a whole word.
+  const separator = shown && !/\s$/.test(shown) ? " " : "";
+  const state: JevState = { text: `${shown}${separator}${BLANK}` };
 
-  // Level 1: which themed blocks?
+  // Level 1: which themed blocks? Plus, in the same request, may a punctuation mark come next?
   const t0 = performance.now();
-  const q1 = { block: level1Question() };
+  const q1 = { block: level1Question(), marks_allowed: marksQuestion() };
   const r1 = await client.systemOne({ state, questions: q1 });
   const t1 = performance.now();
+  const marks = { allowed: r1.answers.marks_allowed.noul >= 0.5, p: r1.answers.marks_allowed.noul };
   const ranked = sortedEntries(r1.answers.block.probabilities).map(([id, p], i) => ({
     id,
     title: blockById(id).title,
@@ -331,7 +342,7 @@ export async function predict(rawText: string, options: PredictOptions = {}): Pr
     for (const [id, answer] of Object.entries(response.answers)) answers2[id] = answer as ChoiceResponse;
   }
   const quotas = allocate(opened.map((b) => b.p));
-  const allowMarks = punctuationAllowed(context, fragment);
+  const allowMarks = marks.allowed;
   const shortlist: ShortlistEntry[] = [];
   const shortlisted: { word: string; block: string; pBlock: number; pWord: number }[] = [];
   opened.forEach((b, i) => {
@@ -356,9 +367,9 @@ export async function predict(rawText: string, options: PredictOptions = {}): Pr
   const chosen = top[sampleIndex(top, temperature)];
 
   return {
-    context,
-    fragment,
+    context: rawText,
     model: r3.model,
+    marks,
     fanout,
     blocks: ranked.slice(0, Math.max(fanout, 5)),
     shortlist,
