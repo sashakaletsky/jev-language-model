@@ -592,7 +592,7 @@ button.accept:disabled {
 .cv-logo video,
 .cv-logo img {
   display: none;
-  height: 48px;
+  height: 32px;
   width: auto;
 }
 
