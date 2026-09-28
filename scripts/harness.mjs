@@ -9,10 +9,10 @@
  * opened at level 2.
  *
  * Usage (with the site running, e.g. `npm run dev`):
- *   node scripts/harness.mjs --corpus path/to/text.txt [--url http://localhost:3000]
+ *   npm run harness -- [--corpus path/to/text.txt] [--url http://localhost:3000]
  *        [--samples 100] [--fanout 30] [--seed 1] [--out results.json]
  *
- * Any plain-text file works. See README for where to get public-domain text.
+ * Any plain-text file works; the default is the bundled public-domain excerpt in corpus/.
  */
 import fs from "node:fs";
 import path from "node:path";
@@ -23,11 +23,8 @@ const args = Object.fromEntries(
     return acc;
   }, []),
 );
-const corpusPath = args.corpus;
-if (!corpusPath) {
-  console.error("--corpus <file> is required");
-  process.exit(1);
-}
+const root = path.dirname(path.dirname(new URL(import.meta.url).pathname));
+const corpusPath = args.corpus ?? path.join(root, "corpus", "alice-excerpt.txt");
 const url = (args.url ?? "http://localhost:3000").replace(/\/$/, "");
 const samples = Number(args.samples ?? 100);
 const fanout = Number(args.fanout ?? 30);
@@ -38,7 +35,6 @@ const outPath = args.out;
 let s = seed >>> 0 || 1;
 const rand = () => ((s = (s * 1664525 + 1013904223) >>> 0) / 2 ** 32);
 
-const root = path.dirname(path.dirname(new URL(import.meta.url).pathname));
 const blocks = JSON.parse(fs.readFileSync(path.join(root, "data", "blocks.json"), "utf8")).blocks;
 const blockOf = new Map();
 for (const b of blocks) for (const w of b.words) blockOf.set(w, b.id);
