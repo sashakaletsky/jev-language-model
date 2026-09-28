@@ -1,5 +1,7 @@
+import Image from "next/image";
 import Predictor from "./Predictor";
 import ThemeToggle from "./ThemeToggle";
+import logo from "./logo.png";
 
 const REPO = "https://github.com/sashakaletsky/jev-language-model";
 
@@ -7,7 +9,10 @@ export default function Home() {
   return (
     <main>
       <header className="topbar">
-        <span className="wordmark">Jev Language Model</span>
+        <span className="wordmark">
+          <Image src={logo} alt="" width={32} height={32} priority />
+          Jev Language Model
+        </span>
         <nav className="topnav" aria-label="Site">
           <a href={REPO}>GitHub</a>
           <ThemeToggle />
@@ -15,14 +20,9 @@ export default function Home() {
       </header>
 
       <section className="hero">
-        <p className="eyebrow">A research demo built on TypeSafe&rsquo;s Jev</p>
-        <h1>A language model that can only choose.</h1>
-        <p className="lede">
-          <a href="https://typesafe.ai">Jev</a> can&rsquo;t write. It picks one of up to 255 options and says how sure
-          it is of each. So the 65,025 most common English words sit in 255 themed blocks of 255, and after every word
-          Jev is asked three questions: which blocks could hold the next word, which words within each of them, then
-          which of those 255. Type below. Tab accepts.
-        </p>
+        <p className="eyebrow">A demo built on TypeSafe&rsquo;s Jev</p>
+        <h1>A language model built on top of Jev</h1>
+        <p className="lede">Type the first word below.</p>
       </section>
 
       <Predictor>

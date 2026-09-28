@@ -94,7 +94,7 @@ call.
 | `JEV_TEMPERATURE` | `0.8` | Sampling temperature for the suggestion; 0 always takes the top candidate. Adjustable in the UI. |
 | `JEV_MAX_FANOUT` | `50` | The most blocks a visitor may open. |
 | `JEV_RATE_LIMIT` | `40` | Requests per visitor per 10 seconds before the API answers 429, per server instance. |
-| `NEXT_PUBLIC_JEV_PRICE_PER_M_INPUT_TOKENS` | unset | Your price per million input tokens, used only for the cost readout in the UI. |
+| `NEXT_PUBLIC_JEV_PRICE_PER_M_INPUT_TOKENS` | `0.042` | Dollars per million input tokens, used only for the "You have spent" readout. The default is Jev's published rate; output tokens are free. |
 
 The client asks only once a word has been finished with a space or a mark, waits 250 ms after the last
 keystroke, and answers identical inputs from a small cache.
