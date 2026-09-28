@@ -33,7 +33,49 @@ from collections import Counter, OrderedDict
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BLOCK = 255
-EXAMPLES = 8
+EXAMPLES = 7        # example words shown for a block's main theme
+EXAMPLES_MINOR = 4  # example words shown for a theme that only spills into a block
+MINOR_MIN = 12      # a spill-over smaller than this is just mentioned, not exemplified
+EXAMPLE_OVERRIDES = {"core": 24}  # the function-word block spans several word classes; show more
+
+# Tiny themes that belong together are merged before laying out, so that the most
+# important words of English (function words and contractions, 375 in all) form one
+# coherent block instead of a chain of fragments. Labels in data/labels.json keep
+# the fine-grained theme ids; the merge only affects how blocks are cut and named.
+MERGES = [
+    {
+        "id": "core",
+        "name": "Function words & contractions | articles, pronouns, prepositions, conjunctions, "
+                "auxiliaries, question words, it's / don't forms",
+        "members": ["fn_determiners", "fn_pronouns", "fn_wh_words", "fn_prepositions",
+                    "fn_conjunctions", "fn_auxiliaries", "ctr_pronoun_verb", "ctr_negative"],
+        "order": "freq",
+    },
+    {
+        "id": "inf_interjections",
+        "name": "Interjections, greetings, responses & discourse fillers",
+        "members": ["inf_interjections", "inf_discourse"],
+        "order": "freq",
+    },
+]
+
+
+def short_name(name: str) -> str:
+    """Theme name without its parenthetical examples, for titles and descriptions."""
+    return re.sub(r"\s*\([^)]*\)", "", name).strip()
+
+
+def apply_merges(taxonomy: list[dict], labels: dict[str, str]) -> tuple[list[dict], dict[str, str]]:
+    """Replace each merge's member themes with one merged theme at the first member's position."""
+    for m in MERGES:
+        members = set(m["members"])
+        merged = {"id": m["id"], "group": "merged", "name": m["name"], "desc": "", "examples": [],
+                  "order": m["order"]}
+        first = next(i for i, t in enumerate(taxonomy) if t["id"] in members)
+        taxonomy = [t for t in taxonomy if t["id"] not in members]
+        taxonomy.insert(first, merged)
+        labels = {w: (m["id"] if tid in members else tid) for w, tid in labels.items()}
+    return taxonomy, labels
 
 
 def load(name: str):
@@ -75,12 +117,14 @@ def main() -> None:
     taxonomy: list[dict] = load("taxonomy.json")
     labels: dict[str, str] = load("labels.json")
 
-    themes = OrderedDict((t["id"], t) for t in taxonomy)
+    valid = {t["id"] for t in taxonomy}
     missing = [w for w in words if w not in labels]
-    bad = [(w, labels[w]) for w in words if w in labels and labels[w] not in themes]
+    bad = [(w, labels[w]) for w in words if w in labels and labels[w] not in valid]
     if missing or bad:
         sys.exit(f"labels.json problems: {len(missing)} unlabelled words, {len(bad)} invalid ids "
                  f"(e.g. {missing[:5]} {bad[:5]})")
+    taxonomy, labels = apply_merges(taxonomy, labels)
+    themes = OrderedDict((t["id"], t) for t in taxonomy)
     if len(words) != BLOCK * BLOCK:
         sys.exit(f"expected {BLOCK * BLOCK} words, found {len(words)}")
 
@@ -129,25 +173,28 @@ def main() -> None:
             own = [w for w, t in chunk if t == tid]
             k = theme_blocks[tid].index(b) + 1
             m = len(theme_blocks[tid])
+            n_ex = EXAMPLE_OVERRIDES.get(tid, EXAMPLES)
             if theme["order"] == "alpha":
                 where = f"{own[0]} to {own[-1]}" if m > 1 else ""
-                examples = spread(own, EXAMPLES)
+                examples = spread(own, n_ex)
             else:
                 where = tier_name(k, m)
-                examples = own[:EXAMPLES]
+                examples = own[:n_ex]
             parts.append({"id": tid, "count": len(own), "where": where, "examples": examples,
                           "name": theme["name"]})
 
         prim = next(p for p in parts if p["id"] == primary)
-        title = prim["name"] + (f" ({prim['where']})" if prim["where"] else "")
-        desc = prim["name"] + (f" — {prim['where']}" if prim["where"] else "") + ": " + ", ".join(prim["examples"])
-        others = [p for p in parts if p["id"] != primary]
-        for p in others:
-            if p["count"] >= 25:
-                desc += f"; plus {p['name']}" + (f" — {p['where']}" if p["where"] else "") + \
-                        f" ({p['count']} words): " + ", ".join(p["examples"][:4])
+        title = short_name(prim["name"]) + (f" ({prim['where']})" if prim["where"] else "")
+        pieces = []
+        for p in parts:  # in sequence order, so letter ranges and tiers read naturally
+            label = short_name(p["name"]) + (f" ({p['where']})" if p["where"] else "")
+            if p["id"] == primary:
+                pieces.append(f"{label}: " + ", ".join(p["examples"][:EXAMPLE_OVERRIDES.get(p["id"], EXAMPLES)]))
+            elif p["count"] >= MINOR_MIN:
+                pieces.append(f"{label}: " + ", ".join(p["examples"][:EXAMPLES_MINOR]))
             else:
-                desc += f"; plus {p['count']} words from {p['name']}"
+                pieces.append(f"a few {short_name(p['name'])} words")
+        desc = " + ".join(pieces)
         bid = slug(primary.replace("_", "-") + "-" + (prim["where"] if prim["where"] else "all"))
         if bid in used_ids:
             bid = f"{bid}-{b + 1}"

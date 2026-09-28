@@ -36,11 +36,14 @@ Built once, in advance, and committed as plain data. Jev never sees anything els
 | `data/words.json` | 65,025 words in frequency order | [`scripts/build_words.py`](scripts/build_words.py): walk [wordfreq](https://github.com/rspeer/wordfreq)'s English list from most to least frequent, keep purely alphabetic tokens (apostrophes allowed, so `it's` and `wouldn't` stay), stop at 65,025. wordfreq merges subtitles, Twitter, Reddit, news, books and Wikipedia, which is why `gonna`, `tbh` and `idk` are in. |
 | `data/taxonomy.json` | 89 themes, e.g. *Verbs \| movement & travel*, *Nouns \| food, drink & cooking*, *Contractions \| negatives* | Written by hand for this project. |
 | `data/labels.json` | one theme per word | Assigned by Claude at build time, in chunks of ~1,000 words, following [`docs/LABELLING.md`](docs/LABELLING.md). [`scripts/label_chunks.py`](scripts/label_chunks.py) prepares the chunks and merges the results. |
-| `data/blocks.json` | the 255 blocks Jev navigates | [`scripts/build_blocks.py`](scripts/build_blocks.py): lay the themes out in order, keep frequency order inside a theme (alphabetical for names, places and brands), cut into 255 consecutive blocks of 255, describe each block by its theme, position and example words. |
+| `data/blocks.json` | the 255 blocks Jev navigates | [`scripts/build_blocks.py`](scripts/build_blocks.py): merge the tiny function-word and contraction themes into one core theme, lay the themes out in order, keep frequency order inside a theme (alphabetical for names, places, brands and possessives), cut into 255 consecutive blocks of 255, and describe each block by its theme, its position in the theme and example words. |
 
 Block descriptions look like
-`Verbs | movement & travel — most common: go, come, walk, run, leave, arrive, move, follow`
-or `Surnames & famous people — brooks to carter: brooks, brown, bryant, …`.
+`Verbs | movement & travel (most common): go, come, walk, run, leave, arrive, move`
+or `Surnames & famous people (arnett to berg): arnett, atkins, babcock, baldwin, barden, baskerville, beals`.
+Where a block straddles two themes both are named, e.g.
+`Adverbs | time & frequency: now, then, still, never, always, again, ever + Adverbs | degree & intensity (most common): just, only, very, even`.
+The 255 descriptions total about 36,000 characters, which is most of what a level-1 question costs.
 
 ## Run it
 
