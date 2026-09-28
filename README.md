@@ -19,6 +19,12 @@ about the text so far:
    Jev sees each block's theme and a few example words.
 2. **Level 2 (255 options):** which of that block's 255 words is it?
 
+Both questions are framed as filling in a blank: Jev sees the text with `____` at the cursor
+(`Hello how ____`, or `Hello how a____` mid-word), a few worked examples, and, at level 2, each
+candidate word shown in place at the end of the text (`Hello how are`, `Hello how you`, …). That framing
+matters: asked plainly "what comes next?", a decision model tends to favour words that already appear in
+the text and ends up repeating the last word.
+
 Jev returns a full probability distribution for each question. The code multiplies
 P(block) × P(word | block), sorts, and shows the top word as ghost text. That is the whole algorithm;
 see [`lib/predict.ts`](lib/predict.ts). The only text processing is splitting the input into

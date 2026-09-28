@@ -17,7 +17,9 @@ import { splitInput, tailContext } from "./tokenize";
 
 /** What Jev is shown. A type literal rather than an interface so it satisfies the SDK's JSON state type. */
 export type JevState = {
+  /** The text typed so far, with a blank (____) where the cursor is. */
   text: string;
+  /** Letters of the current word typed so far; empty when the last word is complete. */
   partial_word: string;
 };
 
@@ -66,28 +68,66 @@ export interface PredictOptions {
   limit?: number;
 }
 
-const TASK =
-  "A person is typing English text, one keystroke at a time. `text` is everything they have typed so far. " +
-  "`partial_word` is the beginning of the word they are typing right now; it is empty when they have just finished a word. " +
-  "Predict the next word they intend to type. If `partial_word` is not empty, the intended word must start with exactly those letters.";
+const BLANK = "____";
+
+/**
+ * Both questions are framed as filling in a blank at the cursor. Decision models
+ * tend to favour options that already appear in the input, which makes a plain
+ * "what comes next?" question echo the last word typed; a blank with worked
+ * examples keeps the model looking past the text rather than into it.
+ */
+const TASK = {
+  task:
+    "A person is typing English text one keystroke at a time. `text` is what they have typed so far, and " +
+    `${BLANK} marks where their cursor is: the word they will type next goes there. Predict that word.`,
+  rules: [
+    `The answer is the word that fills ${BLANK}. It comes after everything in \`text\`; the words before the blank have already been typed and are not the answer, and the answer is usually not a repeat of the word just before the blank.`,
+    "If `partial_word` is not empty, the writer has already typed those letters of the blank's word, so the answer starts with exactly those letters and is the complete word.",
+    "Use the meaning and grammar of the whole text; the blank should read naturally.",
+  ],
+  examples: [
+    { text: `See you ${BLANK}`, partial_word: "", answer: "tomorrow" },
+    { text: `I can't believe how m${BLANK}`, partial_word: "m", answer: "much" },
+    { text: `It was a very very ${BLANK}`, partial_word: "", answer: "long" },
+    { text: `Thank you so much for your ${BLANK}`, partial_word: "", answer: "help" },
+  ],
+};
 
 const LEVEL1_INSTRUCTIONS = {
-  task: TASK,
+  ...TASK,
   question:
-    "Which block of the dictionary contains the word they intend to type next? " +
+    `Which block of the dictionary contains the word that fills ${BLANK}? ` +
     "Each option is a block of 255 words sharing a theme, described by the theme and some example words from the block. " +
     "Choose the block most likely to contain that word.",
 };
 
 const LEVEL2_INSTRUCTIONS = {
-  task: TASK,
+  ...TASK,
   question:
-    "Which of these words is the one they intend to type next? " +
-    "Choose the word that best continues `text`, and that starts with `partial_word` when it is not empty.",
+    `Which of these words fills ${BLANK}? ` +
+    "Each option is one candidate word. Its description shows the end of the text with that word in the blank; " +
+    "choose the candidate that reads as the most natural continuation.",
 };
 
+/** The last few words before the cursor, used to show each level-2 candidate in place. */
+function lastWords(context: string, n = 4): string {
+  return context.trim().split(/\s+/).filter(Boolean).slice(-n).join(" ");
+}
+
 export const level1Question = () => choice(LEVEL1_INSTRUCTIONS, level1Criteria);
-export const level2Question = (blockId: string) => choice(LEVEL2_INSTRUCTIONS, level2Criteria(blockId));
+
+/**
+ * Level-2 options are the block's 255 words. When there is text before the cursor, each
+ * option is described as the end of that text with the word filled in ("Hello how are"),
+ * so Jev judges phrases rather than bare words. With no text yet, descriptions are omitted.
+ */
+export const level2Question = (blockId: string, context: string) => {
+  const tail = lastWords(context);
+  if (!tail) return choice(LEVEL2_INSTRUCTIONS, level2Criteria(blockId));
+  const criteria = Object.create(null) as Record<string, string>;
+  for (const word of blockById(blockId).words) criteria[word] = `${tail} ${word}`;
+  return choice(LEVEL2_INSTRUCTIONS, criteria);
+};
 
 function sortedEntries(probabilities: Readonly<Record<string, number>>): [string, number][] {
   return Object.entries(probabilities).sort((a, b) => b[1] - a[1]);
@@ -116,7 +156,11 @@ export async function predict(rawText: string, options: PredictOptions = {}): Pr
   const client = getJevClient();
 
   const { context, fragment } = splitInput(rawText);
-  const state: JevState = { text: tailContext(context), partial_word: fragment.toLowerCase() };
+  const shown = tailContext(context);
+  const partial = fragment.toLowerCase();
+  // "Hello how ____", or "Hello how a____" while a word is being typed.
+  const separator = shown && !/\s$/.test(shown) && !partial ? " " : "";
+  const state: JevState = { text: `${shown}${separator}${partial}${BLANK}`, partial_word: partial };
 
   // Level 1: which themed block?
   const t0 = performance.now();
@@ -132,7 +176,7 @@ export async function predict(rawText: string, options: PredictOptions = {}): Pr
   const blockPicks = ranked.filter((b) => b.opened);
 
   // Level 2: which word, asked for each opened block in one request.
-  const q2: Questions = Object.fromEntries(blockPicks.map((b) => [b.id, level2Question(b.id)]));
+  const q2: Questions = Object.fromEntries(blockPicks.map((b) => [b.id, level2Question(b.id, shown)]));
   const r2 = (await client.systemOne({ state, questions: q2 })) as SystemOneResult<Questions>;
   const t2 = performance.now();
 
